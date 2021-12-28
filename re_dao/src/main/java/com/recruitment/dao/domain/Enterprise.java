@@ -62,12 +62,6 @@ public class Enterprise extends Object implements Serializable {
     private String e_introduce;
 
     /**
-     * 用户id
-     */
-    @TableField(value = "uid")
-    private Long uid;
-
-    /**
      * 媒体
      */
     @TableField(value = "media")
@@ -204,20 +198,6 @@ public class Enterprise extends Object implements Serializable {
      */
     public void setE_introduce(String e_introduce) {
         this.e_introduce = e_introduce;
-    }
-
-    /**
-     * 用户id
-     */
-    public Long getUid() {
-        return uid;
-    }
-
-    /**
-     * 用户id
-     */
-    public void setUid(Long uid) {
-        this.uid = uid;
     }
 
     /**

@@ -13,7 +13,6 @@
             <result property="ephone" column="ephone" jdbcType="VARCHAR"/>
             <result property="e_email" column="e_email" jdbcType="VARCHAR"/>
             <result property="e_introduce" column="e_introduce" jdbcType="VARCHAR"/>
-            <result property="uid" column="uid" jdbcType="BIGINT"/>
             <result property="media" column="media" jdbcType="VARCHAR"/>
             <result property="evaluation" column="evaluation" jdbcType="VARCHAR"/>
             <result property="scale" column="scale" jdbcType="VARCHAR"/>
@@ -23,7 +22,7 @@
     <sql id="Base_Column_List">
         eid,addtime,`number`,
         ename,principal,ephone,
-        e_email,e_introduce,uid,
+        e_email,e_introduce,
         media,evaluation,`scale`,
         address
     </sql>
