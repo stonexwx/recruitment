@@ -8,6 +8,7 @@
             <option name="annotationType" value="MYBATIS_PLUS3" />
             <option name="basePackage" value="com.recruitment.dao" />
             <option name="basePath" value="src/main/java" />
+            <option name="classNameStrategy" value="camel" />
             <option name="encoding" value="UTF-8" />
             <option name="extraClassSuffix" value="" />
             <option name="ignoreFieldPrefix" value="" />
@@ -88,14 +89,6 @@
                 <TableUIInfo>
                   <option name="className" value="ReInfo" />
                   <option name="tableName" value="re_info" />
-                </TableUIInfo>
-                <TableUIInfo>
-                  <option name="className" value="Role" />
-                  <option name="tableName" value="role" />
-                </TableUIInfo>
-                <TableUIInfo>
-                  <option name="className" value="UserInfo" />
-                  <option name="tableName" value="user_info" />
                 </TableUIInfo>
                 <TableUIInfo>
                   <option name="className" value="Users" />
