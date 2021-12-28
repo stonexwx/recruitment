@@ -15,19 +15,16 @@
             <result property="e_introduce" column="e_introduce" jdbcType="VARCHAR"/>
             <result property="uid" column="uid" jdbcType="BIGINT"/>
             <result property="media" column="media" jdbcType="VARCHAR"/>
-            <result property="
-evaluation" column="
-evaluation" jdbcType="VARCHAR"/>
+            <result property="evaluation" column="evaluation" jdbcType="VARCHAR"/>
             <result property="scale" column="scale" jdbcType="VARCHAR"/>
             <result property="address" column="address" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        eid,addtime,number,
+        eid,addtime,`number`,
         ename,principal,ephone,
         e_email,e_introduce,uid,
-        media,
-evaluation,scale,
+        media,evaluation,`scale`,
         address
     </sql>
 </mapper>
