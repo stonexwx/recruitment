@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.recruitment.dao.mapper.ReInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.recruitment.dao.domain.ReInfo">
+            <id property="rid" column="rid" jdbcType="BIGINT"/>
+            <result property="eid" column="eid" jdbcType="BIGINT"/>
+            <result property="addtime" column="addtime" jdbcType="TIMESTAMP"/>
+            <result property="job_name" column="job_name" jdbcType="VARCHAR"/>
+            <result property="job_type" column="job_type" jdbcType="BIGINT"/>
+            <result property="job2_type" column="job2_type" jdbcType="BIGINT"/>
+            <result property="re_number" column="re_number" jdbcType="VARCHAR"/>
+            <result property="re_education" column="re_education" jdbcType="VARCHAR"/>
+            <result property="requirement" column="requirement" jdbcType="VARCHAR"/>
+            <result property="full_path" column="full_path" jdbcType="VARCHAR"/>
+            <result property="job_welfare" column="job_welfare" jdbcType="VARCHAR"/>
+            <result property="job_time" column="job_time" jdbcType="VARCHAR"/>
+            <result property="scale" column="scale" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        rid,eid,addtime,
+        job_name,job_type,job2_type,
+        re_number,re_education,requirement,
+        full_path,job_welfare,job_time,
+        scale
+    </sql>
+</mapper>
