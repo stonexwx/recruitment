@@ -13,4 +13,7 @@
     <sql id="Base_Column_List">
         tid,session,uid
     </sql>
+    <insert id="insertToken">
+        INSERT INTO `re`.`token` (`session`,`uid`) VALUES (#{session},#{uid})
+    </insert>
 </mapper>
