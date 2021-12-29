@@ -63,36 +63,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="Enterprise" />
-                  <option name="tableName" value="enterprise" />
-                </TableUIInfo>
-                <TableUIInfo>
-                  <option name="className" value="Evaluation" />
-                  <option name="tableName" value="evaluation" />
-                </TableUIInfo>
-                <TableUIInfo>
-                  <option name="className" value="Interview" />
-                  <option name="tableName" value="interview" />
-                </TableUIInfo>
-                <TableUIInfo>
-                  <option name="className" value="Job" />
-                  <option name="tableName" value="job" />
-                </TableUIInfo>
-                <TableUIInfo>
-                  <option name="className" value="Job2" />
-                  <option name="tableName" value="job2" />
-                </TableUIInfo>
-                <TableUIInfo>
-                  <option name="className" value="JobSeeker" />
-                  <option name="tableName" value="job_seeker" />
-                </TableUIInfo>
-                <TableUIInfo>
-                  <option name="className" value="ReInfo" />
-                  <option name="tableName" value="re_info" />
-                </TableUIInfo>
-                <TableUIInfo>
-                  <option name="className" value="Users" />
-                  <option name="tableName" value="users" />
+                  <option name="className" value="Token" />
+                  <option name="tableName" value="token" />
                 </TableUIInfo>
               </list>
             </option>
