@@ -115,4 +115,15 @@ public class Evaluation extends Object implements Serializable {
     public void setAddtime(Date addtime) {
         this.addtime = addtime;
     }
+
+    @Override
+    public String toString() {
+        return "Evaluation{" +
+                "id=" + id +
+                ", eid=" + eid +
+                ", content='" + content + '\'' +
+                ", score='" + score + '\'' +
+                ", addtime=" + addtime +
+                '}';
+    }
 }

@@ -255,4 +255,22 @@ public class Enterprise extends Object implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "Enterprise{" +
+                "eid=" + eid +
+                ", addtime=" + addtime +
+                ", number='" + number + '\'' +
+                ", ename='" + ename + '\'' +
+                ", principal='" + principal + '\'' +
+                ", ephone='" + ephone + '\'' +
+                ", e_email='" + e_email + '\'' +
+                ", e_introduce='" + e_introduce + '\'' +
+                ", media='" + media + '\'' +
+                ", evaluation='" + evaluation + '\'' +
+                ", scale='" + scale + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

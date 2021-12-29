@@ -16,20 +16,4 @@
         id,eid,content,
         score,addtime
     </sql>
-    <select id="selectList" resultType="com.recruitment.dao.domain.Evaluation">
-        SELECT
-            re_info.job_name,
-            re_info.job_type,
-            re_info.job2_type,
-            re_info.re_number,
-            re_info.re_education,
-            re_info.requirement,
-            re_info.full_path,
-            re_info.job_welfare,
-            re_info.job_time,
-            re_info.scale,
-            re_info.addtime
-        FROM
-            re_info
-    </select>
 </mapper>

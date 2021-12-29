@@ -26,4 +26,5 @@
         media,evaluation,`scale`,
         address
     </sql>
+
 </mapper>

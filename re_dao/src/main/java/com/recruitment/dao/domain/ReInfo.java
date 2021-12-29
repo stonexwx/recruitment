@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -125,9 +126,11 @@ public class ReInfo extends Object implements Serializable {
 
     /**
      * 发布日期
+     * @return
      */
-    public Date getAddtime() {
-        return addtime;
+    public String getAddtime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(addtime);
     }
 
     /**
@@ -275,5 +278,24 @@ public class ReInfo extends Object implements Serializable {
      */
     public void setScale(BigDecimal scale) {
         this.scale = scale;
+    }
+
+    @Override
+    public String toString() {
+        return "ReInfo{" +
+                "rid=" + rid +
+                ", eid=" + eid +
+                ", addtime=" + getAddtime() +
+                ", job_name='" + job_name + '\'' +
+                ", job_type=" + job_type +
+                ", job2_type=" + job2_type +
+                ", re_number='" + re_number + '\'' +
+                ", re_education='" + re_education + '\'' +
+                ", requirement='" + requirement + '\'' +
+                ", full_path='" + full_path + '\'' +
+                ", job_welfare='" + job_welfare + '\'' +
+                ", job_time='" + job_time + '\'' +
+                ", scale=" + scale +
+                '}';
     }
 }
