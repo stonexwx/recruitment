@@ -19,6 +19,7 @@ public interface ReInfoMapper extends BaseMapper<ReInfo> {
      * 招聘信息按照条件进行查询
      */
     List<ReInfo> selectChose(Map<String,String> map);
+
 }
 
 

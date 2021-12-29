@@ -93,6 +93,11 @@ public class ReInfo extends Object implements Serializable {
     @TableField(value = "scale")
     private BigDecimal scale;
 
+    /**
+     * 工作经验
+     */
+    @TableField(value = "experience")
+    private String experience;
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -280,12 +285,23 @@ public class ReInfo extends Object implements Serializable {
         this.scale = scale;
     }
 
+    /**
+     * 工作经验
+     */
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+
     @Override
     public String toString() {
         return "ReInfo{" +
                 "rid=" + rid +
                 ", eid=" + eid +
-                ", addtime=" + getAddtime() +
+                ", addtime=" + addtime +
                 ", job_name='" + job_name + '\'' +
                 ", job_type=" + job_type +
                 ", job2_type=" + job2_type +
@@ -296,6 +312,7 @@ public class ReInfo extends Object implements Serializable {
                 ", job_welfare='" + job_welfare + '\'' +
                 ", job_time='" + job_time + '\'' +
                 ", scale=" + scale +
+                ", experience='" + experience + '\'' +
                 '}';
     }
 }

@@ -7,7 +7,9 @@ import com.recruitment.dao.mapper.ReInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -20,6 +22,14 @@ public class ReInfoServiceImpl extends ServiceImpl<ReInfoMapper, ReInfo>
     @Override
     public List<ReInfo> selectALL() {
         return reInfoMapper.selectAll();
+    }
+
+    @Override
+    public List<ReInfo> selecChose(String type, String path) {
+        Map<String,String> map = new HashMap<>();
+        map.put("type",type);
+        map.put("path",path);
+        return reInfoMapper.selectChose(map);
     }
 }
 

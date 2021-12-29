@@ -5,11 +5,12 @@
 <mapper namespace="com.recruitment.dao.mapper.TokenMapper">
 
     <resultMap id="BaseResultMap" type="com.recruitment.dao.domain.Token">
-            <id property="tid" column="tid" jdbcType="INTEGER"/>
+            <id property="tid" column="tid" jdbcType="BIGINT"/>
             <result property="session" column="session" jdbcType="VARCHAR"/>
+            <result property="uid" column="uid" jdbcType="BIGINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        tid,session
+        tid,session,uid
     </sql>
 </mapper>

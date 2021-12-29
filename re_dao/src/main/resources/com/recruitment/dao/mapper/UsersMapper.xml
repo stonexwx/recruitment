@@ -10,10 +10,14 @@
             <result property="password" column="password" jdbcType="VARCHAR"/>
             <result property="role_id" column="role_id" jdbcType="BIGINT"/>
             <result property="addtime" column="addtime" jdbcType="TIMESTAMP"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         uid,user_name,password,
-        role_id,addtime
+        role_id,addtime,phone
     </sql>
+    <select id="login" resultType="com.recruitment.dao.domain.Users">
+        select * from users where
+    </select>
 </mapper>

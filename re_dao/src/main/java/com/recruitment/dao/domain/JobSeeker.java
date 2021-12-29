@@ -74,12 +74,6 @@ public class JobSeeker extends Object implements Serializable {
     private String sex;
 
     /**
-     * 电话
-     */
-    @TableField(value = "phone")
-    private String phone;
-
-    /**
      * 邮箱
      */
     @TableField(value = "email")
@@ -228,19 +222,6 @@ public class JobSeeker extends Object implements Serializable {
         this.sex = sex;
     }
 
-    /**
-     * 电话
-     */
-    public String getPhone() {
-        return phone;
-    }
-
-    /**
-     * 电话
-     */
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 
     /**
      * 邮箱

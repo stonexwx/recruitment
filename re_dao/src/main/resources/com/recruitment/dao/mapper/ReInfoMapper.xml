@@ -39,11 +39,37 @@
             re_info.job_welfare,
             re_info.job_time,
             re_info.scale,
-            re_info.addtime
+            re_info.addtime,
+            re_info.experience
         FROM
             re_info
     </select>
     <select id="selectChose" parameterType="java.util.Map" resultType="com.recruitment.dao.domain.ReInfo">
-
+        SELECT
+            re_info.job_name,
+            re_info.job_type,
+            re_info.job2_type,
+            re_info.re_number,
+            re_info.re_education,
+            re_info.requirement,
+            re_info.full_path,
+            re_info.job_welfare,
+            re_info.job_time,
+            re_info.scale,
+            re_info.addtime,
+            re_info.experience
+        FROM
+            re_info
+        <where>
+            <foreach collection="type" item="t">
+                <if test="t == 'path'">
+                    AND full_path = #{path}
+                </if>
+                <if test="t == 'experience'">
+                    AND experience = #{}
+                </if>
+            </foreach> 
+           
+        </where>
     </select>
 </mapper>

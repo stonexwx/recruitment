@@ -43,6 +43,12 @@ public class Users extends Object implements Serializable {
     @TableField(value = "addtime")
     private Date addtime;
 
+    /**
+     * 电话
+     */
+    @TableField(value ="phone")
+    private String phone;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -114,5 +120,13 @@ public class Users extends Object implements Serializable {
      */
     public void setAddtime(Date addtime) {
         this.addtime = addtime;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
