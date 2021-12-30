@@ -22,4 +22,16 @@
         <property name="prefix" value="/WEB-INF/page/"/>
         <property name="suffix" value=".html"/>
     </bean>
+    <!-- 处理请求返回json字符串的乱码问题 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 </beans>

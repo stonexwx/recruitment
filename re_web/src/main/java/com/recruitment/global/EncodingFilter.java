@@ -22,8 +22,10 @@ public class EncodingFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest request1 = (HttpServletRequest) request;
         HttpServletResponse response1 = (HttpServletResponse) response;
-        request1.setCharacterEncoding(encoding);
-        response1.setCharacterEncoding(encoding);
-        chain.doFilter(request1,response1);
+        if (!request1.getServletPath().contains(".css") && !request1.getServletPath().contains(".js")) {
+            request1.setCharacterEncoding(encoding);
+            response1.setContentType("text/html;charset=" + encoding);
+        }
+        chain.doFilter(request,response);
     }
 }

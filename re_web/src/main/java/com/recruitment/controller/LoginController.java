@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @SessionAttributes("user")
 public class LoginController {
@@ -23,19 +27,19 @@ public class LoginController {
      * @return 网址
      */
     @RequestMapping("/login")
-    public String login(String phone, String password, ModelMap modelMap){
-        Users users=usersService.login(phone,password);
-        if(users.getUid()!=null){
-            modelMap.addAttribute("user",users);
-            return "";
-        }
-        return "";
-    }
-    @RequestMapping("/loginData")
     @ResponseBody
-    public String loginData(ModelMap modelMap){
-        Users users = (Users) modelMap.get("user");
-        String jsonUser = JSON.toJSONString(users);
-        return jsonUser;
+    public String login(String phone, String password, HttpSession httpSession){
+        Users users=usersService.login(phone,password);
+        Map<String,Object> map = new HashMap<>();
+        if(users!=null){
+            httpSession.setAttribute("user",users);
+            map.put("flag","true");
+            map.put("data",users);
+            return JSON.toJSONString(map);
+        }
+
+        map.put("flag","false");
+        return JSON.toJSONString(map);
     }
+
 }
