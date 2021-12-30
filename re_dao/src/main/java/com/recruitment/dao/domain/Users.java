@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -41,6 +44,7 @@ public class Users extends Object implements Serializable {
      * 新增时间
      */
     @TableField(value = "addtime")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")//页面写入数据库时格式化
     private Date addtime;
 
     /**
@@ -110,9 +114,11 @@ public class Users extends Object implements Serializable {
 
     /**
      * 新增时间
+     * @return String
      */
-    public Date getAddtime() {
-        return addtime;
+    public String getAddtime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(addtime);
     }
 
     /**
@@ -128,5 +134,17 @@ public class Users extends Object implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "uid=" + uid +
+                ", user_name='" + user_name + '\'' +
+                ", password='" + password + '\'' +
+                ", role_id=" + role_id +
+                ", addtime=" + getAddtime() +
+                ", phone='" + phone + '\'' +
+                '}';
     }
 }

@@ -9,9 +9,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface UsersMapper extends BaseMapper<Users> {
     /**
-     * 登录
+     * 登录验证
      */
     Users login(Users users);
+
 }
 
 
