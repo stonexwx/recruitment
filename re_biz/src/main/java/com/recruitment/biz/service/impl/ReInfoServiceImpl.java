@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.recruitment.dao.domain.ReInfo;
 import com.recruitment.biz.service.ReInfoService;
 import com.recruitment.dao.mapper.ReInfoMapper;
+import com.recruitment.dao.dto.ReinfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class ReInfoServiceImpl extends ServiceImpl<ReInfoMapper, ReInfo>
     @Autowired
     ReInfoMapper reInfoMapper;
     @Override
-    public List<ReInfo> selectALL() {
+    public List<ReinfoDTO> selectALL() {
         return reInfoMapper.selectAll();
     }
 
