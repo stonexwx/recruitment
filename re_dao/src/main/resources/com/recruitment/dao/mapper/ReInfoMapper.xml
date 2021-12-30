@@ -27,11 +27,26 @@
         full_path,job_welfare,job_time,
         scale
     </sql>
-    <select id="selectAll" resultType="com.recruitment.dao.domain.ReInfo">
+    <resultMap id="ReindoMap" type="com.recruitment.dao.dto.ReinfoDTO">
+        <id property="reInfo.rid" column="re_info.rid" jdbcType="BIGINT"/>
+        <result property="reInfo.eid" column="eid" jdbcType="BIGINT"/>
+        <result property="reInfo.addtime" column="addtime" jdbcType="TIMESTAMP"/>
+        <result property="reInfo.job_name" column="job_name" jdbcType="VARCHAR"/>
+        <result property="reInfo.re_number" column="re_number" jdbcType="VARCHAR"/>
+        <result property="reInfo.re_education" column="re_education" jdbcType="VARCHAR"/>
+        <result property="reInfo.requirement" column="requirement" jdbcType="VARCHAR"/>
+        <result property="reInfo.full_path" column="full_path" jdbcType="VARCHAR"/>
+        <result property="reInfo.job_welfare" column="job_welfare" jdbcType="VARCHAR"/>
+        <result property="reInfo.job_time" column="job_time" jdbcType="VARCHAR"/>
+        <result property="reInfo.scale" column="scale" jdbcType="DECIMAL"/>
+        <result property="job2Name" column="job2_name" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="selectAll" resultMap="ReindoMap">
         SELECT
+            re_info.rid,
+            re_info.eid,
+            re_info.addtime,
             re_info.job_name,
-            re_info.job_type,
-            re_info.job2_type,
             re_info.re_number,
             re_info.re_education,
             re_info.requirement,
@@ -39,10 +54,14 @@
             re_info.job_welfare,
             re_info.job_time,
             re_info.scale,
-            re_info.addtime,
-            re_info.experience
+            re_info.experience,
+            job2.job2_name
         FROM
             re_info
+                INNER JOIN
+            job2
+            ON
+                re_info.job2_type = job2.j_id
     </select>
     <select id="selectChose" parameterType="java.util.Map" resultType="com.recruitment.dao.domain.ReInfo">
         SELECT
