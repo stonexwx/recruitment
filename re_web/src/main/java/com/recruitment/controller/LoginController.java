@@ -5,7 +5,6 @@ import com.recruitment.biz.service.impl.UsersServiceImpl;
 import com.recruitment.dao.domain.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -37,8 +36,8 @@ public class LoginController {
             map.put("data",users);
             return JSON.toJSONString(map);
         }
-
         map.put("flag","false");
+        map.put("data", "null");
         return JSON.toJSONString(map);
     }
 
