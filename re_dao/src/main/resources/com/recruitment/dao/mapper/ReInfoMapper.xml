@@ -40,6 +40,7 @@
         <result property="reInfo.job_time" column="job_time" jdbcType="VARCHAR"/>
         <result property="reInfo.scale" column="scale" jdbcType="DECIMAL"/>
         <result property="job2Name" column="job2_name" jdbcType="VARCHAR"/>
+        <result property="ename" column="ename" jdbcType="VARCHAR"/>
     </resultMap>
     <select id="selectAll" resultMap="ReindoMap">
         SELECT
@@ -55,13 +56,18 @@
             re_info.job_time,
             re_info.scale,
             re_info.experience,
-            job2.job2_name
+            job2.job2_name,
+            enterprise.ename
         FROM
             re_info
                 INNER JOIN
             job2
             ON
                 re_info.job2_type = job2.j_id
+                INNER JOIN
+            enterprise
+            ON
+                re_info.eid = enterprise.eid
     </select>
     <select id="selectChose" parameterType="java.util.Map" resultType="com.recruitment.dao.domain.ReInfo">
         SELECT
