@@ -13,6 +13,11 @@ public interface EnterpriseMapper extends BaseMapper<Enterprise> {
      * 根据招聘信息查询企业信息
      */
     Enterprise selectAllByRid(Long rid);
+
+    /**
+     * 企业排名查询
+     */
+    List<Enterprise> selectByEvaluation();
 }
 
 

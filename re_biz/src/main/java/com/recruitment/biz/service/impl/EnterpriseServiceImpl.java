@@ -17,9 +17,24 @@ import java.util.List;
 public class EnterpriseServiceImpl extends ServiceImpl<EnterpriseMapper, Enterprise> implements EnterpriseService {
     @Autowired
     EnterpriseMapper enterpriseMapper;
+
+    /**
+     * 通过招聘信息获取企业信息
+     * @param rid
+     * @return
+     */
     @Override
     public Enterprise selectByRid(Long rid) {
         return enterpriseMapper.selectAllByRid(rid);
+    }
+
+    /**
+     * 根据得分排序获得
+     * @return
+     */
+    @Override
+    public List<Enterprise> selectByScale() {
+        return enterpriseMapper.selectByEvaluation();
     }
 }
 

@@ -70,8 +70,7 @@ public class Enterprise extends Object implements Serializable {
     /**
      * 评价得分
      */
-    @TableField(value = "evaluation")
-    private String evaluation;
+    private String eva_scale;
 
     /**
      * 企业规模
@@ -215,18 +214,12 @@ public class Enterprise extends Object implements Serializable {
         this.media = media;
     }
 
-    /**
-     * 评价得分
-     */
-    public String getEvaluation() {
-        return evaluation;
+    public String getEva_scale() {
+        return eva_scale;
     }
 
-    /**
-     * 评价得分
-     */
-    public void setEvaluation(String evaluation) {
-        this.evaluation = evaluation;
+    public void setEva_scale(String eva_scale) {
+        this.eva_scale = eva_scale;
     }
 
     /**
@@ -265,21 +258,5 @@ public class Enterprise extends Object implements Serializable {
         this.photo = photo;
     }
 
-    @Override
-    public String toString() {
-        return "Enterprise{" +
-                "eid=" + eid +
-                ", addtime=" + addtime +
-                ", number='" + number + '\'' +
-                ", ename='" + ename + '\'' +
-                ", principal='" + principal + '\'' +
-                ", ephone='" + ephone + '\'' +
-                ", e_email='" + e_email + '\'' +
-                ", e_introduce='" + e_introduce + '\'' +
-                ", media='" + media + '\'' +
-                ", evaluation='" + evaluation + '\'' +
-                ", scale='" + scale + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    }
+
 }

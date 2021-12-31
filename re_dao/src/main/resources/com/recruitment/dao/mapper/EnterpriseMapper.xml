@@ -14,7 +14,7 @@
             <result property="e_email" column="e_email" jdbcType="VARCHAR"/>
             <result property="e_introduce" column="e_introduce" jdbcType="VARCHAR"/>
             <result property="media" column="media" jdbcType="VARCHAR"/>
-            <result property="evaluation" column="evaluation" jdbcType="VARCHAR"/>
+            <result property="eva_scale" column="eva_scale" jdbcType="VARCHAR"/>
             <result property="scale" column="scale" jdbcType="VARCHAR"/>
             <result property="address" column="address" jdbcType="VARCHAR"/>
     </resultMap>
@@ -44,6 +44,16 @@
                 enterprise.eid = re_info.eid
         WHERE
             re_info.rid = #{rid}
+    </select>
+    <select id="selectByEvaluation" resultType="com.recruitment.dao.domain.Enterprise">
+        SELECT
+            enterprise.ename,
+            enterprise.address,
+            enterprise.eva_scale
+        FROM
+            enterprise
+        ORDER BY
+            enterprise.eva_scale DESC
     </select>
 
 </mapper>
