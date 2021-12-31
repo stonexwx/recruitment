@@ -85,6 +85,7 @@ public class Enterprise extends Object implements Serializable {
     @TableField(value = "address")
     private String address;
 
+    private String photo;
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -254,6 +255,14 @@ public class Enterprise extends Object implements Serializable {
      */
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     @Override

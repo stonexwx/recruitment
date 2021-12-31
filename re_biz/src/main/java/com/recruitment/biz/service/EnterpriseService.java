@@ -5,4 +5,5 @@ import com.recruitment.dao.domain.Enterprise;
 
 
 public interface EnterpriseService extends IService<Enterprise> {
+    Enterprise selectByRid(Long rid);
 }

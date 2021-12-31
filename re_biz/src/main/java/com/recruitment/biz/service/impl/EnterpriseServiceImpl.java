@@ -13,9 +13,14 @@ import java.util.List;
 /**
  *
  */
-@Service("en")
+@Service()
 public class EnterpriseServiceImpl extends ServiceImpl<EnterpriseMapper, Enterprise> implements EnterpriseService {
-
+    @Autowired
+    EnterpriseMapper enterpriseMapper;
+    @Override
+    public Enterprise selectByRid(Long rid) {
+        return enterpriseMapper.selectAllByRid(rid);
+    }
 }
 
 

@@ -26,5 +26,24 @@
         media,evaluation,`scale`,
         address
     </sql>
+    <select id="selectAllByRid" resultType="com.recruitment.dao.domain.Enterprise">
+        SELECT
+            enterprise.ename,
+            enterprise.scale,
+            enterprise.media,
+            enterprise.e_introduce,
+            enterprise.e_email,
+            enterprise.ephone,
+            enterprise.photo,
+            enterprise.address
+        FROM
+            enterprise
+                LEFT JOIN
+            re_info
+            ON
+                enterprise.eid = re_info.eid
+        WHERE
+            re_info.rid = #{rid}
+    </select>
 
 </mapper>

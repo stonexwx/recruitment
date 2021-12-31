@@ -10,9 +10,9 @@ import java.util.List;
  */
 public interface EnterpriseMapper extends BaseMapper<Enterprise> {
     /**
-     * 企业排名查询
+     * 根据招聘信息查询企业信息
      */
-
+    Enterprise selectAllByRid(Long rid);
 }
 
 
