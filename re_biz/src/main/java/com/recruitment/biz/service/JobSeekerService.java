@@ -10,5 +10,12 @@ import java.util.List;
  *
  */
 public interface JobSeekerService extends IService<JobSeeker> {
-    List<JobSeekerDTO> seekerSelect(long uid);
+    /**
+     * 根据用户id获取，招聘者信息
+     * @param uid
+     * @return
+     */
+    JobSeekerDTO seekerSelect(long uid);
+
+    boolean seekerUpdate(JobSeekerDTO jobSeeker);
 }

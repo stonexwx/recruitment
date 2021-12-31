@@ -24,6 +24,14 @@
         uid,edu_phone,name,
         sex,email
     </sql>
+    <update id="updateAll">
+        UPDATE `re`.`job_seeker`
+        inner join `re`.`users`
+        SET `education` = #{jobSeeker.education}, `job_type` = #{jobSeeker.job_type},
+            `name` = #{jobSeeker.name}, `sex` = #{jobSeeker.sex}, `email` = #{jobSeeker.email},
+            `users`.`user_name`=#{users.user_name} WHERE `sid` = #{jobSeeker.sid}
+    </update>
+
     <resultMap id="seekerIDMap" type="com.recruitment.dao.dto.JobSeekerDTO">
         <id property="jobSeeker.sid" column="sid" jdbcType="BIGINT"/>
         <result property="jobSeeker.photo" column="photo" jdbcType="VARCHAR"/>
