@@ -1,7 +1,9 @@
 package com.recruitment.global;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Contant {
     //一级岗位
@@ -45,6 +47,20 @@ public class Contant {
         list.add(JOB2_NAME9);
         list.add(JOB2_NAME10);
         return list;
+    }
+    public Map<String,Long> getPost2M(){
+        Map<String,Long> map=new HashMap<>();
+        map.put(JOB2_NAME1, 1L);
+        map.put(JOB2_NAME2, 2L);
+        map.put(JOB2_NAME3, 3L);
+        map.put(JOB2_NAME4, 4L);
+        map.put(JOB2_NAME5, 5L);
+        map.put(JOB2_NAME6, 6L);
+        map.put(JOB2_NAME7, 7L);
+        map.put(JOB2_NAME8, 8L);
+        map.put(JOB2_NAME9,9L);
+        map.put(JOB2_NAME10, 10L);
+        return map;
     }
     //面试审核
     public static final String INTERVIEW_CREATED="新创建";

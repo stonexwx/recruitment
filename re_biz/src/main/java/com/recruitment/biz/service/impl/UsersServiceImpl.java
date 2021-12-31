@@ -30,6 +30,22 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
         return usersMapper.login(users);
     }
 
+    /**
+     * 更新密码
+     * @param newPassword
+     * @param password
+     * @param users
+     * @return boolean
+     */
+    @Override
+    public boolean updatePassword(String newPassword, String password, Users users) {
+        if(password.equals(users.getPassword())){
+            usersMapper.updatePassword(users,newPassword);
+            return true;
+        }
+        return false;
+    }
+
 
 }
 

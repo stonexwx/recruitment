@@ -9,6 +9,9 @@ import java.util.List;
  * @Entity com.recruitment.dao.domain.Enterprise
  */
 public interface EnterpriseMapper extends BaseMapper<Enterprise> {
+    /**
+     * 企业排名查询
+     */
 
 }
 

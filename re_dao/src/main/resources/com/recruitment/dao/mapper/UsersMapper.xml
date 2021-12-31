@@ -17,6 +17,9 @@
         uid,user_name,password,
         role_id,addtime,phone
     </sql>
+    <update id="updatePassword">
+        UPDATE `re`.`users` SET `password` = #{newPassword} WHERE `uid` = #{users.uid}
+    </update>
     <select id="login" resultType="com.recruitment.dao.domain.Users">
         select * from users where phone = #{phone} and password = #{password}
     </select>

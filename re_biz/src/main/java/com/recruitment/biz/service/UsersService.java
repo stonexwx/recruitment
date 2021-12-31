@@ -13,7 +13,7 @@ public interface UsersService extends IService<Users> {
      */
     Users login(String phone,String password);
     /**
-     * 获取用户信息
+     * 修改密码
      */
-
+    boolean updatePassword(String newPassword,String password,Users users);
 }
