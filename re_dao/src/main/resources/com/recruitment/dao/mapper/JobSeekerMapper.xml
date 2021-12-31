@@ -24,4 +24,34 @@
         uid,edu_phone,name,
         sex,email
     </sql>
+    <resultMap id="seekerIDMap" type="com.recruitment.dao.dto.JobSeekerDTO">
+        <id property="jobSeeker.sid" column="sid" jdbcType="BIGINT"/>
+        <result property="jobSeeker.photo" column="photo" jdbcType="VARCHAR"/>
+        <result property="jobSeeker.education" column="education" jdbcType="VARCHAR"/>
+        <result property="jobSeeker.resume" column="resume" jdbcType="VARCHAR"/>
+        <result property="jobSeeker.edu_phone" column="edu_phone" jdbcType="VARCHAR"/>
+        <result property="jobSeeker.name" column="name" jdbcType="VARCHAR"/>
+        <result property="jobSeeker.sex" column="sex" jdbcType="VARCHAR"/>
+        <result property="jobSeeker.email" column="email" jdbcType="VARCHAR"/>
+        <result property="jobName" column="job2_name" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="seekerSelect" resultMap="seekerIDMap">
+        SELECT
+            job_seeker.sid,
+            job_seeker.photo,
+            job_seeker.education,
+            job_seeker.resume,
+            job_seeker.edu_phone,
+            job_seeker.`name`,
+            job_seeker.sex,
+            job_seeker.email,
+            job2.job2_name
+        FROM
+            job_seeker
+                INNER JOIN
+            job2
+            ON
+                job_seeker.job_type = job2.j_id
+        where uid=#{uid}
+    </select>
 </mapper>
