@@ -1,13 +1,25 @@
 package com.recruitment.dao.mapper;
 
-import com.recruitment.dao.domain.Interview;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.recruitment.dao.domain.Interview;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.Date;
 
 /**
  * @Entity com.recruitment.dao.domain.Interview
  */
 public interface InterviewMapper extends BaseMapper<Interview> {
-
+    /**
+    * 预约面试
+     * @param date
+     * @param rid
+     * @param sid
+     * @param state
+     * @param addtime
+     */
+    void insertInterview(@Param("date")Date date,@Param("rid") Long rid,@Param("sid") Long sid
+    ,@Param("state") String state,@Param("addtime") Date addtime);
 }
 
 
