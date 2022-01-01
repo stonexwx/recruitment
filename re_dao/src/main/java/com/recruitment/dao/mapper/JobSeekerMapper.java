@@ -4,6 +4,8 @@ import com.recruitment.dao.domain.JobSeeker;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.recruitment.dao.domain.ReInfo;
 import com.recruitment.dao.dto.JobSeekerDTO;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -25,6 +27,11 @@ public interface JobSeekerMapper extends BaseMapper<JobSeeker> {
      * @param jobSeeker
      */
     void updateAll(JobSeekerDTO jobSeeker);
+
+    /**
+     * 招聘者文件更新
+     */
+    void updatePhotoAndEducationAndResume(@Param("address") String address,@Param("type") String type);
 }
 
 

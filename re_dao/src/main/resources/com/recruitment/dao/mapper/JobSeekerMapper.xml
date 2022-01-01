@@ -31,6 +31,20 @@
             `name` = #{jobSeeker.name}, `sex` = #{jobSeeker.sex}, `email` = #{jobSeeker.email},
             `users`.`user_name`=#{users.user_name} WHERE `sid` = #{jobSeeker.sid}
     </update>
+    <update id="updatePhotoAndEducationAndResume">
+        UPDATE `re`.`job_seeker`
+        <set>
+            <if test="type=='head'">
+                photo=#{address}
+            </if>
+            <if test="type=='resume'">
+                resume=#{address}
+            </if>
+            <if test="type == 'education'">
+                education=#{address}
+            </if>
+        </set>
+    </update>
 
     <resultMap id="seekerIDMap" type="com.recruitment.dao.dto.JobSeekerDTO">
         <id property="jobSeeker.sid" column="sid" jdbcType="BIGINT"/>

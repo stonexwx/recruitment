@@ -43,6 +43,12 @@ public class JobSeekerServiceImpl extends ServiceImpl<JobSeekerMapper, JobSeeker
         return true;
     }
 
+    @Override
+    public boolean seekerFileUpdate(String type, String address) {
+        jobSeekerMapper.updatePhotoAndEducationAndResume(address,type);
+        return true;
+    }
+
     /**
      * 保存简历地址
      */

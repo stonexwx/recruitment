@@ -49,7 +49,8 @@
         SELECT
             enterprise.ename,
             enterprise.address,
-            enterprise.eva_scale
+            enterprise.eva_scale,
+            enterprise.eid
         FROM
             enterprise
         ORDER BY

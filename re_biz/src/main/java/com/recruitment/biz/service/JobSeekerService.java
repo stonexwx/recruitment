@@ -17,5 +17,15 @@ public interface JobSeekerService extends IService<JobSeeker> {
      */
     JobSeekerDTO seekerSelect(long uid);
 
+    /**
+     * 求职者普通信息修改
+     * @param jobSeeker
+     * @return
+     */
     boolean seekerUpdate(JobSeekerDTO jobSeeker);
+
+    /**
+     * 求职者文件上传修改
+     */
+    boolean seekerFileUpdate(String type,String address);
 }
