@@ -16,4 +16,22 @@
         id,eid,content,
         score,addtime
     </sql>
+    <resultMap id="selectEvaluation" type="com.recruitment.dao.dto.EvaluationDTO">
+        <id property="evaluation.id" column="id" jdbcType="BIGINT"/>
+        <result property="evaluation.content" column="content" jdbcType="VARCHAR"/>
+        <result property="userName" column="user_name"/>
+    </resultMap>
+    <select id="selectAllByEid" resultMap="selectEvaluation">
+        SELECT
+            users.user_name,
+            evaluation.content
+        FROM
+            evaluation
+                INNER JOIN
+            users
+            ON
+                evaluation.uid = users.uid
+        WHERE
+            evaluation.eid = #{eid}
+    </select>
 </mapper>
