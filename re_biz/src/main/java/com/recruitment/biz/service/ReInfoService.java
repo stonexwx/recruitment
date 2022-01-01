@@ -16,11 +16,4 @@ public interface ReInfoService extends IService<ReInfo> {
      */
     List<ReinfoDTO> selectALL();
 
-    /**
-     * 招聘信息按条件查询
-     * @param type
-     * @param path
-     * @return List
-     */
-    List<ReInfo> selecChose(String type,String path);
 }

@@ -20,18 +20,16 @@ public class ReInfoServiceImpl extends ServiceImpl<ReInfoMapper, ReInfo>
     implements ReInfoService{
     @Autowired
     ReInfoMapper reInfoMapper;
+
+    /**
+     * 不带条件全部查询
+     * @return
+     */
     @Override
     public List<ReinfoDTO> selectALL() {
-        return reInfoMapper.selectAll();
+        return reInfoMapper.selectAll("","");
     }
 
-    @Override
-    public List<ReInfo> selecChose(String type, String path) {
-        Map<String,String> map = new HashMap<>();
-        map.put("type",type);
-        map.put("path",path);
-        return reInfoMapper.selectChose(map);
-    }
 }
 
 

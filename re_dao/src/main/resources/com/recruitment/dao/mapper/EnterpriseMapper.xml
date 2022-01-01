@@ -55,5 +55,24 @@
         ORDER BY
             enterprise.eva_scale DESC
     </select>
+    <select id="selectAllByEnameAndEtype" resultType="com.recruitment.dao.domain.Enterprise">
+        SELECT
+            enterprise.ename,
+            enterprise.photo,
+            enterprise.e_email,
+            enterprise.address,
+            enterprise.eva_scale
+        FROM
+            enterprise
+        <where>
+            <if test="message != null and message != ''">
+                AND enterprise.ename LIKE concat('%',#{message},'%')
+            </if>
+            <if test="type != null and type != ''">
+                AND enterprise.address = #{type}
+            </if>
+        </where>
+
+    </select>
 
 </mapper>
