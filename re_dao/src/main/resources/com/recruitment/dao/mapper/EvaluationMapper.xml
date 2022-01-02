@@ -16,15 +16,24 @@
         id,eid,content,
         score,addtime
     </sql>
+    <insert id="insertAll">
+        INSERT INTO `re`.`evaluation` (`eid`, `content`, `score`, `addtime`, `uid`,`type`) VALUES (#{eid},#{evaluation.content},#{evaluation.score},#{evaluation.addtime},#{evaluation.uid},#{evaluation.type})
+    </insert>
+    <update id="updateAvg">
+        UPDATE `re`.`enterprise` SET `eva_scale` = #{avg} WHERE `eid` = #{eid}
+    </update>
     <resultMap id="selectEvaluation" type="com.recruitment.dao.dto.EvaluationDTO">
         <id property="evaluation.id" column="id" jdbcType="BIGINT"/>
         <result property="evaluation.content" column="content" jdbcType="VARCHAR"/>
+        <result jdbcType="VARCHAR" property="evaluation.type" column="type"/>
+        <result jdbcType="BIGINT" column="id" property="evaluation.id"/>
         <result property="userName" column="user_name"/>
     </resultMap>
     <select id="selectAllByEid" resultMap="selectEvaluation">
         SELECT
             users.user_name,
-            evaluation.content
+            evaluation.content,
+            evaluation.type
         FROM
             evaluation
                 INNER JOIN
@@ -32,6 +41,9 @@
             ON
                 evaluation.uid = users.uid
         WHERE
-            evaluation.eid = #{eid}
+            evaluation.eid = #{eid} AND evaluation.type="1"
+    </select>
+    <select id="selectAvg" resultType="java.lang.String">
+        SELECT AVG(evaluation.score) FROM evaluation
     </select>
 </mapper>

@@ -43,6 +43,9 @@ public class Evaluation extends Object implements Serializable {
     @TableField(value = "addtime")
     private Date addtime;
 
+    private Long uid;
+    private String type;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -114,6 +117,23 @@ public class Evaluation extends Object implements Serializable {
      */
     public void setAddtime(Date addtime) {
         this.addtime = addtime;
+    }
+
+
+    public Long getUid() {
+        return uid;
+    }
+
+    public void setUid(Long uid) {
+        this.uid = uid;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override

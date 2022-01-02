@@ -29,6 +29,7 @@
     </sql>
     <resultMap id="ReindoMap" type="com.recruitment.dao.dto.ReinfoDTO">
         <id property="reInfo.rid" column="re_info.rid" jdbcType="BIGINT"/>
+        <result property="reInfo.rid" column="rid" jdbcType="BIGINT"/>
         <result property="reInfo.eid" column="eid" jdbcType="BIGINT"/>
         <result property="reInfo.addtime" column="addtime" jdbcType="TIMESTAMP"/>
         <result property="reInfo.job_name" column="job_name" jdbcType="VARCHAR"/>

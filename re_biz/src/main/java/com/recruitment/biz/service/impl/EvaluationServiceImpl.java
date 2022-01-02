@@ -23,9 +23,16 @@ public class EvaluationServiceImpl extends ServiceImpl<EvaluationMapper, Evaluat
     }
 
     @Override
-    public void evaAllInsert(Evaluation evaluation) {
-
+    public void evaAllInsert(Long eid, Evaluation evaluation) {
+        evaluationMapper.insertAll(eid,evaluation);
     }
+
+    @Override
+    public void avg(Long eid) {
+        String c = evaluationMapper.selectAvg();
+        evaluationMapper.updateAvg(c.substring(0,4),eid);
+    }
+
 }
 
 

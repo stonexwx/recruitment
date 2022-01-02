@@ -15,5 +15,10 @@ public interface EvaluationService extends IService<Evaluation> {
     /**
      * 评价录入
      */
-    void evaAllInsert(Evaluation evaluation);
+    void evaAllInsert(Long eid, Evaluation evaluation);
+    /**
+     * 计算平均值
+     * @param eid
+     */
+    void avg(Long eid);
 }

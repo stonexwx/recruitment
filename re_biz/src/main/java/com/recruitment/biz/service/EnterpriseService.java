@@ -15,4 +15,5 @@ public interface EnterpriseService extends IService<Enterprise> {
     Enterprise selectByRid(Long rid);
 
     List<Enterprise> selectByScale();
+
 }
