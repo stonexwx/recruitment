@@ -17,10 +17,16 @@
         uid,user_name,password,
         role_id,addtime,phone
     </sql>
+    <insert id="insertAll">
+        INSERT INTO `re`.`users` (`user_name`, `password`, `role_id`, `phone`, `addtime`) VALUES (#{userDTO.users.user_name}, #{userDTO.users.password}, 0, #{userDTO.users.phone}, #{userDTO.users.addtime})
+    </insert>
     <update id="updatePassword">
         UPDATE `re`.`users` SET `password` = #{newPassword} WHERE `uid` = #{users.uid}
     </update>
     <select id="login" resultType="com.recruitment.dao.domain.Users">
         select * from users where phone = #{phone} and password = #{password}
+    </select>
+    <select id="selectPhone" resultType="com.recruitment.dao.domain.Users">
+        select * from users where phone = #{userDTO.users.phone}
     </select>
 </mapper>

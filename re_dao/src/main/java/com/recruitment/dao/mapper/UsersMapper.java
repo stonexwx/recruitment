@@ -2,6 +2,7 @@ package com.recruitment.dao.mapper;
 
 import com.recruitment.dao.domain.Users;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.recruitment.dao.dto.UserDTO;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -16,6 +17,14 @@ public interface UsersMapper extends BaseMapper<Users> {
      * 修改密码
      */
     void updatePassword(@Param("users") Users users,@Param("newPassword") String newPassword);
+    /**
+     * 注册用户
+     */
+    boolean insertAll(@Param("userDTO") UserDTO userDTO);
+    /**
+     * 查询用户id
+     */
+    Users selectPhone(@Param("userDTO")UserDTO userDTO);
 }
 
 

@@ -24,6 +24,9 @@
         uid,edu_phone,name,
         sex,email
     </sql>
+    <insert id="insertUid">
+        INSERT INTO `re`.`job_seeker` (`addtime`, `uid`, `sex`, `email`) VALUES (#{userDTO.jobSeeker.addtime}, #{userDTO.users.uid}, #{userDTO.jobSeeker.sex}, #{userDTO.jobSeeker.email})
+    </insert>
     <update id="updateAll">
         UPDATE `re`.`job_seeker`
         inner join `re`.`users`
