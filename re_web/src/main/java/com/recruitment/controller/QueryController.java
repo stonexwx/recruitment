@@ -16,8 +16,8 @@ public class QueryController {
     Queryimpl queryimpl;
     @RequestMapping("/query")
     @ResponseBody
-    public String query(String message,String se_type,String type ){
-       QueryAll queryAll = queryimpl.select(message,se_type,type);
+    public String query(String message,String se_type,String city ){
+       QueryAll queryAll = queryimpl.select(message,se_type,city);
        return JSON.toJSONString(queryAll);
     }
 }
