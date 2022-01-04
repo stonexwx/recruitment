@@ -52,6 +52,11 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
         return false;
     }
 
+    /**
+     * 注册用户
+     * @param userDTO
+     * @return
+     */
     @Override
     public boolean insertUser(UserDTO userDTO) {
         usersMapper.insertAll(userDTO);
@@ -60,7 +65,15 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
         return jobSeekerMapper.insertUid(userDTO);
     }
 
-
+    /**
+     * 查询手机号是否注册
+     * @param phone
+     * @return
+     */
+    @Override
+    public String selectPhoneByPhone(String phone) {
+        return usersMapper.selectPhoneByPhone(phone);
+    }
 }
 
 

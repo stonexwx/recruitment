@@ -4,13 +4,13 @@
       <el-form ref="form" :model="form" label-width="80px">
         <el-form ref="form" :model="form" label-width="80px">
           <el-form-item label="手机号">
-            <el-input v-model="form.phone"></el-input>
+            <el-input v-model="form.phone" ></el-input>
           </el-form-item>
           <el-form-item label="登录密码">
             <el-input v-model="form.password" show-password></el-input>
           </el-form-item>
           <el-form-item label="确认密码">
-            <el-input v-model="form.verifyPassword" show-password></el-input>
+            <el-input v-model="form.verifyPassword"  show-password></el-input>
           </el-form-item>
         </el-form>
         <el-form ref="form" :model="form" label-width="80px">
@@ -19,8 +19,8 @@
           </el-form-item>
           <el-form-item label="性别">
             <el-radio-group v-model="form.sex" size="medium">
-              <el-radio border label="男 ♂" value="男"></el-radio>
-              <el-radio border label="女 ♀" value="女"></el-radio>
+              <el-radio border label="男" value="男"></el-radio>
+              <el-radio border label="女" value="女"></el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="邮箱号">
@@ -85,7 +85,7 @@ export default {
       }
       // 账号重复性检验
       this.$http
-        .get("/jobhunter/account/checkAccount/" + this.form.phone)
+        .get("/phone" + this.form.phone)
         .then((res) => {
           if (res.data) {
             this.nextStep();
@@ -116,7 +116,7 @@ export default {
     // 表单提交
     onSubmit() {
       this.$http
-        .post("/user_insert", this.form)
+        .get("/user_insert", {params:this.form})
         .then(() => {
           this.active = 3;
           this.$alert("账号注册成功，请登录", "注册结果", { type: "success" });

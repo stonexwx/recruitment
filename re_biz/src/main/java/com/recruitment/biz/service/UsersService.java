@@ -21,4 +21,9 @@ public interface UsersService extends IService<Users> {
      * 注册用户
      */
     boolean insertUser(UserDTO userDTO);
+    /**
+     * 查询手机号是否注册
+     * @return
+     */
+    String selectPhoneByPhone(String phone);
 }

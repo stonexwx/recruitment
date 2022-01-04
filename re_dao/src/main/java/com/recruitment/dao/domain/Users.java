@@ -136,15 +136,4 @@ public class Users extends Object implements Serializable {
         this.phone = phone;
     }
 
-    @Override
-    public String toString() {
-        return "Users{" +
-                "uid=" + uid +
-                ", user_name='" + user_name + '\'' +
-                ", password='" + password + '\'' +
-                ", role_id=" + role_id +
-                ", addtime=" + getAddtime() +
-                ", phone='" + phone + '\'' +
-                '}';
-    }
 }

@@ -29,4 +29,7 @@
     <select id="selectPhone" resultType="com.recruitment.dao.domain.Users">
         select * from users where phone = #{userDTO.users.phone}
     </select>
+    <select id="selectPhoneByPhone" resultType="java.lang.String">
+        select phone from users where phone =#{phone}
+    </select>
 </mapper>

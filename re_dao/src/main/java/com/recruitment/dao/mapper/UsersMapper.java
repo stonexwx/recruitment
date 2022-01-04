@@ -25,6 +25,10 @@ public interface UsersMapper extends BaseMapper<Users> {
      * 查询用户id
      */
     Users selectPhone(@Param("userDTO")UserDTO userDTO);
+    /**
+     * 验证手机号
+     */
+    String selectPhoneByPhone(@Param("phone") String phone);
 }
 
 
