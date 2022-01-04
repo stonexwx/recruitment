@@ -134,7 +134,7 @@ public class ReInfo extends Object implements Serializable {
      * @return
      */
     public String getAddtime() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(addtime);
     }
 

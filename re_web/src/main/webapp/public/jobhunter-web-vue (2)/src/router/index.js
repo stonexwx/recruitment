@@ -28,7 +28,7 @@ const routes = [
       { path: "personal", component: PersonalPage },
       { path: "resume", component: ResumePage },
       { path: "blank", component: BlankPage },
-      { path: "detail/:jobId", component: JobDetail, props: true },
+      { path: "detail/:rid", component: JobDetail, props: true },
       { path: "companyDetail", component: EnterpriseDetail},
       { path: "enterprise", component: EnterprisePage },
       { path: "enterpriseDetail/:rid", component: EnterpriseDetail,props: true },

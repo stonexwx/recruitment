@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     toDetail() {
-      sessionStorage.setItem("token2",this.item);
+
       this.$router.push("/main/detail/"+this.item.reInfo.rid);
     },
   },

@@ -15,5 +15,9 @@ public interface ReInfoService extends IService<ReInfo> {
      * @return List<ReInfo>
      */
     List<ReinfoDTO> selectALL();
-
+    /**
+     * id查询
+     * @param rid
+     */
+    List<ReinfoDTO> selectALLById(Long rid);
 }

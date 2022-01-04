@@ -30,7 +30,7 @@ public class Queryimpl implements Query {
            queryAll.setEnterprise(enterpriseMapper.selectAllByEnameAndEtype(message,type));
            return queryAll;
         }else{
-            queryAll.setReInfo(reInfoMapper.selectAll(message,type));
+            queryAll.setReInfo(reInfoMapper.selectAll(message,type,null));
         }
         return queryAll;
     }

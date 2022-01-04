@@ -6,6 +6,7 @@ import com.recruitment.dao.domain.Enterprise;
 import com.recruitment.dao.dto.EnterpriseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -37,6 +38,7 @@ public class EnterpriseController {
      */
     @RequestMapping("/enterprise_paiming_select")
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:8081/")
     public String selectByScale(){
         List<Enterprise> list = enterpriseService.selectByScale();
         Map<String,Object> map = new HashMap<>();

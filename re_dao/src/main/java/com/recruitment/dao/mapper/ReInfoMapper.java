@@ -16,7 +16,7 @@ public interface ReInfoMapper extends BaseMapper<ReInfo> {
      * 招聘信息全查询
      * @return List<ReInfo>
      */
-    List<ReinfoDTO> selectAll(@Param("name") String name,@Param("address") String address);
+    List<ReinfoDTO> selectAll(@Param("name") String name,@Param("address") String address,@Param("rid") Long rid);
 
 }
 

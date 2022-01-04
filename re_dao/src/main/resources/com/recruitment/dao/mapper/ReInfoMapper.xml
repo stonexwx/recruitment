@@ -79,6 +79,9 @@
                 </if>
             </where>
         </if>
+        <if test="rid !=null and rid !='' ">
+            AND re_info.rid = #{rid}
+        </if>
     </select>
 
 </mapper>

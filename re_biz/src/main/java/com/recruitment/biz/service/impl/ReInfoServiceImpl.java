@@ -27,9 +27,17 @@ public class ReInfoServiceImpl extends ServiceImpl<ReInfoMapper, ReInfo>
      */
     @Override
     public List<ReinfoDTO> selectALL() {
-        return reInfoMapper.selectAll("","");
+        return reInfoMapper.selectAll("","",null);
     }
 
+
+    /**
+     * id查询
+     */
+    @Override
+    public List<ReinfoDTO> selectALLById(Long rid) {
+        return reInfoMapper.selectAll("","",rid);
+    }
 }
 
 

@@ -26,6 +26,11 @@ public class EncodingFilter implements Filter {
             request1.setCharacterEncoding(encoding);
             response1.setContentType("text/html;charset=" + encoding);
         }
+        String method = request1.getMethod();
+        //options请求直接放行
+        if(method.equals("OPTIONS")){
+            chain.doFilter(request,response);
+        }
         chain.doFilter(request,response);
     }
 }

@@ -31,20 +31,7 @@ export default {
       ],
     }
   },
-  // created() {
-  //   this.$http({
-  //     method: "POST",
-  //     url: "/jobhunter/job/getJobs",
-  //     data: {
-  //       uid: sessionStorage.getItem("uid"),
-  //     }
-  //   }).then((res)=>{
-  //     this.joblist = res.data;
-  //     //this.$store.state.joblist = res.data;
-  //   }).catch(()=>{
-  //     this.$message.error('工作信息获取异常');
-  //   })
-  // },
+
   methods: {
     changeJobList(data) {
       this.joblist = data;

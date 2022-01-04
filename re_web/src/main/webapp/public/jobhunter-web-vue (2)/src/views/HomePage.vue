@@ -40,41 +40,42 @@ export default {
       ],
       joblist: [
         //此数据仅为测试使用
-        {
-          ename: "奇思妙想",
-          job2Name: "IT",
-          reInfo: {
-            eid:"1",
-            rid: "1",
-            addtime: "2021-10-09",
-            full_path: "深圳",
-            job_name: "java工程师",
-            scale: "10000", //工资
-            job_time: "1-3",
-            job_welfare: "入职每人奖励一个薛文潇",
-            re_education: "本科",
-            requirement:""
-          },
-        },
+        // {
+        //   // ename: "奇思妙想",
+        //   // job2Name: "IT",
+        //   // reInfo: {
+        //   //   eid:"1",
+        //   //   rid: "1",
+        //   //   addtime: "2021-10-09",
+        //   //   full_path: "深圳",
+        //   //   job_name: "java工程师",
+        //   //   scale: "10000", //工资
+        //   //   job_time: "1-3",
+        //   //   job_welfare: "入职每人奖励一个薛文潇",
+        //   //   re_education: "本科",
+        //   //   requirement:""
+        //   },
+        // },
       ],
     };
   },
   components: {
     joblist: JobList,
   },
-  // created() {
-  //   this.$http({
-  //     method: "POST",
-  //     url: "/reinfoAll",
-  //     data: {
-  //     }
-  //   }).then((res)=>{
-  
-  //     this.joblist = res.data;
-  //   }).catch(()=>{
-  //     this.$message.error('工作信息获取异常');
-  //   })
-  // },
+  created() {
+    this.$http({
+      method: "POST",
+      url: "/reinfoAll",
+      data: {
+      }
+    }).then((res)=>{
+
+      this.joblist = res.data;
+    }).catch(()=>{
+      this.$message.error('工作信息获取异常');
+    })
+  },
+
 };
 </script>
 

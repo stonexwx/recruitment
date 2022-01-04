@@ -40,4 +40,11 @@
         <!-- 设定文件上传的最大值为5MB，5*1024*1024 -->
         <property name="maxUploadSize" value="5242880"></property>
     </bean>
+<!--    <mvc:cors>-->
+<!--        <mvc:mapping path="/**"-->
+<!--                     allowed-origins="http://localhost:8081/*"-->
+<!--                     allowed-methods="POST, GET, OPTIONS, DELETE, PUT"-->
+<!--                     allowed-headers="Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"-->
+<!--                     allow-credentials="true" />-->
+<!--    </mvc:cors>-->
 </beans>
