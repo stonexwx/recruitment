@@ -5,6 +5,7 @@ import com.recruitment.biz.service.impl.UsersServiceImpl;
 import com.recruitment.dao.domain.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 @Controller
 @SessionAttributes("user")
+@CrossOrigin(origins = "http://localhost:8081/")
 public class LoginController {
     @Autowired
     UsersServiceImpl usersService;
@@ -36,9 +38,7 @@ public class LoginController {
             map.put("data",users);
             return JSON.toJSONString(map);
         }
-        map.put("flag","false");
-        map.put("data", "null");
-        return JSON.toJSONString(map);
+        return null;
     }
 
 }

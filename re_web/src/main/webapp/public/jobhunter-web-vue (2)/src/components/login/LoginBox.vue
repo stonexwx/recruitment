@@ -83,8 +83,7 @@ export default {
     };
     return {
       loginForm: {
-        phonenum: "15573024143",
-        password: "123456abc",
+
       },
       token: "",
       loginInfo: {
@@ -107,22 +106,19 @@ export default {
         this.$refs[forname].validate((valid) => {
           if (valid) {
             // 到了这里说明通过了前端检验,发送账号密码到后端检验
-            this.$http({
-              method: "post",
-              url: "/login",
-              data: {
-                account: this.loginForm.phonenum,
-                password: this.loginForm.password,
-              },
-            }).then((res) => {
+            this.$http.get(`/login`, {params: {phone: this.loginForm.phonenum,password:this.loginForm.password}}).then((res) => {
                 // 这里会获得后端传来的用于检验
                 let isVerify = true
                 if (res.data === ""){
                   isVerify = false;
                 } else {
-                  // 将 token 存入 sessionStorage
-                  this.token = res.data;
-                  sessionStorage.setItem("token", res.data);
+                  if(res.data.flag){
+                    isVerify=true;
+                    // 将 token 存入 sessionStorage
+                    this.token = res.data;
+                    sessionStorage.setItem("token", res.data);
+                  }
+
                 }
                 //TODO 如果通过校验，提示成功并进行页面跳转
                 if (isVerify) {
