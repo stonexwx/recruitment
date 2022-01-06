@@ -7,22 +7,31 @@ import com.recruitment.dao.dto.ReinfoDTO;
 import java.util.List;
 
 public class QueryAll {
-    private List<Enterprise> enterprise;
-    private List<ReinfoDTO> reInfo;
+    private String name;
+    private String address;
+    private String other;
 
-    public List<Enterprise> getEnterprise() {
-        return enterprise;
+    public String getName() {
+        return name;
     }
 
-    public void setEnterprise(List<Enterprise> enterprise) {
-        this.enterprise = enterprise;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public List<ReinfoDTO> getReInfo() {
-        return reInfo;
+    public String getAddress() {
+        return address;
     }
 
-    public void setReInfo(List<ReinfoDTO> reInfo) {
-        this.reInfo = reInfo;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getOther() {
+        return other;
+    }
+
+    public void setOther(String other) {
+        this.other = other;
     }
 }

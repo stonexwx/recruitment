@@ -28,7 +28,7 @@
           </el-form-item>
         </el-form>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">立即创建</el-button>
+          <el-button type="primary" @click="accountCheck">立即创建</el-button>
           <el-button>取消</el-button>
         </el-form-item>
       </el-form>
@@ -54,17 +54,17 @@ export default {
     };
   },
   methods: {
-    // 头像上传回显项目
-    handleChange(file) {
-      console.log("handleChange");
-      let fileName = file.name;
-      let regex = /(.jpg|.jpeg|.gif|.png|.bmp)$/;
-      if (regex.test(fileName.toLowerCase())) {
-        this.imageUrl = URL.createObjectURL(file.raw);
-      } else {
-        this.$message.error("请选择图片文件");
-      }
-    },
+    // // 头像上传回显项目
+    // handleChange(file) {
+    //   console.log("handleChange");
+    //   let fileName = file.name;
+    //   let regex = /(.jpg|.jpeg|.gif|.png|.bmp)$/;
+    //   if (regex.test(fileName.toLowerCase())) {
+    //     this.imageUrl = URL.createObjectURL(file.raw);
+    //   } else {
+    //     this.$message.error("请选择图片文件");
+    //   }
+    // },
     // 账号是否已注册检查
     accountCheck() {
       // 非空检验
@@ -85,7 +85,7 @@ export default {
       }
       // 账号重复性检验
       this.$http
-        .get("/phone" + this.form.phone)
+        .post("/phone" ,{phone:this.form.phone})
         .then((res) => {
           if (res.data) {
             this.nextStep();
@@ -113,19 +113,20 @@ export default {
           });
         });
     },
-    // 表单提交
-    onSubmit() {
-      this.$http
-        .get("/user_insert", {params:this.form})
-        .then(() => {
-          this.active = 3;
-          this.$alert("账号注册成功，请登录", "注册结果", { type: "success" });
-          this.$router.push("/login");
-        })
-        .catch(() => {
-          this.$message({ type: "warning", message: "账号注册请求失败~" });
-        });
-    },
+    // // 表单提交
+    // onSubmit() {
+    //   this.accountCheck();
+    //   this.$http
+    //     .get("/user_insert", {params:this.form})
+    //     .then(() => {
+    //       this.active = 3;
+    //       this.$alert("账号注册成功，请登录", "注册结果", { type: "success" });
+    //       this.$router.push("/login");
+    //     })
+    //     .catch(() => {
+    //       this.$message({ type: "warning", message: "账号注册请求失败~" });
+    //     });
+    // },
   },
 };
 </script>

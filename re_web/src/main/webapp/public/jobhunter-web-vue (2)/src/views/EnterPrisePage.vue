@@ -70,7 +70,7 @@ export default {
   },
   methods:{
     enterpriseDetail() {
-      this.$router.push("/main/companyDetail/"+this.enterpriselist.eid);
+      this.$router.push("/main/enterpriseDetail/"+this.enterpriselist.eid);
     },
   }
 };

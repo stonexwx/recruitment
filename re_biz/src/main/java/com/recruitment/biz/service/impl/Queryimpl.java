@@ -2,12 +2,15 @@ package com.recruitment.biz.service.impl;
 
 import com.recruitment.biz.service.Query;
 import com.recruitment.dao.domain.Enterprise;
+import com.recruitment.dao.domain.ReInfo;
+import com.recruitment.dao.dto.ReinfoDTO;
 import com.recruitment.dao.mapper.EnterpriseMapper;
 import com.recruitment.dao.mapper.ReInfoMapper;
 import com.recruitment.global.QueryAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,14 +27,27 @@ public class Queryimpl implements Query {
      * @return
      */
     @Override
-    public QueryAll select(String message, String se_type, String type) {
-        QueryAll queryAll = new QueryAll();
+    public List<QueryAll> select(String message, String se_type, String type) {
+
+        List<QueryAll> list = new ArrayList<>();
         if(se_type.equals("1")){
-           queryAll.setEnterprise(enterpriseMapper.selectAllByEnameAndEtype(message,type));
-           return queryAll;
+           for(Enterprise enterprise: enterpriseMapper.selectAllByEnameAndEtype(message,type)){
+               QueryAll queryAll = new QueryAll();
+               queryAll.setName(enterprise.getEname());
+               queryAll.setAddress(enterprise.getAddress());
+               queryAll.setOther(enterprise.getE_email());
+               list.add(queryAll);
+           }
+           return list;
         }else{
-            queryAll.setReInfo(reInfoMapper.selectAll(message,type,null));
+            for(ReinfoDTO reInfo :reInfoMapper.selectAll(message,type,null)) {
+                QueryAll queryAll = new QueryAll();
+                queryAll.setName(reInfo.getReInfo().getJob_name());
+                queryAll.setAddress(reInfo.getReInfo().getFull_path());
+                queryAll.setOther(String.valueOf(reInfo.getReInfo().getScale()));
+                list.add(queryAll);
+            }
         }
-        return queryAll;
+        return list;
     }
 }

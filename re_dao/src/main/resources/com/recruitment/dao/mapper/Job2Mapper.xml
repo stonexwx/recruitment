@@ -13,4 +13,8 @@
     <sql id="Base_Column_List">
         j_id,jid,job2_name
     </sql>
+    <select id="selectAll" resultType="com.recruitment.dao.domain.Job2">
+        select job2_name from job2
+    </select>
+
 </mapper>

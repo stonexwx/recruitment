@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -36,18 +37,18 @@ public class UpController {
         ServletContext sc = request.getSession().getServletContext();
         Users users = (Users) request.getSession().getAttribute("user");
         String dir = sc.getRealPath("/upload");
-        String type = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1, file.getOriginalFilename().length());
+        String type = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
         Random r = new Random();
         String imgName = "";
         if ("jpg".equals(type)) {
-            imgName = sdf.format(new Date()) + users.getUser_name()+r.nextInt(100) + "head.jpg";
+            imgName = sdf.format(new Date()) +users.getUser_name() + "head.jpg";
         } else if ("png".equals(type)) {
-            imgName = sdf.format(new Date()) +users.getUser_name()+r.nextInt(100) + "head.png";
+            imgName = sdf.format(new Date()) +users.getUser_name()+ "head.png";
         } else if ("jpeg".equals(type)) {
-            imgName = sdf.format(new Date()) + users.getUser_name()+r.nextInt(100) + "head.jpeg";
+            imgName = sdf.format(new Date())+users.getUser_name()+ "head.jpeg";
         } else if ("gif".equals(type)) {
-            imgName = sdf.format(new Date()) + users.getUser_name()+r.nextInt(100) + "head.gif";
+            imgName = sdf.format(new Date()) +users.getUser_name()+ "head.gif";
         } else {
             return null;
         }

@@ -4,47 +4,55 @@
       <el-tab-pane label="个人信息">
         <div class="headimg">
           <el-upload
-            class="avatar-uploader"
-            :action="action"
-            :show-file-list="true"
-            :on-change="handleChange"
+              :action="action"
+              :on-change="handleChange"
+              :show-file-list="true"
+              :with-credentials='true'
+              class="avatar-uploader"
           >
-            <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+            <img v-if="imageUrl" :src="imageUrl" class="avatar"/>
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </div>
         <el-form
-          ref="ruleForm"
-          :model="ruleForm"
-          :rules="rules"
-          label-width="120px"
-          class="demo-ruleForm"
+            ref="ruleForm"
+            :model="ruleForm"
+            :rules="rules"
+            class="demo-ruleForm"
+            label-width="120px"
         >
-          <el-form-item label="用户昵称" prop="username">
-            <el-input v-model="ruleForm.username"></el-input>
-          </el-form-item>
           <el-form-item label="用户姓名" prop="name">
-            <el-input v-model="ruleForm.name"></el-input>
+            <el-input v-model="ruleForm.jobSeeker.name"></el-input>
           </el-form-item>
           <el-form-item label="用户电话" prop="edu_phone">
-            <el-input v-model="ruleForm.edu_phone"></el-input>
+            <el-input v-model="ruleForm.jobSeeker.edu_phone"></el-input>
           </el-form-item>
           <el-form-item label="用户邮箱" prop="email">
-            <el-input v-model="ruleForm.email"></el-input>
+            <el-input v-model="ruleForm.jobSeeker.email"></el-input>
           </el-form-item>
           <el-form-item label="学历水平" prop="education">
-            <el-select v-model="ruleForm.education" placeholder="还未填写">
+            <el-select v-model="ruleForm.jobSeeker.education" placeholder="还未填写">
               <el-option
-                :label="item"
-                :value="item"
-                v-for="(item, index) in education"
-                :key="index"
+                  v-for="(item, index) in educationList"
+                  :key="index"
+                  :label="item"
+                  :value="item"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="工作意向" prop="job_type">
+            <el-select v-model="ruleForm.jobSeeker.job_type" placeholder="还未填写">
+              <el-option
+                  v-for="(item, index) in job_type"
+                  :key="index"
+                  :label="item.job2_name"
+                  :value="item.job2_name"
               ></el-option>
             </el-select>
           </el-form-item>
 
           <el-form-item label="性别" prop="sex">
-            <el-radio-group v-model="ruleForm.sex">
+            <el-radio-group v-model="ruleForm.jobSeeker.sex">
               <el-radio label="男"></el-radio>
               <el-radio label="女"></el-radio>
             </el-radio-group>
@@ -52,15 +60,16 @@
           <el-form-item label="简历信息" prop="resume">
             <el-row>
               <el-upload
-                class="avatar-uploader"
-                :action="action_resume"
-                :show-file-list="true"
-                :on-change="handleChange_resume"
+                  :action="action_resume"
+                  :on-change="handleChange_resume"
+                  :show-file-list="true"
+                  :with-credentials='true'
+                  class="avatar-uploader"
               >
                 <img
-                  v-if="imageUrl_resume"
-                  :src="imageUrl_resume"
-                  class="avatar"
+                    v-if="imageUrl_resume"
+                    :src="imageUrl_resume"
+                    class="avatar"
                 />
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
               </el-upload>
@@ -71,15 +80,16 @@
               <el-col :span="24">
                 <el-form-item>
                   <el-upload
-                    class="avatar-uploader"
-                    :action="action_photo"
-                    :show-file-list="true"
-                    :on-change="handleChange_photo"
+                      :action="action_photo"
+                      :on-change="handleChange_photo"
+                      :show-file-list="true"
+                      :with-credentials='true'
+                      class="avatar-uploader"
                   >
                     <img
-                      v-if="imageUrl_photo"
-                      :src="imageUrl_photo"
-                      class="avatar"
+                        v-if="imageUrl_photo"
+                        :src="imageUrl_photo"
+                        class="avatar"
                     />
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
@@ -90,18 +100,21 @@
 
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')"
-              >保存</el-button
+            >保存
+            </el-button
             >
             <el-button @click="resetForm('ruleForm')">重置</el-button>
           </el-form-item>
-        </el-form></el-tab-pane
+        </el-form>
+      </el-tab-pane
       >
       <el-tab-pane label="修改密码"
-        ><el-form
-          ref="ruleForm2"
-          :model="ruleForm2"
-          label-width="120px"
-          class="demo-ruleForm"
+      >
+        <el-form
+            ref="ruleForm2"
+            :model="ruleForm2"
+            class="demo-ruleForm"
+            label-width="120px"
         >
           <el-form-item label="请输入当前密码" prop="password">
             <el-input v-model="ruleForm2.password"></el-input>
@@ -113,37 +126,65 @@
             <el-input v-model="ruleForm2.newpassword2"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="changePassword('ruleForm2')"
-              >保存</el-button
+            <el-button type="primary" @click="changePassword()"
+            >保存
+            </el-button
             >
             <el-button @click="resetForm('ruleForm2')">重置</el-button>
           </el-form-item>
-        </el-form></el-tab-pane
+        </el-form>
+      </el-tab-pane
       >
     </el-tabs>
   </div>
 </template>
 
 <script>
+
 export default {
   name: "ResumePage",
+  created() {
+    this.$http({
+      method: "POST",
+      url: "/job_type",
+      data: {},
+    })
+        .then((res) => {
+          this.job_type = res.data;
+        })
+        .catch(() => {
+          this.$message.error("工作类型获取异常");
+        });
+    const token = sessionStorage.getItem("token");
+    this.$http({
+      method: "POST",
+      url: "/seeker_select",
+      data: {},
+    })
+        .then((res) => {
+          this.ruleForm.username = token.user_name;
+          this.ruleForm = res.data.jobSeekerDTO;
+
+        })
+        .catch(() => {
+          this.$message.error("个人信息获取异常");
+        });
+  },
+
   data() {
     return {
       imageUrl: "",
       imageUrl_resume: "",
       imageUrl_photo: "",
-      action: "/seeker_head_up",
-      action_resume: "/seeker_resume_up",
-      action_photo: "/seeker_books_up",
+      action: "http://localhost:8080/seeker_head_up",
+      action_resume: "http://localhost:8080/seeker_resume_up",
+      action_photo: "http://localhost:8080/seeker_books_up",
       // 如果在html中携带accept则默认选择规定类型的文件，否则可以在钩子函数中判断上传的文件类型
       accept: ".jpg,.png",
       // .doc,.docx,.ppt,.xls,.xlsx,.wps,.dps,.pdf,.txt,
       fileList: [],
-      education: [
-        "未受教育",
-        "小学",
-        "初中",
-        "高中",
+      educationList: [
+        "高中及以下",
         "专科",
         "本科",
         "研究生",
@@ -151,15 +192,18 @@ export default {
         "博士",
         "博士后",
       ],
+      job_type: [
+        // "java",
+        // "Python"
+      ],
       ruleForm: {
-        username: "哈哈哈哈哈",
-        name: "薛文潇",
-        education: "本科",
-        email: "4990590",
-        edu_phone: "1111111111",
-        sex: "男",
-        photo: "",
-        resume: "",
+        // name: "薛文潇",
+        // education: "本科",
+        // email: "4990590",
+        // edu_phone: "1111111111",
+        // sex: "男",
+        // photo: "",
+        // resume: "",
       },
       ruleForm2: {
         password: "",
@@ -170,7 +214,7 @@ export default {
         name: [
           {
             required: true,
-            message: "请填写您的昵称",
+            message: "请填写您的姓名",
             trigger: "blur",
           },
         ],
@@ -203,6 +247,13 @@ export default {
           },
         ],
         password: [
+          {
+            required: true,
+            message: "请输入您的密码",
+            trigger: "blur",
+          },
+        ],
+        job_type: [
           {
             required: true,
             message: "请输入您的密码",
@@ -242,48 +293,36 @@ export default {
       }
     },
     //正式数据 表单1
-    // created() {
-    //   const token = sessionStorage.getItem("token");
-    //   this.$http({
-    //     method: "POST",
-    //     url: "/seeker_select",
-    //     data: {},
-    //   })
-    //     .then((res) => {
-    //       this.ruleForm.username = token.user_name;
-    //       this.ruleForm = res.data;
-    //     })
-    //     .catch(() => {
-    //       this.$message.error("个人信息获取异常");
-    //     });
-    // },
 
     //正式数据 表单2
 
-    // changePassword(passwordForm) {
-    //   if (passwordForm.newpassword == passwordForm.newpassword2) {
-    //     this.$http({
-    //       method: "POST",
-    //       url: "/password_update",
-    //       data: {
-    //         password: this.passwordForm.password,
-    //         newpassword: this.passwordForm.newpassword,
-    //       },
-    //     })
-    //       .then((res) => {
-    //         if (res.flag) {
-    //           console.log("修改成功");
-    //         } else {
-    //           this.$message.error("当前密码输入错误，请重新输入！");
-    //         }
-    //       })
-    //       .catch(() => {
-    //         this.$message.error("发生错误啦");
-    //       });
-    //   } else {
-    //     this.$message.error("两次输入的新密码不一致哦~请重新输入！");
-    //   }
-    // },
+    changePassword() {
+      if (this.ruleForm2.newpassword == this.ruleForm2.newpassword2) {
+        this.$http.get("/password_update",
+            {
+              params: {
+                password: this.ruleForm2.password,
+                newPassword: this.ruleForm2.newpassword,
+              },
+            })
+            .then((res) => {
+              if (res.data.flag) {
+                this.$message({
+                  message: '恭喜你，这是一条成功消息',
+                  type: 'success'
+                });
+                this.$router.push("/login"); //跳到主页面
+              } else {
+                this.$message.error("当前密码输入错误，请重新输入！");
+              }
+            })
+            .catch(() => {
+              this.$message.error("发生错误啦");
+            });
+      } else {
+        this.$message.error("两次输入的新密码不一致哦~请重新输入！");
+      }
+    },
     uploadSuccess(res) {
       // 图片上传成功后即调用的函数
       if (res.data.code === 0) {
@@ -306,31 +345,25 @@ export default {
       this.$refs.upload.clearFiles();
     },
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.$http({
-            method: "POST",
-            url: "/seeker_update",
-            data: {
-              name: this.formName.name,
-              username: this.formName.username,
-              education: this.formName.education,
-              sex: this.formName.sex,
-              edu_phone: this.formName.edu_phone,
-              email: this.formName.email,
-            },
+      this.$http.get("/seeker_update",
+          {
+            params: {
+              name: formName.name,
+              education: formName.education,
+              sex: formName.sex,
+              edu_phone: formName.edu_phone,
+              email: formName.email,
+              job_type: this.job_type
+            }
+
+          }
+      )
+          .then((res) => {
+            this.ruleForm = res.data;
           })
-            .then((res) => {
-              this.ruleForm = res.data;
-            })
-            .catch(() => {
-              this.$message.error("暂时无法保存哦");
-            });
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
+          .catch(() => {
+            this.$message.error("暂时无法保存哦");
+          });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -347,9 +380,11 @@ export default {
   position: relative;
   overflow: hidden;
 }
+
 .avatar-uploader .el-upload:hover {
   border-color: #409eff;
 }
+
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
@@ -357,19 +392,23 @@ export default {
   height: 120px;
   text-align: center;
 }
+
 .avatar-uploader-icon svg {
   margin-top: 74px; /* (178px - 28px) / 2 - 1px */
 }
+
 .avatar {
   width: 120px;
   height: 120px;
   display: block;
 }
+
 .content {
   width: 80%;
   height: 500px;
   margin: 40px auto;
 }
+
 .headimg {
   width: 100%;
   display: flex;
@@ -385,9 +424,11 @@ export default {
   position: relative;
   overflow: hidden;
 }
+
 .avatar-uploader .el-upload:hover {
   border-color: #409eff;
 }
+
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
@@ -396,6 +437,7 @@ export default {
   line-height: 178px;
   text-align: center;
 }
+
 .avatar {
   width: 178px;
   height: 178px;

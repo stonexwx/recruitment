@@ -21,15 +21,10 @@ public class ServletFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         httpServletRequest.getSession();
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        httpResponse.setHeader("Access-Control-Allow-Origin", "*");
+        httpResponse.setHeader("Access-Control-Allow-Origin", httpServletRequest.getHeader("Origin"));
         httpResponse.setHeader("Access-Control-Allow-Methods", "*");
-        httpResponse.setHeader("Access-Control-Max-Age", "3600");
-        httpResponse.setHeader("Access-Control-Allow-Headers",
-                "Origin, X-Requested-With, Content-Type, Accept, Connection, User-Agent, Cookie");
+        httpResponse.setHeader("Access-Control-Allow-Headers", "token,content-type");
         httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
-        httpResponse.setHeader("Content-type", "application/json");
-        httpResponse.setHeader("Cache-Control", "no-cache, must-revalidate");
-
         if (httpServletRequest.getMethod().equals(RequestMethod.OPTIONS.name())) {
             return ;
         }

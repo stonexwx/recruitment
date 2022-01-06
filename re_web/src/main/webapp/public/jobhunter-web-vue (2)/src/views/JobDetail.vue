@@ -100,7 +100,7 @@ export default {
           });
     },
     enterpriseDetail() {
-      this.$router.push("/main/companyDetail/" + this.pageContent.reInfo.rid);
+      this.$router.push("/main/enterpriseDetail/" + this.pageContent.reInfo.rid);
     },
   },
   props: ["rid"],

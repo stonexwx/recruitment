@@ -7,6 +7,7 @@ import java.util.List;
 public interface Query {
     /**
      * 综合查询
+     * @return
      */
-    QueryAll select(String message, String se_type, String type);
+    List<QueryAll> select(String message, String se_type, String type);
 }

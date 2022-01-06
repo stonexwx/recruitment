@@ -19,7 +19,7 @@
           <el-button
             slot="append"
             icon="el-icon-search"
-            @click="search"
+            @click="search()"
           ></el-button>
         </el-input>
       </div>
@@ -41,7 +41,26 @@
           </el-breadcrumb-item>
         </el-breadcrumb>
       </div>
+
     </div>
+    <el-table
+        :data="tableData"
+        stripe
+        style="width: 100%">
+      <el-table-column
+          :prop="name"
+          :label="label_two"
+          width="180">
+      </el-table-column>
+      <el-table-column
+          :prop="address"
+          label="地址">
+      </el-table-column>
+      <el-table-column
+          :prop="other"
+          :label="label_three">
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -51,15 +70,13 @@ export default {
   data() {
     return {
       prop:["searchConditions.se_type"],
-      enterpriselist:[
-        {
-          address:"",
-          ename:"",
-          e_email:""
-        }
+      tableData:[
+
       ],
       inputContext: "",
       select: "",
+      label_two:"职位/企业",
+      label_three:"邮箱/薪水",
       selectedCity: "全国",
       hotCity: [
         "全国",
@@ -81,7 +98,7 @@ export default {
       searchConditions: {
         jobName: "",
         se_type: "1",
-        city: "*",
+        city: "",
       },
     };
   },
@@ -98,33 +115,36 @@ export default {
 
     search() {
       //企业查询
-      if (this.searchConditions.se_type == "1") {
+      if (this.searchConditions.se_type === "1") {
         this.$http
-          .post("/query", {
+          .get("/query", {params:{
             se_type: "1",
             city: this.searchConditions.city,
-            message: this.searchConditions.jobName,
+            message: this.searchConditions.jobName}
           })
           .then((res) => {
             this.searchConditions.jobName = "";
-            this.enterpriselist = res.data;
+            this.label_two = "企业";
+            this.label_three = "企业邮箱";
+            this.tableData = res.data;
           })
           .catch(() => {
             this.$message.error("关键字查询失败");
           });
       }
       //查询类别为职业
-      else if (this.searchConditions.se_type == "0") {
+      else if (this.searchConditions.se_type === "0") {
         this.$http
-          .post("/query", {
+          .get("/query", {params:{
             se_type: "0",
             city: this.searchConditions.city,
-            message: this.searchConditions.jobName,
+            message: this.searchConditions.jobName}
           })
           .then((res) => {
             this.searchConditions.jobName = "";
-            this.$store.state.joblist = res.data;
-            this.$emit("change-job-list", res.data);
+            this.label_two = "职位";
+            this.label_three = "薪水";
+            this.tableData = res.data.reInfo;
           })
           .catch(() => {
             this.$message.error("关键字查询失败");
@@ -134,7 +154,7 @@ export default {
     // 请求更新工作列表
     updateJobList() {
       this.$http
-        .post("/jobhunter/job/getJobListByCondition", {
+        .post("", {
           jobName: this.searchConditions.jobName,
           se_type: this.searchConditions.se_type,
           city: this.searchConditions.city,
@@ -227,5 +247,9 @@ export default {
       }
     }
   }
+}
+.cell{
+  text-align: center;
+  width: 30%;
 }
 </style>

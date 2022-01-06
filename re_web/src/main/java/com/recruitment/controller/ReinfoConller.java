@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:8081/")
 public class ReinfoConller {
     @Autowired
     ReInfoServiceImpl reInfoService;

@@ -63,24 +63,24 @@ export default {
       }, 100);
     };
     // 密码检验
-    var checkPass = (rule, value, callback) => {
+    // var checkPass = (rule, value, callback) => {
       /*
         密码验证正则
         1.密码必须由字母、数字组成，区分大小写
         2.密码长度为8-18位
       */
-      const passReg = /^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]{8,18}$/;
-      if (!value) {
-        return callback(new Error("密码不能为空"));
-      }
-      setTimeout(() => {
-        if (passReg.test(value)) {
-          callback();
-        } else {
-          callback(new Error("密码格式不正确"));
-        }
-      }, 100);
-    };
+      // const passReg = /^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]{8,18}$/;
+      // if (!value) {
+      //   return callback(new Error("密码不能为空"));
+      // }
+      // setTimeout(() => {
+      //   if (passReg.test(value)) {
+      //     callback();
+      //   } else {
+      //     callback(new Error("密码格式不正确"));
+      //   }
+      // }, 100);
+    // };
     return {
       loginForm: {
 
@@ -93,7 +93,7 @@ export default {
       },
       loginRules: {
         phonenum: [{ required: true, validator: checkPhone, trigger: "blur" }],
-        password: [{ required: true, validator: checkPass, trigger: "blur" }],
+        // password: [{ required: true, validator: checkPass, trigger: "blur" }],
       },
     };
   },
@@ -115,29 +115,22 @@ export default {
                   if(res.data.flag){
                     isVerify=true;
                     // 将 token 存入 sessionStorage
-                    this.token = res.data;
-                    sessionStorage.setItem("token", res.data);
+                    this.token = res.data.user;
+                    sessionStorage.setItem("token",res.data.user);
                   }
 
                 }
                 //TODO 如果通过校验，提示成功并进行页面跳转
                 if (isVerify) {
-                  sessionStorage.setItem("token", res.data);
                   // // 获取并记录用户信息
-                  // this.$http({
-                  //   method: "POST",
-                  //   url: "/jobhunter/user-info/getUserInfoByToken",
-                  //   headers: {
-                  //     "token": this.token,
-                  //   }
-                  // }).then((res) => {
-                  //   // 存入登录信息
-                  //   //this.loginInfo.token = token;
-                  //   this.loginInfo.uname = res.data.uname;
-                  //   this.loginInfo.uid = res.data.uid;
-                  //   this.loginInfo.avatar = res.data.avatar;
-                  //   // 存储token
-                  //   this.$store.commit("login", this.loginInfo);
+
+                    // 存入登录信息
+                    //this.loginInfo.token = token;
+                    // this.loginInfo.uname = res.data.uname;
+                    // this.loginInfo.uid = res.data.uid;
+                    // this.loginInfo.avatar = res.data.avatar;
+                    // // 存储token
+                    // this.$store.commit("login", this.loginInfo);
                   //   // 跳转到主页面
                     this.$router.push("/main/home"); //跳到主页面
                     // 提示登录成功

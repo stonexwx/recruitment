@@ -59,10 +59,8 @@
     <select id="selectAllByEnameAndEtype" resultType="com.recruitment.dao.domain.Enterprise">
         SELECT
             enterprise.ename,
-            enterprise.photo,
             enterprise.e_email,
-            enterprise.address,
-            enterprise.eva_scale
+            enterprise.address
         FROM
             enterprise
         <where>

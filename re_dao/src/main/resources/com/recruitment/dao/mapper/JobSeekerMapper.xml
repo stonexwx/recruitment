@@ -32,7 +32,7 @@
         inner join `re`.`users`
         SET `education` = #{jobSeeker.education}, `job_type` = #{jobSeeker.job_type},
             `name` = #{jobSeeker.name}, `sex` = #{jobSeeker.sex}, `email` = #{jobSeeker.email},
-            `users`.`user_name`=#{users.user_name} WHERE `sid` = #{jobSeeker.sid}
+            `users`.`user_name`=#{users.user_name} WHERE `sid` = #{jobSeeker.sid} And users.uid=#{users.uid}
     </update>
     <update id="updatePhotoAndEducationAndResume">
         UPDATE `re`.`job_seeker`

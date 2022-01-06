@@ -79,34 +79,33 @@ import Commend from "@/components/common/commend.vue";
 import MyH1 from "@/components/common/MyH1";
 export default {
   name: "EnterPriseDetail",
+  created() {
+    const token2 = sessionStorage.getItem("token2");
+    this.$http.get("/enterprise_select",{params:
+          {
+            rid:token2.reInfo.rid
+          }
+    }).then((res)=>{
+      this.EnterPrise = res.data;
+      if (this.EnterPrise.photo == "") {
+        this.imgFlag == false;
+      } else {
+        this.imgFlag == true;
+      }
+      if (this.EnterPrise.media == "") {
+        this.flag = true;
+        this.videoFlag =false;
+      } else {
+        this.flag = !this.flag;
+        this.videoFlag =true;
+      }
+    }).catch(()=>{
+      this.$message.error('企业信息获取异常');
+    })
+  },
   methods: {
     //正式数据传输
-    // created() {
-    //   const token2 = sessionStorage.getItem("token2");
-    //   this.$http({
-    //     method: "POST",
-    //     url: "/enterprise_select",
-    //     data: {
-    //       rid:token2.reInfo.rid
-    //     }
-    //   }).then((res)=>{
-    //     this.EnterPrise = res.data;
-    // if (this.EnterPrise.photo == "") {
-    //   this.imgFlag == false;
-    // } else {
-    //   this.imgFlag == true;
-    // }
-    // if (this.EnterPrise.media == "") {
-    //   this.flag = true;
-    //   this.videoFlag =false;
-    // } else {
-    //   this.flag = !this.flag;
-    //   this.videoFlag =true;
-    // }
-    //   }).catch(()=>{
-    //     this.$message.error('企业信息获取异常');
-    //   })
-    // },
+
 
     //点击发表评论后执行的操作
     sendComment(){
@@ -117,10 +116,8 @@ export default {
       if(this.textarea == ""){
         this.textarea == "该用户没有发表评论~"
       }
-      this.$http({
-        method: "POST",
-        url: "/evaluation _insert",
-        data: {
+      this.$http.get("/evaluation _insert",{params:{
+
           eid:token2.reInfo.eid,
           textarea:this.textarea,
           score:this.score
@@ -148,22 +145,22 @@ export default {
       isSend: 0,
       title2: "公司简介",
       EnterPrise: {
-        name: "奇思妙想",
-        scale: "1000人",
-        media: "",
-        introduce:
-          "我们公司福利贼好,在这里，你可以学到如何反抗资本主义薛文潇，成为一个合格的反卷达人！" +
-          "我们公司福利贼好,在这里，你可以学到如何反抗资本主义薛文潇，成为一个合格的反卷达人！" +
-          "我们公司福利贼好,在这里，你可以学到如何反抗资本主义薛文潇，成为一个合格的反卷达人！" +
-          "我们公司福利贼好,在这里，你可以学到如何反抗资本主义薛文潇，成为一个合格的反卷达人！" +
-          "我们公司福利贼好,在这里，你可以学到如何反抗资本主义薛文潇，成为一个合格的反卷达人！" +
-          "我们公司福利贼好,在这里，你可以学到如何反抗资本主义薛文潇，成为一个合格的反卷达人！" +
-          "我们公司福利贼好,在这里，你可以学到如何反抗资本主义薛文潇，成为一个合格的反卷达人！" +
-          "我们公司福利贼好,在这里，你可以学到如何反抗资本主义薛文潇，成为一个合格的反卷达人！",
-        address: "重庆",
-        photo: "",
-        e_email: "1234567890@qq.com",
-        ephone: "1234567890123",
+        // name: "奇思妙想",
+        // scale: "1000人",
+        // media: "",
+        // introduce:
+        //   "我们公司福利贼好,在这里，你可以学到如何反抗资本主义薛文潇，成为一个合格的反卷达人！" +
+        //   "我们公司福利贼好,在这里，你可以学到如何反抗资本主义薛文潇，成为一个合格的反卷达人！" +
+        //   "我们公司福利贼好,在这里，你可以学到如何反抗资本主义薛文潇，成为一个合格的反卷达人！" +
+        //   "我们公司福利贼好,在这里，你可以学到如何反抗资本主义薛文潇，成为一个合格的反卷达人！" +
+        //   "我们公司福利贼好,在这里，你可以学到如何反抗资本主义薛文潇，成为一个合格的反卷达人！" +
+        //   "我们公司福利贼好,在这里，你可以学到如何反抗资本主义薛文潇，成为一个合格的反卷达人！" +
+        //   "我们公司福利贼好,在这里，你可以学到如何反抗资本主义薛文潇，成为一个合格的反卷达人！" +
+        //   "我们公司福利贼好,在这里，你可以学到如何反抗资本主义薛文潇，成为一个合格的反卷达人！",
+        // address: "重庆",
+        // photo: "",
+        // e_email: "1234567890@qq.com",
+        // ephone: "1234567890123",
       },
     };
   },

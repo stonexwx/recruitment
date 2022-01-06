@@ -6,13 +6,14 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 企业信息
  * @TableName enterprise
  */
 @TableName(value ="enterprise")
-public class Enterprise extends Object implements Serializable {
+public class Enterprise implements Serializable {
     /**
      * 企业id
      */

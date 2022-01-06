@@ -38,7 +38,6 @@ public class EnterpriseController {
      */
     @RequestMapping("/enterprise_paiming_select")
     @ResponseBody
-    @CrossOrigin(origins = "http://localhost:8081/")
     public String selectByScale(){
         List<Enterprise> list = enterpriseService.selectByScale();
         Map<String,Object> map = new HashMap<>();

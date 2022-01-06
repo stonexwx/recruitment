@@ -6,9 +6,12 @@ import axios from "axios";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 
+
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 // Axios
+axios.defaults.withCredentials=true;
+
 Vue.prototype.$http = axios.create({
   baseURL: "http://localhost:8080", //基础路径
   crossDomain: true,

@@ -16,7 +16,6 @@ import java.util.Map;
 
 @Controller
 @SessionAttributes("user")
-@CrossOrigin(origins = "http://localhost:8081/")
 public class LoginController {
     @Autowired
     UsersServiceImpl usersService;
@@ -35,7 +34,7 @@ public class LoginController {
         if(users!=null){
             httpSession.setAttribute("user",users);
             map.put("flag","true");
-            map.put("data",users);
+            map.put("user",users);
             return JSON.toJSONString(map);
         }
         return null;

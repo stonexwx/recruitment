@@ -1,24 +1,29 @@
 package com.recruitment.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.recruitment.biz.service.impl.Job2ServiceImpl;
 import com.recruitment.biz.service.impl.JobSeekerServiceImpl;
+import com.recruitment.dao.domain.Job2;
 import com.recruitment.dao.domain.Users;
 import com.recruitment.dao.dto.JobSeekerDTO;
 import com.recruitment.global.Contant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
 public class SeekerConller {
     @Autowired
     JobSeekerServiceImpl jobSeekerService;
-
+    @Autowired
+    Job2ServiceImpl job2Service;
     /**
      * @return
      */
@@ -35,7 +40,7 @@ public class SeekerConller {
                 jobSeekerDTO.getJobSeeker().setSex("男");
             }
             map.put("flag", "true");
-            map.put("jobSeeker", jobSeekerDTO);
+            map.put("jobSeekerDTO", jobSeekerDTO);
             httpSession.setAttribute("jobSeeker", jobSeekerDTO);
             return JSON.toJSONString(map);
         }
@@ -53,7 +58,7 @@ public class SeekerConller {
         JobSeekerDTO jobSeekerDTO = (JobSeekerDTO) httpSession.getAttribute("jobSeeker");
         Users users = (Users) httpSession.getAttribute("user");
         Map<String, Object> map = new HashMap<>();
-        if (!jobSeekerDTO.getJobSeeker().getName().equals(username)) {
+        if (!jobSeekerDTO.getJobSeeker().getName().equals(username)||jobSeekerDTO.getJobSeeker().getName()==null) {
             jobSeekerDTO.getJobSeeker().setName(username);
         }
         if (!users.getUser_name().equals(name)) {
@@ -88,5 +93,11 @@ public class SeekerConller {
             return JSON.toJSONString(map);
         }
         return JSON.toJSONString(map.put("flag","false"));
+    }
+    @ResponseBody
+    @RequestMapping("/job_type")
+    public String jobType(){
+       List<Job2> job2= job2Service.selectAll();
+       return JSON.toJSONString(job2);
     }
 }
