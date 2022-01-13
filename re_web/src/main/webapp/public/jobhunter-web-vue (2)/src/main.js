@@ -13,7 +13,7 @@ Vue.use(ElementUI);
 axios.defaults.withCredentials=true;
 
 Vue.prototype.$http = axios.create({
-  baseURL: "http://192.168.0.7:8080", //基础路径
+  baseURL: "http://localhost:8080", //基础路径
   crossDomain: true,
   xhrFields: {
     withCredentials: true
