@@ -13,7 +13,7 @@ Vue.use(ElementUI);
 axios.defaults.withCredentials=true;
 
 Vue.prototype.$http = axios.create({
-  baseURL: "http://localhost:8080", //基础路径
+  baseURL: "http://192.168.0.7:8080", //基础路径
   crossDomain: true,
   xhrFields: {
     withCredentials: true
@@ -21,7 +21,6 @@ Vue.prototype.$http = axios.create({
   headers: { "token":  sessionStorage.getItem("token")!==null?sessionStorage.getItem("token"):""} //每次发送请求携带token
   //headers: { "token":  sessionStorage.getItem("token")?sessionStorage.getItem("token"):""} //每次发送请求携带token
 });
-
 new Vue({
   router,
   store,

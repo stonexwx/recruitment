@@ -30,6 +30,19 @@ public interface EvaluationMapper extends BaseMapper<Evaluation> {
      * 保存平均值
      */
     void updateAvg(@Param("avg") String avg,@Param("eid") Long eid);
+    /**
+     * 评论审核
+     */
+    void updateEvaluationAdmin(@Param("id") Long id);
+    /**
+     * 评论查看
+     */
+    List<Evaluation> selectAll();
+    /**
+     * 评论删除
+     * @param id
+     */
+    void deleteById(@Param("id") Long id);
 }
 
 

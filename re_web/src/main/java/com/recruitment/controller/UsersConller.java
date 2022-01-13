@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -79,4 +80,43 @@ public class UsersConller {
         }
         return null;
     }
+    /*管理员分隔线------------------------------------------------------------------------------------
+     */
+    /**
+     * 管理员查询所有用户
+     */
+    @RequestMapping("/admin_user_select")
+    @ResponseBody
+    public String userSelectAdmin(){
+        List<Users> list = usersService.userSelectAll();
+        return JSON.toJSONString(list);
+    }
+    /**
+     * 管理员更改用户
+     * @param users
+     */
+    @RequestMapping("/admin_user_update")
+    @ResponseBody
+    public String userUpdateAdmin(Users users){
+        usersService.userUpdate(users);
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("flag", true);
+        return JSON.toJSONString(map);
+    }
+    /**
+     * 管理员删除用户
+     */
+    @RequestMapping("/admin_user_delete")
+    @ResponseBody
+    public String userDeleteAdmin(Long uid){
+        usersService.userDelete(uid);
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("flag", true);
+        return JSON.toJSONString(map);
+    }
+    /**
+     * 管理员添加用户
+     * 这个和注册用一个方法
+     */
+
 }

@@ -22,18 +22,26 @@
     <update id="updateAvg">
         UPDATE `re`.`enterprise` SET `eva_scale` = #{avg} WHERE `eid` = #{eid}
     </update>
+    <update id="updateEvaluationAdmin">
+        UPDATE `re`.`evaluation` SET `type` = '1' WHERE `id` = #{id}
+    </update>
+    <delete id="deleteById">
+        DELETE FROM `re`.`evaluation` WHERE `id` = #{id}
+    </delete>
     <resultMap id="selectEvaluation" type="com.recruitment.dao.dto.EvaluationDTO">
         <id property="evaluation.id" column="id" jdbcType="BIGINT"/>
         <result property="evaluation.content" column="content" jdbcType="VARCHAR"/>
         <result jdbcType="VARCHAR" property="evaluation.type" column="type"/>
         <result jdbcType="BIGINT" column="id" property="evaluation.id"/>
         <result property="userName" column="user_name"/>
+        <result property="evaluation.score" column="score"/>
     </resultMap>
     <select id="selectAllByEid" resultMap="selectEvaluation">
         SELECT
             users.user_name,
             evaluation.content,
-            evaluation.type
+            evaluation.type,
+            evaluation.score
         FROM
             evaluation
                 INNER JOIN
@@ -45,5 +53,8 @@
     </select>
     <select id="selectAvg" resultType="java.lang.String">
         SELECT AVG(evaluation.score) FROM evaluation
+    </select>
+    <select id="selectAll" resultType="com.recruitment.dao.domain.Evaluation">
+        select * from evaluation where type ='0'
     </select>
 </mapper>

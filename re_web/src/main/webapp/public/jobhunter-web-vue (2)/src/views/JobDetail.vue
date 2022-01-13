@@ -78,19 +78,17 @@ export default {
   methods: {
 
     interview() {
-      const token = sessionStorage.getItem("token");
-      this.$http({
-        method: "POST",
-        url: "/intereview_insert",
-        data: {
-          rid: this.pageContent.reInfo.rid,
-          uid: token.uid,
-          value1: this.value1,
+
+      this.$http.get("/intereview_insert", {params:
+            {
+              rid: this.pageContent.reInfo.rid,
+              value1: this.value1,
         },
       })
           .then((res) => {
-            if (res.flag) {
-              console.log("预约成功 您的预约时间是" + this.value1);
+            if (res.data.flag) {
+              alert("预约成功");
+              this.showButton = !this.showButton
             } else {
               this.$message.error("预约数据错误");
             }

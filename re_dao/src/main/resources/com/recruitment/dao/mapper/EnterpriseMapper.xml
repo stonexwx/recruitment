@@ -26,6 +26,20 @@
         media,evaluation,`scale`,
         address
     </sql>
+    <insert id="insertAll">
+        INSERT INTO `re`.`enterprise` (`addtime`, `number`, `ename`, `principal`,
+                                       `ephone`, `e_email`, `e_introduce`,
+                                       `scale`, `address`, `e_type`)
+        VALUES (#{enterprise.addtime}, #{enterprise.number}, #{enterprise.ename}, #{enterprise.principal},
+                #{enterprise.ephone},#{enterprise.e_email}, #{enterprise.e_introduce},
+               #{enterprise.scale}, #{enterprise.address}, #{enterprise.e_type})
+    </insert>
+    <update id="updateAll">
+        UPDATE `re`.`enterprise` SET `number` = #{enterprise.number}, `ename` = #{enterprise.ename}, `principal` = #{enterprise.principal}, `ephone` = #{enterprise.ephone}, `e_email` =#{enterprise.e_email}, `e_introduce` = #{enterprise.e_introduce}, `scale` = #{enterprise.scale}, `address` = #{enterprise.address}, `e_type` = #{enterprise.e_type},`addtime`=#{enterprise.addtime} WHERE `eid` = #{enterprise.eid}
+    </update>
+    <delete id="deleteByEid">
+        DELETE FROM `re`.`enterprise` WHERE `eid` = #{eid}
+    </delete>
     <select id="selectAllByRid" resultType="com.recruitment.dao.domain.Enterprise">
         SELECT
             enterprise.ename,
@@ -35,15 +49,24 @@
             enterprise.e_email,
             enterprise.ephone,
             enterprise.photo,
-            enterprise.address
+            enterprise.address,
+            enterprise.eid
         FROM
             enterprise
-                LEFT JOIN
-            re_info
-            ON
-                enterprise.eid = re_info.eid
-        WHERE
-            re_info.rid = #{rid}
+
+              <if test="type == 'putong'.toString()">
+                  LEFT JOIN
+                  re_info
+                  ON
+                  enterprise.eid = re_info.eid
+
+                  where re_info.rid = #{rid}
+
+              </if>
+              <if test="type == 'teshu'.toString()">
+                 where enterprise.eid = #{rid}
+              </if>
+
     </select>
     <select id="selectByEvaluation" resultType="com.recruitment.dao.domain.Enterprise">
         SELECT
@@ -60,7 +83,8 @@
         SELECT
             enterprise.ename,
             enterprise.e_email,
-            enterprise.address
+            enterprise.address,
+            enterprise.eid
         FROM
             enterprise
         <where>
@@ -72,6 +96,9 @@
             </if>
         </where>
 
+    </select>
+    <select id="selectAll" resultType="com.recruitment.dao.domain.Enterprise">
+        select * from enterprise limit #{page},#{limit}
     </select>
 
 </mapper>

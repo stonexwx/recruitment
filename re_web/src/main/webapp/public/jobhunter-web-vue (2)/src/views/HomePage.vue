@@ -69,7 +69,6 @@ export default {
       data: {
       }
     }).then((res)=>{
-
       this.joblist = res.data;
     }).catch(()=>{
       this.$message.error('工作信息获取异常');

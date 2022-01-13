@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -58,7 +57,7 @@ public class UpController {
         Map<String,Object> map = new HashMap<>();
         map.put("code",0);
         map.put("uploadUrl","http://localhost:8080/upload/"+imgName);
-        jobSeekerService.seekerFileUpdate("head","http://localhost:8080/upload/"+imgName);
+        jobSeekerService.seekerFileUpdate("head","http://localhost:8080/upload/"+imgName,users );
         return JSON.toJSONString(map);
     }
     /**
@@ -72,7 +71,7 @@ public class UpController {
         ServletContext sc = request.getSession().getServletContext();
         Users users = (Users) request.getSession().getAttribute("user");
         String dir = sc.getRealPath("/upload");
-        String type = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1, file.getOriginalFilename().length());
+        String type = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
         Random r = new Random();
         String imgName = "";
@@ -93,7 +92,7 @@ public class UpController {
         Map<String,Object> map = new HashMap<>();
         map.put("code",0);
         map.put("uploadUrl","http://localhost:8080/upload/"+imgName);
-        jobSeekerService.seekerFileUpdate("resume","http://localhost:8080/upload/"+imgName);
+        jobSeekerService.seekerFileUpdate("resume","http://localhost:8080/upload/"+imgName,users );
         return JSON.toJSONString(map);
     }
     /**
@@ -107,7 +106,7 @@ public class UpController {
         ServletContext sc = request.getSession().getServletContext();
         Users users = (Users) request.getSession().getAttribute("user");
         String dir = sc.getRealPath("/upload");
-        String type = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1, file.getOriginalFilename().length());
+        String type = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
         Random r = new Random();
         String imgName = "";
@@ -128,7 +127,7 @@ public class UpController {
         Map<String,Object> map = new HashMap<>();
         map.put("code",0);
         map.put("uploadUrl","http://localhost:8080/upload/"+imgName);
-        jobSeekerService.seekerFileUpdate("education","http://localhost:8080/upload/"+imgName);
+        jobSeekerService.seekerFileUpdate("education","http://localhost:8080/upload/"+imgName, users);
         return JSON.toJSONString(map);
     }
 }

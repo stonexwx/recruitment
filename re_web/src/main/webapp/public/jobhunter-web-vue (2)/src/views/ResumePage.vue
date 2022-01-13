@@ -24,9 +24,6 @@
           <el-form-item label="用户姓名" prop="name">
             <el-input v-model="ruleForm.jobSeeker.name"></el-input>
           </el-form-item>
-          <el-form-item label="用户电话" prop="edu_phone">
-            <el-input v-model="ruleForm.jobSeeker.edu_phone"></el-input>
-          </el-form-item>
           <el-form-item label="用户邮箱" prop="email">
             <el-input v-model="ruleForm.jobSeeker.email"></el-input>
           </el-form-item>
@@ -41,9 +38,9 @@
             </el-select>
           </el-form-item>
           <el-form-item label="工作意向" prop="job_type">
-            <el-select v-model="ruleForm.jobSeeker.job_type" placeholder="还未填写">
+            <el-select v-model="ruleForm.job_type" placeholder="还未填写">
               <el-option
-                  v-for="(item, index) in job_type"
+                  v-for="(item, index) in job_typeList"
                   :key="index"
                   :label="item.job2_name"
                   :value="item.job2_name"
@@ -150,12 +147,12 @@ export default {
       data: {},
     })
         .then((res) => {
-          this.job_type = res.data;
+          this.job_typeList= res.data;
         })
         .catch(() => {
           this.$message.error("工作类型获取异常");
         });
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     this.$http({
       method: "POST",
       url: "/seeker_select",
@@ -164,7 +161,9 @@ export default {
         .then((res) => {
           this.ruleForm.username = token.user_name;
           this.ruleForm = res.data.jobSeekerDTO;
-
+          this.imageUrl = res.data.jobSeekerDTO.jobSeeker.photo;
+          this.imageUrl_resume = res.data.jobSeekerDTO.jobSeeker.resume;
+          this.imageUrl_photo = res.data.jobSeekerDTO.jobSeeker.edu_phone;
         })
         .catch(() => {
           this.$message.error("个人信息获取异常");
@@ -192,7 +191,7 @@ export default {
         "博士",
         "博士后",
       ],
-      job_type: [
+      job_typeList: [
         // "java",
         // "Python"
       ],
@@ -344,16 +343,15 @@ export default {
       this.confirmLoading = false;
       this.$refs.upload.clearFiles();
     },
-    submitForm(formName) {
+    submitForm() {
       this.$http.get("/seeker_update",
           {
             params: {
-              name: formName.name,
-              education: formName.education,
-              sex: formName.sex,
-              edu_phone: formName.edu_phone,
-              email: formName.email,
-              job_type: this.job_type
+              name: this.ruleForm.jobSeeker.name,
+              education: this.ruleForm.jobSeeker.education,
+              sex: this.ruleForm.jobSeeker.sex,
+              email: this.ruleForm.jobSeeker.email,
+              job_type: this.ruleForm.job_type
             }
 
           }

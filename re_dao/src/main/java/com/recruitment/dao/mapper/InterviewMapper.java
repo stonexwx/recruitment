@@ -14,11 +14,11 @@ public interface InterviewMapper extends BaseMapper<Interview> {
     * 预约面试
      * @param date
      * @param rid
-     * @param sid
+     * @param uid
      * @param state
      * @param addtime
      */
-    void insertInterview(@Param("date")Date date,@Param("rid") Long rid,@Param("sid") Long sid
+    void insertInterview(@Param("date")Date date,@Param("rid") Long rid,@Param("uid") Long uid
     ,@Param("state") String state,@Param("addtime") Date addtime);
 }
 

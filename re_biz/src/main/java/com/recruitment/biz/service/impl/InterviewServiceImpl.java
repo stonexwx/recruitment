@@ -18,9 +18,9 @@ public class InterviewServiceImpl extends ServiceImpl<InterviewMapper, Interview
     @Autowired
     InterviewMapper interviewMapper;
     @Override
-    public void insertInterview(Date date, Long rid, Long sid, String state) {
+    public void insertInterview(Date date, Long rid, Long uid, String state) {
         Date addtime = new Date();
-        interviewMapper.insertInterview(date,rid, sid,state,addtime);
+        interviewMapper.insertInterview(date,rid, uid,state,addtime);
     }
 }
 

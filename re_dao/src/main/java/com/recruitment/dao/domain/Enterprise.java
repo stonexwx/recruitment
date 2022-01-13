@@ -86,6 +86,7 @@ public class Enterprise implements Serializable {
     private String address;
 
     private String photo;
+    private String e_type;
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -259,5 +260,11 @@ public class Enterprise implements Serializable {
         this.photo = photo;
     }
 
+    public String getE_type() {
+        return e_type;
+    }
 
+    public void setE_type(String e_type) {
+        this.e_type = e_type;
+    }
 }

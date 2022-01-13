@@ -18,6 +18,6 @@
         time,addtime,state
     </sql>
     <insert id="insertInterview">
-        INSERT INTO `re`.`interview` (`sid`, `rid`, `time`, `addtime`, `state`) VALUES (#{sid}, #{rid}, #{date}, #{addtime}, #{state})
+        INSERT INTO `re`.`interview` (`uid`, `rid`, `time`, `addtime`, `state`) VALUES (#{uid}, #{rid}, #{date}, #{addtime}, #{state})
     </insert>
 </mapper>

@@ -10,7 +10,8 @@ public class QueryAll {
     private String name;
     private String address;
     private String other;
-
+    private Long eid;
+    private Long rid;
     public String getName() {
         return name;
     }
@@ -33,5 +34,21 @@ public class QueryAll {
 
     public void setOther(String other) {
         this.other = other;
+    }
+
+    public Long getEid() {
+        return eid;
+    }
+
+    public void setEid(Long eid) {
+        this.eid = eid;
+    }
+
+    public Long getRid() {
+        return rid;
+    }
+
+    public void setRid(Long rid) {
+        this.rid = rid;
     }
 }

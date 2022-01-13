@@ -36,6 +36,7 @@ public class Queryimpl implements Query {
                queryAll.setName(enterprise.getEname());
                queryAll.setAddress(enterprise.getAddress());
                queryAll.setOther(enterprise.getE_email());
+               queryAll.setEid(enterprise.getEid());
                list.add(queryAll);
            }
            return list;
@@ -45,6 +46,7 @@ public class Queryimpl implements Query {
                 queryAll.setName(reInfo.getReInfo().getJob_name());
                 queryAll.setAddress(reInfo.getReInfo().getFull_path());
                 queryAll.setOther(String.valueOf(reInfo.getReInfo().getScale()));
+                queryAll.setRid(reInfo.getReInfo().getRid());
                 list.add(queryAll);
             }
         }

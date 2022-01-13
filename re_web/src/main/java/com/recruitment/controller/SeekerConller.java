@@ -6,10 +6,8 @@ import com.recruitment.biz.service.impl.JobSeekerServiceImpl;
 import com.recruitment.dao.domain.Job2;
 import com.recruitment.dao.domain.Users;
 import com.recruitment.dao.dto.JobSeekerDTO;
-import com.recruitment.global.Contant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -54,15 +52,12 @@ public class SeekerConller {
      */
     @RequestMapping("/seeker_update")
     @ResponseBody
-    public String updateSeeker(String name, String username, String education, String sex, String email, String job_type, HttpSession httpSession) {
+    public String updateSeeker(String name, String education, String sex, String email, String job_type, HttpSession httpSession) {
         JobSeekerDTO jobSeekerDTO = (JobSeekerDTO) httpSession.getAttribute("jobSeeker");
         Users users = (Users) httpSession.getAttribute("user");
         Map<String, Object> map = new HashMap<>();
-        if (!jobSeekerDTO.getJobSeeker().getName().equals(username)||jobSeekerDTO.getJobSeeker().getName()==null) {
-            jobSeekerDTO.getJobSeeker().setName(username);
-        }
-        if (!users.getUser_name().equals(name)) {
-            users.setUser_name(name);
+        if (!jobSeekerDTO.getJobSeeker().getName().equals(name)||jobSeekerDTO.getJobSeeker().getName()==null) {
+            jobSeekerDTO.getJobSeeker().setName(name);
         }
         if (!jobSeekerDTO.getJobSeeker().getEducation().equals(education)) {
             jobSeekerDTO.getJobSeeker().setEducation(education);

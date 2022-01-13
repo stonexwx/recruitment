@@ -3,13 +3,12 @@ package com.recruitment.biz.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.recruitment.dao.domain.JobSeeker;
 import com.recruitment.biz.service.JobSeekerService;
+import com.recruitment.dao.domain.Users;
 import com.recruitment.dao.dto.JobSeekerDTO;
 import com.recruitment.dao.mapper.JobSeekerMapper;
 import com.recruitment.global.Contant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  *
@@ -44,8 +43,8 @@ public class JobSeekerServiceImpl extends ServiceImpl<JobSeekerMapper, JobSeeker
     }
 
     @Override
-    public boolean seekerFileUpdate(String type, String address) {
-        jobSeekerMapper.updatePhotoAndEducationAndResume(address,type);
+    public boolean seekerFileUpdate(String type, String address, Users users) {
+        jobSeekerMapper.updatePhotoAndEducationAndResume(address,type, users.getUid());
         return true;
     }
 

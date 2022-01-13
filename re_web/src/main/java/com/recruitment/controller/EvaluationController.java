@@ -1,7 +1,10 @@
 package com.recruitment.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.recruitment.biz.service.impl.EnterpriseServiceImpl;
 import com.recruitment.biz.service.impl.EvaluationServiceImpl;
+import com.recruitment.biz.service.impl.Queryimpl;
+import com.recruitment.dao.domain.Enterprise;
 import com.recruitment.dao.domain.Evaluation;
 import com.recruitment.dao.domain.Users;
 import com.recruitment.dao.dto.EvaluationDTO;
@@ -20,13 +23,24 @@ import java.util.Map;
 public class EvaluationController {
     @Autowired
     EvaluationServiceImpl evaluationService;
+    @Autowired
+    EnterpriseServiceImpl enterpriseService;
+    @Autowired
+    Queryimpl queryimpl;
     /**
      * 查询
      */
     @RequestMapping("/evaluation_select")
     @ResponseBody
     public String eva_select(String eid){
-        List<EvaluationDTO> evaluations = evaluationService.evaAllSelect(Long.valueOf(eid));
+        String a;
+        if (eid.contains("e")) {
+            a=eid.substring(1);
+        }else {
+            Enterprise enterprise = enterpriseService.selectByRid(Long.valueOf(eid), "putong");
+            a= String.valueOf(enterprise.getEid());
+        }
+        List<EvaluationDTO> evaluations = evaluationService.evaAllSelect(Long.valueOf(a));
         return JSON.toJSONString(evaluations);
     }
     /**
@@ -35,7 +49,7 @@ public class EvaluationController {
      */
     @RequestMapping("/evaluation_insert")
     @ResponseBody
-    public String eva_insert(String eid, String score, String textarea, HttpSession httpSession){
+    public String eva_insert(String ename, String score, String textarea, HttpSession httpSession){
         Users users = (Users) httpSession.getAttribute("user");
         Evaluation evaluation =new Evaluation();
         Date date = new Date();
@@ -44,8 +58,40 @@ public class EvaluationController {
         evaluation.setType("0");
         evaluation.setAddtime(date);
         evaluation.setUid(users.getUid());
-        evaluationService.evaAllInsert(Long.valueOf(eid),evaluation);
-        evaluationService.avg(Long.valueOf(eid));
+        Long eid=queryimpl.select(ename,"1",null).get(0).getEid();
+        evaluationService.evaAllInsert(eid,evaluation);
+        evaluationService.avg(eid);
+        Map<String,Boolean> map = new HashMap<>();
+        map.put("flag",true);
+        return JSON.toJSONString(map);
+    }
+    /*----------------------------------------分隔线---------------------------------------------*/
+    /**
+     * 评论审核
+     */
+    @RequestMapping("/admin_evaluation_update")
+    @ResponseBody
+    public String adminEva_update(Long id){
+        evaluationService.updateEvaluationAdmin(id);
+        Map<String,Boolean> map = new HashMap<>();
+        map.put("flag",true);
+        return JSON.toJSONString(map);
+    }
+    /**
+     * 评论查看
+     */
+    @RequestMapping("/admin_evaluation_select")
+    @ResponseBody
+    public String adminEva_select(){
+       return JSON.toJSONString(evaluationService.selectAllAdmin()) ;
+    }
+    /**
+     * 评论删除
+     */
+    @RequestMapping("/admin_evaluation_delete")
+    @ResponseBody
+    public String adminEva_delete(Long id){
+        evaluationService.deleteByidAdmin(id);
         Map<String,Boolean> map = new HashMap<>();
         map.put("flag",true);
         return JSON.toJSONString(map);

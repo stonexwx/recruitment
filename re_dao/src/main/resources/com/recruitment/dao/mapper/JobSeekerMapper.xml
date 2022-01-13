@@ -29,22 +29,21 @@
     </insert>
     <update id="updateAll">
         UPDATE `re`.`job_seeker`
-        inner join `re`.`users`
         SET `education` = #{jobSeeker.education}, `job_type` = #{jobSeeker.job_type},
-            `name` = #{jobSeeker.name}, `sex` = #{jobSeeker.sex}, `email` = #{jobSeeker.email},
-            `users`.`user_name`=#{users.user_name} WHERE `sid` = #{jobSeeker.sid} And users.uid=#{users.uid}
+            `name` = #{jobSeeker.name}, `sex` = #{jobSeeker.sex}, `email` = #{jobSeeker.email}
+             WHERE `sid` = #{jobSeeker.sid}
     </update>
     <update id="updatePhotoAndEducationAndResume">
         UPDATE `re`.`job_seeker`
         <set>
             <if test="type=='head'">
-                photo=#{address}
+                photo=#{address} where uid=#{uid}
             </if>
             <if test="type=='resume'">
-                resume=#{address}
+                resume=#{address} where uid=#{uid}
             </if>
             <if test="type == 'education'">
-                education=#{address}
+                edu_phone=#{address} where uid=#{uid}
             </if>
         </set>
     </update>

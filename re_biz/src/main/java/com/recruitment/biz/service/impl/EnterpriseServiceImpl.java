@@ -24,8 +24,8 @@ public class EnterpriseServiceImpl extends ServiceImpl<EnterpriseMapper, Enterpr
      * @return
      */
     @Override
-    public Enterprise selectByRid(Long rid) {
-        return enterpriseMapper.selectAllByRid(rid);
+    public Enterprise selectByRid(Long rid,String type) {
+        return enterpriseMapper.selectAllByRid(rid,type);
     }
 
     /**
@@ -35,6 +35,53 @@ public class EnterpriseServiceImpl extends ServiceImpl<EnterpriseMapper, Enterpr
     @Override
     public List<Enterprise> selectByScale() {
         return enterpriseMapper.selectByEvaluation();
+    }
+
+    /*
+    我是分隔线-----------------------------------------------------------------------------------
+     */
+
+    /**
+     * 管理员增加企业
+     * @param enterprise
+     *
+     */
+    @Override
+    public void insertEnterpriseAdmin(Enterprise enterprise) {
+        enterpriseMapper.insertAll(enterprise);
+    }
+
+    /**
+     * 管理员查询所有企业信息
+     * @param page
+     * @param limit
+     * @return
+     */
+    @Override
+    public List<Enterprise> selectEnterpriseAdmin(int page, int limit) {
+        return enterpriseMapper.selectAll(((page-1)*10),limit);
+    }
+
+    /**
+     * 管理员更新企业信息
+     *
+     * @param enterprise
+     */
+    @Override
+    public void updateEnterpriseAdmin(Enterprise enterprise) {
+        enterpriseMapper.updateAll(enterprise);
+    }
+    /**
+     * 管理员删除企业信息
+     */
+    /**
+     * 管理员删除企业信息
+     *
+     * @param eid
+     */
+    @Override
+    public void deleteEnterpriseAdmin(Long eid) {
+        enterpriseMapper.deleteByEid(eid);
     }
 }
 

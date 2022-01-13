@@ -21,4 +21,17 @@ public interface EvaluationService extends IService<Evaluation> {
      * @param eid
      */
     void avg(Long eid);
+    /*-----------------------------------我是分割线-------------------------------------*/
+    /**
+     * 评论审核
+     */
+    void updateEvaluationAdmin(Long id);
+    /**
+     * 评论查看
+     */
+    List<Evaluation> selectAllAdmin();
+    /**
+     * 评论删除
+     */
+    void deleteByidAdmin(Long id);
 }

@@ -33,6 +33,33 @@ public class EvaluationServiceImpl extends ServiceImpl<EvaluationMapper, Evaluat
         evaluationMapper.updateAvg(c.substring(0,4),eid);
     }
 
+    /**
+     * 评论审核
+     *
+     * @param id
+     */
+    @Override
+    public void updateEvaluationAdmin(Long id) {
+        evaluationMapper.updateEvaluationAdmin(id);
+    }
+
+    /**
+     * 评论查看
+     */
+    @Override
+    public List<Evaluation> selectAllAdmin() {
+        return evaluationMapper.selectAll();
+    }
+
+    /**
+     * 评论删除
+     *
+     * @param id
+     */
+    @Override
+    public void deleteByidAdmin(Long id) {
+        evaluationMapper.deleteById(id);
+    }
 }
 
 

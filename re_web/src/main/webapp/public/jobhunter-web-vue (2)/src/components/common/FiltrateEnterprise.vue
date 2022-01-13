@@ -13,7 +13,7 @@
             slot="prepend"
             placeholder="选择搜索类别"
           >
-            <el-option label="企业" value="1"></el-option>
+            <el-option label="企业" value="1" ></el-option>
             <el-option label="职位" value="0"></el-option>
           </el-select>
           <el-button
@@ -48,17 +48,24 @@
         stripe
         style="width: 100%">
       <el-table-column
-          :prop="name"
+          prop="name"
           :label="label_two"
-          width="180">
+          width="350px">
       </el-table-column>
       <el-table-column
-          :prop="address"
-          label="地址">
+          prop="address"
+          label="地址" width="400px">
       </el-table-column>
       <el-table-column
-          :prop="other"
-          :label="label_three">
+          prop="other"
+          :label="label_three" width="350px">
+      </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button
+              size="mini"
+              @click="handleEdit(scope.$index,searchConditions.se_type)">查看详情</el-button>
+        </template>
       </el-table-column>
     </el-table>
   </div>
@@ -67,6 +74,25 @@
 <script>
 export default {
   name: "FiltrateEnterprise",
+  created() {
+    this.searchConditions.se_type = "1";
+    this.$http
+        .get("/query", {params:{
+            se_type: "1",
+            city: this.searchConditions.city,
+            message: this.searchConditions.jobName}
+        })
+        .then((res) => {
+
+          this.searchConditions.jobName = "";
+          this.label_two = "企业";
+          this.label_three = "企业邮箱";
+          this.tableData = res.data;
+        })
+        .catch(() => {
+          this.$message.error("关键字查询失败");
+        });
+  },
   data() {
     return {
       prop:["searchConditions.se_type"],
@@ -112,7 +138,14 @@ export default {
       }
       this.updateJobList();
     },
-
+    handleEdit(index,type) {
+      if (type == "0"){
+        this.$router.push("/main/detail/"+this.tableData[index].rid);
+      }
+     else if(type == "1"){
+        this.$router.push("/main/enterpriseDetail/e"+this.tableData[index].eid);
+      }
+    },
     search() {
       //企业查询
       if (this.searchConditions.se_type === "1") {
@@ -144,34 +177,13 @@ export default {
             this.searchConditions.jobName = "";
             this.label_two = "职位";
             this.label_three = "薪水";
-            this.tableData = res.data.reInfo;
+            this.tableData = res.data;
           })
           .catch(() => {
             this.$message.error("关键字查询失败");
           });
       }
-    },
-    // 请求更新工作列表
-    updateJobList() {
-      this.$http
-        .post("", {
-          jobName: this.searchConditions.jobName,
-          se_type: this.searchConditions.se_type,
-          city: this.searchConditions.city,
-          jobExperence: this.searchConditions.jobExperence,
-          jobEB: this.searchConditions.jobEB,
-          jobSalary: this.searchConditions.jobSalary,
-          companyScale: this.searchConditions.companyScale,
-        })
-        .then((res) => {
-          console.log("条件检索获得");
-          console.log(res.data);
-          this.$emit("change-job-list", res.data);
-        })
-        .catch(() => {
-          this.$message.error("工作列表更新失败");
-        });
-    },
+    }
   },
 };
 </script>
@@ -251,5 +263,20 @@ export default {
 .cell{
   text-align: center;
   width: 30%;
+}
+.el-poper{
+  min-width: 81px;
+}
+
+.el-scrollbar{
+  width: 100%;
+  ul{
+    width: 100%;
+    li{
+      margin-bottom: 4px;
+      width: 100%;
+      text-align: left;
+    }
+  }
 }
 </style>

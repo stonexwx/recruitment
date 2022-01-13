@@ -5,7 +5,7 @@
         >&nbsp;——</span
       >
     </h1>
-    <el-table :data="enterpriselist.data" @row-click="enterpriseDetail" stripe style="width: 80%">
+    <el-table :data="enterpriselist.data" @row-click="enterpriseDetail()" stripe style="width: 80%">
       <el-table-column prop="number" label="排名" width="180" />
       <el-table-column prop="enterprise.ename" label="公司名称" width="400" />
       <el-table-column prop="enterprise.address" label="地址" width="300"/>
@@ -19,15 +19,15 @@ export default {
   name: "EnterprisePage",
   data() {
     return {
-      enterpriselist:[
+      enterpriselist: {
         //此数据仅为测试使用
-        // {
-        //   eid:"1",
+        // enterprise: {
+        //   eid: "1",
         //   number: "1",
         //   ename: "奇思妙想",
         //   address: "重庆",
-        //   eva_scale:"100%"
-        // },
+        //   eva_scale: "100%"
+        // }
         // {
         //   eid:"1",
         //   number: "2",
@@ -49,7 +49,7 @@ export default {
         //   address: "深圳",
         //   eva_scale:"80%"
         // },
-      ],
+      },
 
       //正式数据
 
@@ -69,9 +69,15 @@ export default {
     })
   },
   methods:{
-    enterpriseDetail() {
-      this.$router.push("/main/enterpriseDetail/"+this.enterpriselist.eid);
-    },
+    // enterpriseDetail() {
+    //
+    //   this.$router.push({
+    //     path: '/main/enterpriseDetail/',
+    //     query: {
+    //       ename:this.enterpriselist.data.ename
+    //     }
+    //   })
+    // },
   }
 };
 </script>
@@ -96,5 +102,12 @@ ul {
   }
   .el-table{
     margin: 10px auto;
+  }
+  .cell{
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>

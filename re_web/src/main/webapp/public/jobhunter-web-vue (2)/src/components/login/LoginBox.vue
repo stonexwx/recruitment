@@ -35,6 +35,7 @@
       </el-form>
       <div id="last-btn-group">
         <router-link class="line-btn" to="/register">注册账号</router-link>
+        <router-link class="line-btn" to="/">去主页</router-link>
       </div>
     </div>
   </div>
@@ -123,13 +124,13 @@ export default {
                 //TODO 如果通过校验，提示成功并进行页面跳转
                 if (isVerify) {
                   // // 获取并记录用户信息
-
-                    // 存入登录信息
-                    //this.loginInfo.token = token;
-                    // this.loginInfo.uname = res.data.uname;
-                    // this.loginInfo.uid = res.data.uid;
+                  //   存入登录信息
+                    this.loginInfo.uname = res.data.user.user_name;
+                    this.loginInfo.uid = res.data.user.uid;
                     // this.loginInfo.avatar = res.data.avatar;
-                    // // 存储token
+                    // 存储token
+                  sessionStorage.setItem("user_name",res.data.user.user_name)
+
                     // this.$store.commit("login", this.loginInfo);
                   //   // 跳转到主页面
                     this.$router.push("/main/home"); //跳到主页面

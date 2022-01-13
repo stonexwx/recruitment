@@ -23,6 +23,12 @@
     <update id="updatePassword">
         UPDATE `re`.`users` SET `password` = #{newPassword} WHERE `uid` = #{users.uid}
     </update>
+    <update id="updateUserForAdmin">
+        UPDATE `re`.`users` SET `user_name` = #{user.user_name}, `password` =#{user.password}, `role_id` = #{user.role_id}, `phone` = #{user.phone}, `addtime` = #{user.addtime} WHERE `uid` = #{user.uid}
+    </update>
+    <delete id="deleteByUidAll">
+        DELETE FROM `re`.`users` WHERE `uid` = #{uid}
+    </delete>
     <select id="login" resultType="com.recruitment.dao.domain.Users">
         select * from users where phone = #{phone} and password = #{password}
     </select>
@@ -31,5 +37,8 @@
     </select>
     <select id="selectPhoneByPhone" resultType="java.lang.String">
         select phone from users where phone =#{phone}
+    </select>
+    <select id="selectall" resultType="com.recruitment.dao.domain.Users">
+        select * from users
     </select>
 </mapper>

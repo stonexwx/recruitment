@@ -9,6 +9,8 @@ import com.recruitment.dao.mapper.UsersMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  *
  */
@@ -67,12 +69,42 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
 
     /**
      * 查询手机号是否注册
+     *
      * @param phone
      * @return
      */
     @Override
     public String selectPhoneByPhone(String phone) {
         return usersMapper.selectPhoneByPhone(phone);
+    }
+/*-----------------------我是分割线-------------------------------------------------*/
+    /**
+     * 管理员查询所有用户
+     */
+    @Override
+    public List<Users> userSelectAll() {
+        List<Users> list= usersMapper.selectall();
+        return list;
+    }
+
+    /**
+     * 管理员更改用户
+     *
+     * @param users
+     */
+    @Override
+    public void userUpdate(Users users) {
+        usersMapper.updateUserForAdmin(users);
+    }
+
+    /**
+     * 管理员删除用户
+     *
+     * @param uid
+     */
+    @Override
+    public void userDelete(Long uid) {
+        usersMapper.deleteByUidAll(uid);
     }
 }
 
