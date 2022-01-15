@@ -85,10 +85,11 @@ export default {
       }
       // 账号重复性检验
       this.$http
-        .post("/phone" ,{phone:this.form.phone})
+        .get("/phone" ,{params:{phone:this.form.phone}})
         .then((res) => {
-          if (res.data) {
-            this.nextStep();
+          if (res.data.flag!==true) {
+            alert(res.data.flag);
+            this.onSubmit();
           } else {
             this.$confirm("该账号已经注册, 是否前往登录?", "提示", {
               confirmButtonText: "确定",
@@ -114,19 +115,18 @@ export default {
         });
     },
     // // 表单提交
-    // onSubmit() {
-    //   this.accountCheck();
-    //   this.$http
-    //     .get("/user_insert", {params:this.form})
-    //     .then(() => {
-    //       this.active = 3;
-    //       this.$alert("账号注册成功，请登录", "注册结果", { type: "success" });
-    //       this.$router.push("/login");
-    //     })
-    //     .catch(() => {
-    //       this.$message({ type: "warning", message: "账号注册请求失败~" });
-    //     });
-    // },
+    onSubmit() {
+      this.$http
+        .get("/user_insert", {params:this.form})
+        .then(() => {
+          this.active = 3;
+          this.$alert("账号注册成功，请登录", "注册结果", { type: "success" });
+          this.$router.push("/login");
+        })
+        .catch(() => {
+          this.$message({ type: "warning", message: "账号注册请求失败~" });
+        });
+    },
   },
 };
 </script>

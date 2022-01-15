@@ -37,7 +37,8 @@ public class LoginController {
             map.put("user",users);
             return JSON.toJSONString(map);
         }
-        return null;
+        map.put("flag",false);
+        return JSON.toJSONString(map);
     }
 
 }
