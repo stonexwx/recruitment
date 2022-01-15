@@ -44,6 +44,7 @@
         prop="forWardTime"
         label="预约时间"
         min-width="200"
+        :formatter="dateFormat"
       >
       </el-table-column>
       <el-table-column
@@ -93,7 +94,15 @@
           <el-input size="small" v-model="interview.userMobile" auto-complete="off" :disabled="true" ></el-input>
         </el-form-item>
         <el-form-item label="预约时间" prop="forWardTime">
-          <el-input size="small" v-model="interview.forWardTime" auto-complete="off" :disabled="true" ></el-input>
+
+          <el-date-picker
+              v-model="interview.forWardTime"
+              type="date"
+              readonly="true"
+              format="yyyy年MM月dd日"
+              disabled="true"
+          >
+          </el-date-picker>
         </el-form-item>
         <el-form-item label="预约企业" prop="forWardDept">
           <el-input size="small" v-model="interview.forWardDept" auto-complete="off" :disabled="true" ></el-input>
@@ -108,8 +117,9 @@
 
 <script>
 // 导入请求方法
-import { userSave, userDelete, userPwd } from "../../api/userMG";
+
 import Pagination from "../../components/Pagination";
+import {interviewDelete, interviewList} from "../../api/userMG";
 export default {
   name: "Comment",
   data() {
@@ -142,10 +152,7 @@ export default {
       formInline: {
         page: 1,
         limit: 10,
-        deptId: "",
-        userName: "",
-        userMobile: "",
-        isLock: "",
+
       },
       //用户数据
       userData: [],
@@ -182,6 +189,9 @@ export default {
    * 里面的方法只有被调用才会执行
    */
   methods: {
+    dateFormat:function(date){
+      return this.$moment(date).format("YYYY-MM-DD")
+    },
     //弹框取消
     closeDialog(dialog) {
       if (dialog == "edit") {
@@ -195,62 +205,25 @@ export default {
     // 获取数据方法
     getdata(parameter) {
       this.loading = true;
-      // 模拟数据开始
-      let res = {
-        code: 0,
-        msg: null,
-        count: 3,
-        data: [
-          {
-            uid: 1,
-            forWardTime: "2021-09-08",
-            forWardDept: "奇思妙想重庆有限公司",
-            userName: "薛文潇",
-            userMobile: "138123456789",
-          },
-          {
-            uid: 2,
-            forWardTime: "2021-09-08",
-            forWardDept: "奇思妙想重庆有限公司",
-            userName: "易世嫘",
-            userMobile: "138123456789",
-          },
-          {
-            uid: 3,
-            forWardTime: "2021-09-08",
-            forWardDept: "奇思妙想重庆有限公司",
-            userName: "马化腾",
-            userMobile: "138123456789",
-          },
-        ],
-      };
-      this.loading = false;
-      this.userData = res.data;
-      // 分页赋值
-      this.pageparm.currentPage = this.formInline.page;
-      this.pageparm.pageSize = this.formInline.limit;
-      this.pageparm.total = res.count;
-      // 模拟数据结束
-
       /***
        * 调用接口，注释上面模拟数据 取消下面注释
        */
       // 获取用户列表
-      // userList(parameter).then(res => {
-      //   this.loading = false
-      //   if (res.success == false) {
-      //     this.$message({
-      //       type: 'info',
-      //       message: res.msg
-      //     })
-      //   } else {
-      //     this.userData = res.data
-      //     // 分页赋值
-      //     this.pageparm.currentPage = this.formInline.page
-      //     this.pageparm.pageSize = this.formInline.limit
-      //     this.pageparm.total = res.count
-      //   }
-      // })
+        interviewList(parameter).then(res => {
+        this.loading = false
+        if (res.flag == false) {
+          this.$message({
+            type: 'info',
+            message: "查询错误，请联系代码编写人员"
+          })
+        } else {
+          this.userData = res.interview
+          // 分页赋值
+          this.pageparm.currentPage = this.formInline.page
+          this.pageparm.pageSize = this.formInline.limit
+          this.pageparm.total = res.count
+        }
+      })
     },
     // 分页插件事件
     callFather(parm) {
@@ -282,10 +255,11 @@ export default {
       })
         .then(() => {
           // 删除
+          let params = {"iid":this.userData[index].iid};
           //填写接口 数据
-          userDelete(row.id)
+          interviewDelete(params)
             .then((res) => {
-              if (res.success) {
+              if (res.flag) {
                 this.$message({
                   type: "success",
                   message: "数据已删除!",

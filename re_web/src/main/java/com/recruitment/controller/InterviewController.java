@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +19,15 @@ import java.util.Map;
 public class InterviewController {
     @Autowired
     InterviewServiceImpl interviewService;
+
+    /**
+     * 插入面试信息
+     * @param value1
+     * @param rid
+     * @param httpSession
+     * @return
+     * @throws ParseException
+     */
     @RequestMapping("/intereview_insert")
     @ResponseBody
     public String insertInterface(String value1, Long rid, HttpSession httpSession) throws ParseException {
@@ -27,8 +35,38 @@ public class InterviewController {
         String state="0";
         Users users= (Users) httpSession.getAttribute("user");
         interviewService.insertInterview(format.parse(value1),rid,users.getUid(),state);
+        return JSON.toJSONString(getMap(true));
+    }
+
+    private Map<String, Boolean> getMap(boolean flag) {
         Map<String,Boolean> map=new HashMap<>();
-        map.put("flag",true);
-        return JSON.toJSONString(map);
+        map.put("flag",flag);
+        return map;
+    }
+
+    /**
+     * 审核面试信息
+     */
+    @RequestMapping("/interview_update")
+    @ResponseBody
+    public String interviewUpdate(){
+        return null;
+    }
+    /**
+     * 查询面试信息
+     */
+    @ResponseBody
+    @RequestMapping("/interview_select")
+    public String interviewSelect(int page,int limit){
+        return JSON.toJSONString(interviewService.selectInterview(page,limit));
+    }
+    /**
+     * 删除面试信息
+     */
+    @RequestMapping("/interview_delete")
+    @ResponseBody
+    public String interviewDelete(Long iid){
+        interviewService.deleteInterview(iid);
+        return JSON.toJSONString(getMap(true));
     }
 }

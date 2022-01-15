@@ -54,7 +54,38 @@
     <select id="selectAvg" resultType="java.lang.String">
         SELECT AVG(evaluation.score) FROM evaluation
     </select>
-    <select id="selectAll" resultType="com.recruitment.dao.domain.Evaluation">
-        select * from evaluation where type ='0'
+    <resultMap id="selectWhereType" type="com.recruitment.dao.dto.EvaluationAdminDTO">
+        <id property="id" column="id"/>
+        <result property="userName" column="name"/>
+        <result property="id" column="id"/>
+        <result property="commentDept" column="ename"/>
+        <result property="commentMessage" column="content"/>
+        <result property="userMobile" column="phone"/>
+    </resultMap>
+    <select id="selectAll" resultMap="selectWhereType">
+        SELECT
+            evaluation.id,
+            enterprise.ename,
+            evaluation.content,
+            job_seeker.`name`,
+            users.phone
+        FROM
+            evaluation
+                INNER JOIN
+            enterprise
+            ON
+                evaluation.eid = enterprise.eid
+                INNER JOIN
+            users
+            ON
+                evaluation.uid = users.uid
+                INNER JOIN
+            job_seeker
+            ON
+                users.uid = job_seeker.uid
+        WHERE evaluation.type='0' LIMIT #{n},#{page}
+    </select>
+    <select id="selectContent" resultType="java.lang.Integer">
+        select count(*) from evaluation where evaluation.type='0'
     </select>
 </mapper>

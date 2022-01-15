@@ -20,4 +20,46 @@
     <insert id="insertInterview">
         INSERT INTO `re`.`interview` (`uid`, `rid`, `time`, `addtime`, `state`) VALUES (#{uid}, #{rid}, #{date}, #{addtime}, #{state})
     </insert>
+    <delete id="deleteByIid">
+       DELETE FROM `re`.`interview` WHERE `iid` = #{iid}
+    </delete>
+    <resultMap id="selectInterviewMap" type="com.recruitment.dao.dto.InterviewDTO">
+        <id property="iid" column="iid" jdbcType="BIGINT"/>
+        <result property="forWardDept" column="ename" jdbcType="BIGINT"/>
+        <result property="forWardTime" column="time" jdbcType="TIMESTAMP"/>
+        <result property="userName" column="name" jdbcType="TIMESTAMP"/>
+        <result property="userMobile" column="phone" jdbcType="VARCHAR"/>
+        <result column="iid" property="iid"/>
+    </resultMap>
+    <select id="selectInterview" resultMap="selectInterviewMap">
+        SELECT
+            enterprise.ename,
+            interview.iid,
+            job_seeker.`name`,
+            users.phone,
+            interview.time
+        FROM
+            interview
+                INNER JOIN
+            re_info
+            ON
+                interview.rid = re_info.rid
+                INNER JOIN
+            enterprise
+            ON
+                re_info.eid = enterprise.eid
+                INNER JOIN
+            job_seeker
+            ON
+                interview.uid = job_seeker.uid
+                INNER JOIN
+            users
+            ON
+                    interview.uid = users.uid AND
+                    job_seeker.uid = users.uid
+            limit #{n},#{page}
+    </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*) from interview
+    </select>
 </mapper>

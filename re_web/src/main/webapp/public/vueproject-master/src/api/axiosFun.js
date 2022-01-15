@@ -4,7 +4,7 @@ import axios from 'axios';
 const loginreq = (method, url, params) => {
     return axios({
         method: method,
-        url: url,
+        url: "http://localhost:8080"+url,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
@@ -29,10 +29,9 @@ const loginreq = (method, url, params) => {
 const req = (method, url, params) => {
     return axios({
         method: method,
-        url: url,
+        url: "http://localhost:8080"+url,
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            token: localStorage.getItem('logintoken')
+            'Content-Type': 'application/x-www-form-urlencoded'
         },
         data: params,
         traditional: true,

@@ -82,8 +82,8 @@ public class EvaluationController {
      */
     @RequestMapping("/admin_evaluation_select")
     @ResponseBody
-    public String adminEva_select(){
-       return JSON.toJSONString(evaluationService.selectAllAdmin()) ;
+    public String adminEva_select(int page,int limit){
+       return JSON.toJSONString(evaluationService.selectAllAdmin(page,limit)) ;
     }
     /**
      * 评论删除

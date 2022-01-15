@@ -5,6 +5,7 @@ import com.recruitment.dao.domain.Evaluation;
 import com.recruitment.dao.dto.EvaluationDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface EvaluationService extends IService<Evaluation> {
     /**
@@ -28,8 +29,11 @@ public interface EvaluationService extends IService<Evaluation> {
     void updateEvaluationAdmin(Long id);
     /**
      * 评论查看
+     * @return
+     * @param n
+     * @param page
      */
-    List<Evaluation> selectAllAdmin();
+    Map<String,Object> selectAllAdmin(int n,int page);
     /**
      * 评论删除
      */

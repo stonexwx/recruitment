@@ -36,13 +36,19 @@ public interface EvaluationMapper extends BaseMapper<Evaluation> {
     void updateEvaluationAdmin(@Param("id") Long id);
     /**
      * 评论查看
+     * @param n
+     * @param page
      */
-    List<Evaluation> selectAll();
+    List<Evaluation> selectAll(@Param("n") int n,@Param("page") int page);
     /**
      * 评论删除
      * @param id
      */
     void deleteById(@Param("id") Long id);
+    /**
+     * 查询记录数
+     */
+    int selectContent();
 }
 
 

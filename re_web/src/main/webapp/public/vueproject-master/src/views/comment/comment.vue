@@ -78,7 +78,7 @@
 
 <script>
 // 导入请求方法
-import { userSave, userDelete, userPwd } from "../../api/userMG";
+import {userSave, userDelete, userPwd, evaluationList, evaluationUpdate, evaluationDelete} from "../../api/userMG";
 import Pagination from "../../components/Pagination";
 export default {
   name: "Comment",
@@ -147,63 +147,27 @@ export default {
     // 获取数据方法
     getdata(parameter) {
       this.loading = true;
-      // 模拟数据开始
-      let res = {
-        code: 0,
-        msg: null,
-        count: 3,
-        data: [
-          {
-            userId: 1,
-            commentMessage:
-              "这个公司是薛文潇在管 大家千万不要去!这简直就是资本主义的世界!太恐怖了!",
-            commentDept: "奇思妙想重庆有限公司",
-            userName: "ahaua",
-            userMobile: "138123456789",
-          },
-          {
-            userId: 2,
-            commentMessage: "我同意楼上",
-            userName: "谢传昕",
-            commentDept: "奇思妙想重庆有限公司",
-            userMobile: "138123456789",
-          },
-          {
-            userId: 1,
-            commentMessage: "我同意楼上",
-            commentDept: "奇思妙想重庆有限公司",
-            userName: "易世嫘",
-            userMobile: "138123456789",
-          },
-        ],
-      };
-      this.loading = false;
-      this.userData = res.data;
-      // 分页赋值
-      this.pageparm.currentPage = this.formInline.page;
-      this.pageparm.pageSize = this.formInline.limit;
-      this.pageparm.total = res.count;
-      // 模拟数据结束
+
 
       /***
        * 调用接口，注释上面模拟数据 取消下面注释
        */
       // 获取用户列表
-      // userList(parameter).then(res => {
-      //   this.loading = false
-      //   if (res.success == false) {
-      //     this.$message({
-      //       type: 'info',
-      //       message: res.msg
-      //     })
-      //   } else {
-      //     this.userData = res.data
-      //     // 分页赋值
-      //     this.pageparm.currentPage = this.formInline.page
-      //     this.pageparm.pageSize = this.formInline.limit
-      //     this.pageparm.total = res.count
-      //   }
-      // })
+      evaluationList(parameter).then(res => {
+        this.loading = false
+        if (res.flag == false) {
+          this.$message({
+            type: 'info',
+            message: res.msg
+          })
+        } else {
+          this.userData = res.data
+          // 分页赋值
+          this.pageparm.currentPage = this.formInline.page
+          this.pageparm.pageSize = this.formInline.limit
+          this.pageparm.total = res.count
+        }
+      })
     },
     // 分页插件事件
     callFather(parm) {
@@ -215,13 +179,21 @@ export default {
     handleNext: function (index, row) {
       if (row != undefined && row != "undefined") {
         //写请求
-        this.$message.error(
-          "这条评论我觉得不能通过!虽然薛文潇是资本主义!但是周总很不错啊!"
-        );
-      } else {
-        this.$message.error(
-          "这条评论我觉得不能通过!虽然薛文潇是资本主义!但是周总很不错啊!"
-        );
+        var params = {"id":this.userData[index].id}
+       evaluationUpdate(params).then(res =>{
+         if(res.flag){
+           this.$message({
+             type: "success",
+             message: "评论已通过!",
+           });
+           this.getdata(this.formInline);
+         } else {
+           this.$message({
+             type: "info",
+             message: "出错啦！！！！！",
+           });
+         }
+       })
       }
     },
     // 选择复选框事件
@@ -238,9 +210,10 @@ export default {
         .then(() => {
           // 删除
           //填写接口 数据
-          userDelete(row.id)
+          var params = {"id":this.userData[index].id};
+          evaluationDelete(params)
             .then((res) => {
-              if (res.success) {
+              if (res.flag) {
                 this.$message({
                   type: "success",
                   message: "数据已删除!",

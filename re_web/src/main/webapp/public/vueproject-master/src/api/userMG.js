@@ -29,4 +29,23 @@ export const deptList = (params) => { return req("post", "/api/Dept/list", param
 export const deptSave = (params) => { return req("post", "/api/Dept/save", params) };
 // 公司管理-删除公司
 export const deptDelete = (params) => { return axios.get("/api/Dept/delete?ids=" + params + "&token=" + localStorage.getItem('logintoken')).then(res => res.data) };
+/**
+ * 面试信息管理
+ */
+//面试信息管理-获取面试列表
+export const interviewList = (params) => {return req("post","/interview_select",params)};
+//面试信息管理-删除某个面试信息
+export const interviewDelete = (params) => {return req("post","/interview_delete",params)};
+/**
+ * 评论管理
+ */
+//评论管理-获取评论信息
+export const evaluationList = (params) => {
+    return req("post", "/admin_evaluation_select", params);}
+//评论管理-通过评论信息
+export const evaluationUpdate = (params) =>{
+    return req("post", "/admin_evaluation_update", params);}
+//论管理-删除评论信息
+export const evaluationDelete = (params) =>{
+    return req("post", "/admin_evaluation_delete", params);}
 

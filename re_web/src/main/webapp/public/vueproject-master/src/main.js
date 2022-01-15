@@ -19,7 +19,8 @@ Vue.prototype.$echarts = echarts
 
 import axios from 'axios';
 Vue.prototype.$axios = axios;
-
+import moment from "moment";
+Vue.prototype.$moment=moment;
 Vue.config.productionTip = false;
 
 // 使用element UI

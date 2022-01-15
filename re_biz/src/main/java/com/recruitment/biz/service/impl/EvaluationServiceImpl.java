@@ -8,7 +8,9 @@ import com.recruitment.dao.mapper.EvaluationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -45,10 +47,17 @@ public class EvaluationServiceImpl extends ServiceImpl<EvaluationMapper, Evaluat
 
     /**
      * 评论查看
+     * @return
+     * @param n
+     * @param page
      */
     @Override
-    public List<Evaluation> selectAllAdmin() {
-        return evaluationMapper.selectAll();
+    public Map<String, Object> selectAllAdmin(int n, int page) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("flag",true);
+        map.put("data",evaluationMapper.selectAll((n-1)*page,page));
+        map.put("count",evaluationMapper.selectContent());
+        return map;
     }
 
     /**
