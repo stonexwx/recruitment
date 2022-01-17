@@ -3,6 +3,7 @@ package com.recruitment.controller;
 import com.alibaba.fastjson.JSON;
 import com.recruitment.biz.service.impl.UsersServiceImpl;
 import com.recruitment.dao.domain.Users;
+import com.recruitment.dao.dto.UserAdminDTO;
 import com.recruitment.dao.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -87,9 +88,8 @@ public class UsersConller {
      */
     @RequestMapping("/admin_user_select")
     @ResponseBody
-    public String userSelectAdmin(){
-        List<Users> list = usersService.userSelectAll();
-        return JSON.toJSONString(list);
+    public String userSelectAdmin(int page,int limit){
+        return JSON.toJSONString(usersService.userSelectAll(page, limit));
     }
     /**
      * 管理员更改用户
@@ -97,7 +97,7 @@ public class UsersConller {
      */
     @RequestMapping("/admin_user_update")
     @ResponseBody
-    public String userUpdateAdmin(Users users){
+    public String userUpdateAdmin(UserAdminDTO users){
         usersService.userUpdate(users);
         Map<String, Boolean> map = new HashMap<>();
         map.put("flag", true);
@@ -115,8 +115,19 @@ public class UsersConller {
         return JSON.toJSONString(map);
     }
     /**
+     * 重置密码
+     */
+    @RequestMapping("/password_info")
+    @ResponseBody
+    public String passwordInfo(Long uid){
+        usersService.passwordInfo(uid);
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("flag", true);
+        return JSON.toJSONString(map);
+    }
+    /**
      * 管理员添加用户
-     * 这个和注册用一个方法
+     *
      */
 
 }

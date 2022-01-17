@@ -12,13 +12,13 @@ export const loginout = () => { return axios.delete("/api/login?&token=" + local
  * 用户管理 
  **/
 // 用户管理-获取用户列表
-export const userList = (params) => { return req("post", "/api/User/list", params) };
+export const userList = (params) => { return req("post", "/admin_user_select", params) };
 // 用户管理-保存（添加编辑）
-export const userSave = (params) => { return req("post", "/api/User/save", params) };
+export const userSave = (params) => { return req("post", "/admin_user_update", params) };
 // 用户管理-删除用户
-export const userDelete = (params) => { return axios.delete("/api/User/delete?ids=" + params + "&token=" + localStorage.getItem('logintoken')).then(res => res.data) };
+export const userDelete = (params) => { return req("post","/admin_user_delete",params)};
 // 用户管理-重置密码
-export const userPwd = (params) => { return req("post", "/api/User/pwd", params) };
+export const userPwd = (params) => { return req("post", "/password_info", params) };
 
 /**
  * 公司管理 

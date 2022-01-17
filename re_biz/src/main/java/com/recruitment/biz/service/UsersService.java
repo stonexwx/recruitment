@@ -2,9 +2,10 @@ package com.recruitment.biz.service;
 
 import com.recruitment.dao.domain.Users;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.recruitment.dao.dto.UserAdminDTO;
 import com.recruitment.dao.dto.UserDTO;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -32,15 +33,22 @@ public interface UsersService extends IService<Users> {
      */
     /**
      * 管理员查询所有用户
+     * @return
+     * @param n
+     * @param page
      */
-    List<Users> userSelectAll();
+    Map<String,Object> userSelectAll(int n, int page);
     /**
      * 管理员更改用户
+     * @param users
      */
-    void userUpdate(Users users);
+    void userUpdate(UserAdminDTO users);
     /**
      * 管理员删除用户
      */
     void userDelete(Long uid);
-
+    /**
+     * 重置密码
+     */
+    void passwordInfo(Long uid);
 }

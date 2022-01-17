@@ -2,6 +2,7 @@ package com.recruitment.dao.mapper;
 
 import com.recruitment.dao.domain.Users;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.recruitment.dao.dto.UserAdminDTO;
 import com.recruitment.dao.dto.UserDTO;
 import org.apache.ibatis.annotations.Param;
 
@@ -35,16 +36,26 @@ public interface UsersMapper extends BaseMapper<Users> {
      */
     /**
      * 管理员查询所有用户
+     * @param n
+     * @param page
      */
-    List<Users> selectall();
+    List<UserAdminDTO> selectall(@Param("n") int n,@Param("page") int page);
     /**
      * 管理员更改用户
      */
-    void updateUserForAdmin(@Param("user") Users users);
+    void updateUserForAdmin(@Param("user") UserAdminDTO users);
     /**
      * 管理员删除用户
      */
     void deleteByUidAll(@Param("uid") Long uid);
+    /**
+     * 查询记录数
+     */
+    int selectContent();
+    /**
+     * 重置密码
+     */
+    void updatePasswordAndPassword(@Param("uid") Long uid);
 }
 
 

@@ -88,7 +88,7 @@
 import {
   userSave,
   userDelete,
-  userPwd,
+  userPwd, userList,
 } from '../../api/userMG'
 import Pagination from '../../components/Pagination'
 export default {
@@ -103,7 +103,7 @@ export default {
       unitAccessshow: false, //控制所属单位隐藏与显示
       // 编辑与添加
       editForm: {
-        userId: '',
+        uid: '',
         userName: '',
         userRealName: '',
         userMobile: '',
@@ -200,87 +200,26 @@ export default {
     // 获取数据方法
     getdata(parameter) {
       this.loading = true
-      // 模拟数据开始
-      let res = {
-        code: 0,
-        msg: null,
-        count: 3,
-        data: [
-          {
-            addUser: '1',
-            editUser: '1',
-            addTime: null,
-            editTime: 1527411068000,
-            userId: 1,
-            systemNo: 'pmd',
-            userName: 'ahaua',
-            userPassword: '1111111',
-            userRealName: '张三',
-            userSex: '女',
-            userMobile: '138123456789',
-            userEmail: '111@qq.com',
-            isLock: 'N',
-          },
-          {
-            addUser: '1',
-            editUser: '1',
-            addTime: null,
-            editTime: 1527410579000,
-            userId: 3,
-            systemNo: 'mc',
-            userName: 'oyoyo',
-            userPassword: '2222222222',
-            userRealName: '李四',
-            userSex: 'M',
-            userMobile: '18616988966',
-            userEmail: '222@qq.com',
-            isLock: 'N',
-
-          },
-          {
-            addUser: '1',
-            editUser: '4',
-            addTime: null,
-            editTime: 1527411586000,
-            userId: 4,
-            systemNo: 'ec',
-            userName: 'heiheihei',
-            userPassword: '3333333',
-            userRealName: '王五',
-            userSex: '女',
-            userMobile: '138123456789',
-            userEmail: 'huangxuekun@founder.com',
-            isLock: 'N',
-          },
-        ]
-      }
-      this.loading = false
-      this.userData = res.data
-      // 分页赋值
-      this.pageparm.currentPage = this.formInline.page
-      this.pageparm.pageSize = this.formInline.limit
-      this.pageparm.total = res.count
-      // 模拟数据结束
-
       /***
        * 调用接口，注释上面模拟数据 取消下面注释
        */
       // 获取用户列表
-      // userList(parameter).then(res => {
-      //   this.loading = false
-      //   if (res.success == false) {
-      //     this.$message({
-      //       type: 'info',
-      //       message: res.msg
-      //     })
-      //   } else {
-      //     this.userData = res.data
-      //     // 分页赋值
-      //     this.pageparm.currentPage = this.formInline.page
-      //     this.pageparm.pageSize = this.formInline.limit
-      //     this.pageparm.total = res.count
-      //   }
-      // })
+      userList(parameter).then(res => {
+        this.loading = false
+        if (res.flag == false) {
+          this.$message({
+            type: 'info',
+            message: res.msg
+          })
+        } else {
+          console.log(res.data);
+          this.userData = res.data
+          // 分页赋值
+          this.pageparm.currentPage = this.formInline.page
+          this.pageparm.pageSize = this.formInline.limit
+          this.pageparm.total = res.count
+        }
+      })
     },
     // 分页插件事件
     callFather(parm) {
@@ -297,7 +236,7 @@ export default {
       this.editFormVisible = true
       if (row != undefined && row != 'undefined') {
         this.title = '修改用户'
-        this.editForm.userId = row.userId
+        this.editForm.uid = this.userData[index].uid
         this.editForm.userName = row.userName
         this.editForm.userRealName = row.userRealName
         this.editForm.userMobile = row.userMobile
@@ -322,7 +261,7 @@ export default {
             .then(res => {
               this.editFormVisible = false
               this.loading = false
-              if (res.success) {
+              if (res.flag) {
                 this.getdata(this.formInline)
                 this.$message({
                   type: 'success',
@@ -379,9 +318,10 @@ export default {
       })
         .then(() => {
           // 删除
-          userDelete(row.id)
+          var uid = {"uid":this.userData[index].uid}
+          userDelete(uid)
             .then(res => {
-              if (res.success) {
+              if (res.flag) {
                 this.$message({
                   type: 'success',
                   message: '数据已删除!'
@@ -408,7 +348,7 @@ export default {
     },
     // 重置密码
     resetpwd(index, row) {
-      this.resetpsd.userId = row.userId
+      this.resetpsd.uid = this.userData[index].uid;
       this.$confirm('确定要重置密码吗?', '信息', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -417,7 +357,7 @@ export default {
         .then(() => {
           userPwd(this.resetpsd)
             .then(res => {
-              if (res.success) {
+              if (res.flag) {
                 this.$message({
                   type: 'success',
                   message: '重置密码成功!'

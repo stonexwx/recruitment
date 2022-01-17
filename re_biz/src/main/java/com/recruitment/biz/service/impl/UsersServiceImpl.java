@@ -3,13 +3,16 @@ package com.recruitment.biz.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.recruitment.biz.service.UsersService;
 import com.recruitment.dao.domain.Users;
+import com.recruitment.dao.dto.UserAdminDTO;
 import com.recruitment.dao.dto.UserDTO;
 import com.recruitment.dao.mapper.JobSeekerMapper;
 import com.recruitment.dao.mapper.UsersMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -80,11 +83,18 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
 /*-----------------------我是分割线-------------------------------------------------*/
     /**
      * 管理员查询所有用户
+     * @return
+     * @param n
+     * @param page
      */
     @Override
-    public List<Users> userSelectAll() {
-        List<Users> list= usersMapper.selectall();
-        return list;
+    public Map<String, Object> userSelectAll(int n, int page) {
+        List<UserAdminDTO> list= usersMapper.selectall((n-1)*page,page);
+        Map<String,Object> map = new HashMap<>();
+        map.put("data",list);
+        map.put("flag",true);
+        map.put("count",usersMapper.selectContent());
+        return map;
     }
 
     /**
@@ -93,7 +103,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
      * @param users
      */
     @Override
-    public void userUpdate(Users users) {
+    public void userUpdate(UserAdminDTO users) {
         usersMapper.updateUserForAdmin(users);
     }
 
@@ -105,6 +115,16 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
     @Override
     public void userDelete(Long uid) {
         usersMapper.deleteByUidAll(uid);
+    }
+
+    /**
+     * 重置密码
+     *
+     * @param uid
+     */
+    @Override
+    public void passwordInfo(Long uid) {
+        usersMapper.updatePasswordAndPassword(uid);
     }
 }
 

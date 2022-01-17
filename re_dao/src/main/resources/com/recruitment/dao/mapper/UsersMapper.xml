@@ -24,7 +24,14 @@
         UPDATE `re`.`users` SET `password` = #{newPassword} WHERE `uid` = #{users.uid}
     </update>
     <update id="updateUserForAdmin">
-        UPDATE `re`.`users` SET `user_name` = #{user.user_name}, `password` =#{user.password}, `role_id` = #{user.role_id}, `phone` = #{user.phone}, `addtime` = #{user.addtime} WHERE `uid` = #{user.uid}
+        UPDATE users join job_seeker
+        ON users.uid = job_seeker.uid
+            SET users.user_name =#{user.userName}
+        ,users.phone=#{user.userMobile},job_seeker.`name`=#{user.userRealName}
+        ,job_seeker.email=#{user.userEmail},job_seeker.sex=#{user.userSex} WHERE users.uid=#{user.uid}
+    </update>
+    <update id="updatePasswordAndPassword">
+        update users SET password = "000000" where uid=#{uid}
     </update>
     <delete id="deleteByUidAll">
         DELETE FROM `re`.`users` WHERE `uid` = #{uid}
@@ -38,7 +45,36 @@
     <select id="selectPhoneByPhone" resultType="java.lang.String">
         select phone from users where phone =#{phone}
     </select>
-    <select id="selectall" resultType="com.recruitment.dao.domain.Users">
-        select * from users
+    <resultMap id="selectAllMap" type="com.recruitment.dao.dto.UserAdminDTO">
+        <id column="uid" property="uid"/>
+        <result property="uid" column="uid"/>
+        <result property="userName" column="user_name"/>
+        <result property="userRealName" column="name"/>
+        <result property="userMobile" column="phone"/>
+        <result property="editTime" column="addtime"/>
+        <result property="userEmail" column="email"/>
+        <result property="userPassword" column="password"/>
+        <result property="userSex" column="sex"/>
+    </resultMap>
+    <select id="selectall" resultMap="selectAllMap">
+        SELECT
+            users.uid,
+            users.user_name,
+            users.`password`,
+            users.phone,
+            users.addtime,
+            job_seeker.`name`,
+            job_seeker.email,
+            job_seeker.sex
+        FROM
+            users
+                INNER JOIN
+            job_seeker
+            ON
+                users.uid = job_seeker.uid
+            limit #{n},#{page}
+    </select>
+    <select id="selectContent" resultType="java.lang.Integer">
+        select count(*) from users
     </select>
 </mapper>
