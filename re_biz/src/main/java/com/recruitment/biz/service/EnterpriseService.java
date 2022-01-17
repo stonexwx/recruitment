@@ -2,8 +2,10 @@ package com.recruitment.biz.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.recruitment.dao.domain.Enterprise;
+import com.recruitment.dao.dto.EnterpriseAdminDTO;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface EnterpriseService extends IService<Enterprise> {
@@ -33,12 +35,13 @@ public interface EnterpriseService extends IService<Enterprise> {
      * 管理员查询所有企业信息
      * @return
      */
-    List<Enterprise> selectEnterpriseAdmin(int page,int limit);
+    Map<String,Object> selectEnterpriseAdmin(int page, int limit);
 
     /**
      * 管理员更新企业信息
+     * @param enterprise
      */
-    void updateEnterpriseAdmin(Enterprise enterprise);
+    void updateEnterpriseAdmin(EnterpriseAdminDTO enterprise);
 
     /**
      * 管理员删除企业信息

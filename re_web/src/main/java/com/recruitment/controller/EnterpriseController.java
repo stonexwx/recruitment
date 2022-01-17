@@ -3,6 +3,7 @@ package com.recruitment.controller;
 import com.alibaba.fastjson.JSON;
 import com.recruitment.biz.service.impl.EnterpriseServiceImpl;
 import com.recruitment.dao.domain.Enterprise;
+import com.recruitment.dao.dto.EnterpriseAdminDTO;
 import com.recruitment.dao.dto.EnterpriseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -113,23 +114,9 @@ public class EnterpriseController {
      */
     @RequestMapping("/admin_enterprise_update")
     @ResponseBody
-    public String enterpriseUpdateAdmin(String name, String type, String phone
-            , String address, String Email, String scale
-            , String introduce, String principal, String number, Long eid) {
-        Enterprise enterprise = new Enterprise();
-        enterprise.setAddress(address);
-        enterprise.setE_email(Email);
-        enterprise.setEname(name);
-        enterprise.setEphone(phone);
-        enterprise.setE_type(type);
-        enterprise.setScale(scale);
-        enterprise.setE_introduce(introduce);
-        enterprise.setPrincipal(principal);
-        Date date = new Date();
-        enterprise.setAddtime(date);
-        enterprise.setNumber(number);
-        enterprise.setEid(eid);
-        enterpriseService.updateEnterpriseAdmin(enterprise);
+    public String enterpriseUpdateAdmin(EnterpriseAdminDTO enterpriseAdminDTO) {
+
+        enterpriseService.updateEnterpriseAdmin(enterpriseAdminDTO);
         Map<String, Boolean> map = new HashMap<>();
         map.put("flag", true);
         return JSON.toJSONString(map);

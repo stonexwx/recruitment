@@ -4,11 +4,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.recruitment.biz.service.EnterpriseService;
 import com.recruitment.dao.domain.Enterprise;
 
+import com.recruitment.dao.dto.EnterpriseAdminDTO;
 import com.recruitment.dao.mapper.EnterpriseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -58,8 +61,12 @@ public class EnterpriseServiceImpl extends ServiceImpl<EnterpriseMapper, Enterpr
      * @return
      */
     @Override
-    public List<Enterprise> selectEnterpriseAdmin(int page, int limit) {
-        return enterpriseMapper.selectAll(((page-1)*10),limit);
+    public Map<String, Object> selectEnterpriseAdmin(int page, int limit) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("data",enterpriseMapper.selectAll(((page-1)*10),limit));
+        map.put("flag",true);
+        map.put("count",enterpriseMapper.count());
+        return map;
     }
 
     /**
@@ -68,7 +75,7 @@ public class EnterpriseServiceImpl extends ServiceImpl<EnterpriseMapper, Enterpr
      * @param enterprise
      */
     @Override
-    public void updateEnterpriseAdmin(Enterprise enterprise) {
+    public void updateEnterpriseAdmin(EnterpriseAdminDTO enterprise) {
         enterpriseMapper.updateAll(enterprise);
     }
     /**

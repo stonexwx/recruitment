@@ -24,11 +24,11 @@ export const userPwd = (params) => { return req("post", "/password_info", params
  * 公司管理 
  **/
 // 公司管理-获取公司列表
-export const deptList = (params) => { return req("post", "/api/Dept/list", params) };
+export const deptList = (params) => { return req("post", "/admin_enterprise_select", params) };
 // 公司管理-保存（添加编辑）
-export const deptSave = (params) => { return req("post", "/api/Dept/save", params) };
+export const deptSave = (params) => { return req("post", "/admin_enterprise_update", params) };
 // 公司管理-删除公司
-export const deptDelete = (params) => { return axios.get("/api/Dept/delete?ids=" + params + "&token=" + localStorage.getItem('logintoken')).then(res => res.data) };
+export const deptDelete = (params) => { return req("post","/admin_enterprise_delete",params) };
 /**
  * 面试信息管理
  */

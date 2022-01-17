@@ -158,7 +158,7 @@ export default {
       editFormVisible: false, //控制编辑页面显示与隐藏
       title: "添加",
       editForm: {
-        deptId: "",
+        eid: "",
         deptName: "",
         deptNo: "",
         deptAdd:"",
@@ -224,96 +224,30 @@ export default {
     // 获取公司列表
     getdata(parameter) {
       this.loading = true;
-      // 模拟数据
-      let res = {
-        code: 0,
-        msg: null,
-        count: 5,
-        data: [
-          {
-            addTime: 1521062371000,
-            editTime: 1526700200000,
-            deptId: 2,
-            deptName: "奇思妙想",
-            deptNo: "1",
-            parentId: 1,
-            deptAdd: "上海",
-            deptType: "IT 互联网",
-          },
-          {
-            addTime: 1521063247000,
-            editTime: 1526652291000,
-            deptId: 3,
-            deptName: "阿里巴巴",
-            deptNo: "02",
-            parentId: 1,
-            deptAdd: "深圳",
-            deptType: "IT",
-          },
-          {
-            addTime: 1526349555000,
-            editTime: 1526349565000,
-            deptId: 12,
-            deptName: "腾讯",
-            deptNo: "11",
-            parentId: 1,
-
-            deptAdd: "杭州",
-            deptType: "新媒体",
-          },
-          {
-            addTime: 1526373178000,
-            editTime: 1526373178000,
-            deptId: 13,
-            deptName: "字节",
-            deptNo: "5",
-            parentId: 1,
-            deptAdd: "深圳",
-            deptType: "IT",
-          },
-          {
-            addTime: 1526453107000,
-            editTime: 1526453107000,
-            deptId: 17,
-            deptName: "叩丁狼",
-            deptNo: "v",
-            parentId: 1,
-            deptAdd: "深圳",
-            deptType: "服务",
-          },
-        ],
-      };
-      this.loading = false;
-      this.listData = res.data;
-      // 分页赋值
-      this.pageparm.currentPage = this.formInline.page;
-      this.pageparm.pageSize = this.formInline.limit;
-      this.pageparm.total = res.count;
-      // 模拟数据结束
 
       /***
        * 调用接口，注释上面模拟数据 取消下面注释
        */
-      // deptList(parameter)
-      //   .then(res => {
-      //     this.loading = false
-      //     if (res.success == false) {
-      //       this.$message({
-      //         type: 'info',
-      //         message: res.msg
-      //       })
-      //     } else {
-      //       this.listData = res.data
-      //       // 分页赋值
-      //       this.pageparm.currentPage = this.formInline.page
-      //       this.pageparm.pageSize = this.formInline.limit
-      //       this.pageparm.total = res.count
-      //     }
-      //   })
-      //   .catch(err => {
-      //     this.loading = false
-      //     this.$message.error('菜单加载失败，请稍后再试!')
-      //   })
+      deptList(parameter)
+        .then(res => {
+          this.loading = false
+          if (res.flag == false) {
+            this.$message({
+              type: 'info',
+              message: res.msg
+            })
+          } else {
+            this.listData = res.data
+            // 分页赋值
+            this.pageparm.currentPage = this.formInline.page
+            this.pageparm.pageSize = this.formInline.limit
+            this.pageparm.total = res.count
+          }
+        })
+        .catch(err => {
+          this.loading = false
+          this.$message.error('菜单加载失败，请稍后再试!')
+        })
     },
     // 分页插件事件
     callFather(parm) {
@@ -330,7 +264,7 @@ export default {
       this.editFormVisible = true;
       if (row != undefined && row != "undefined") {
         this.title = "修改";
-        this.editForm.deptId = row.deptId;
+        this.editForm.eid = this.listData[index].eid;
         this.editForm.deptName = row.deptName;
         this.editForm.deptNo = row.deptNo;
         this.editForm.deptType = row.deptType;
@@ -352,7 +286,7 @@ export default {
             .then((res) => {
               this.editFormVisible = false;
               this.loading = false;
-              if (res.success) {
+              if (res.flag) {
                 this.getdata(this.formInline);
                 this.$message({
                   type: "success",
@@ -383,9 +317,10 @@ export default {
         type: "warning",
       })
         .then(() => {
-          deptDelete(row.deptId)
+          let data={"eid":this.listData[index].eid}
+          deptDelete(data)
             .then((res) => {
-              if (res.success) {
+              if (res.flag) {
                 this.$message({
                   type: "success",
                   message: "公司已删除!",
