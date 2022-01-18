@@ -87,8 +87,7 @@ export default {
       this.$http
         .get("/phone" ,{params:{phone:this.form.phone}})
         .then((res) => {
-          if (res.data.flag!==true) {
-            alert(res.data.flag);
+          if (res.data.flag===false) {
             this.onSubmit();
           } else {
             this.$confirm("该账号已经注册, 是否前往登录?", "提示", {

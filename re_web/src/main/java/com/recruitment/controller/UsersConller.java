@@ -79,7 +79,8 @@ public class UsersConller {
             map.put("flag", true);
             return JSON.toJSONString(map);
         }
-        return null;
+        map.put("flag", false);
+        return JSON.toJSONString(map);
     }
     /*管理员分隔线------------------------------------------------------------------------------------
      */
