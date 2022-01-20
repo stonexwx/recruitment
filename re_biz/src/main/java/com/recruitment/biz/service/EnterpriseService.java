@@ -26,16 +26,12 @@ public interface EnterpriseService extends IService<Enterprise> {
     /*
     管理员分隔线————————————————————————————————————————————————————————————————————————————————
      */
-    /**
-     * 管理员添加企业
-     */
-    void insertEnterpriseAdmin(Enterprise enterprise);
 
     /**
      * 管理员查询所有企业信息
      * @return
      */
-    Map<String,Object> selectEnterpriseAdmin(int page, int limit);
+    Map<String,Object> selectEnterpriseAdmin(int page, int limit,String deptNo,String deptName);
 
     /**
      * 管理员更新企业信息

@@ -45,25 +45,17 @@ public class EnterpriseServiceImpl extends ServiceImpl<EnterpriseMapper, Enterpr
      */
 
     /**
-     * 管理员增加企业
-     * @param enterprise
-     *
-     */
-    @Override
-    public void insertEnterpriseAdmin(Enterprise enterprise) {
-        enterpriseMapper.insertAll(enterprise);
-    }
-
-    /**
      * 管理员查询所有企业信息
      * @param page
      * @param limit
+     * @param deptNo
+     * @param deptName
      * @return
      */
     @Override
-    public Map<String, Object> selectEnterpriseAdmin(int page, int limit) {
+    public Map<String, Object> selectEnterpriseAdmin(int page, int limit, String deptNo, String deptName) {
         Map<String,Object> map = new HashMap<>();
-        map.put("data",enterpriseMapper.selectAll(((page-1)*10),limit));
+        map.put("data",enterpriseMapper.selectAll(((page-1)*10),limit, deptNo,deptName ));
         map.put("flag",true);
         map.put("count",enterpriseMapper.count());
         return map;
@@ -76,6 +68,9 @@ public class EnterpriseServiceImpl extends ServiceImpl<EnterpriseMapper, Enterpr
      */
     @Override
     public void updateEnterpriseAdmin(EnterpriseAdminDTO enterprise) {
+        if(enterprise.getEid()==null){
+            enterpriseMapper.insertAll(enterprise);
+        }
         enterpriseMapper.updateAll(enterprise);
     }
     /**

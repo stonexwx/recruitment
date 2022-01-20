@@ -5,11 +5,11 @@
         >&nbsp;——</span
       >
     </h1>
-    <el-table :data="enterpriselist.data" @row-click="enterpriseDetail()" stripe style="width: 80%">
+    <el-table :data="enterpriselist.data" @row-click="enterpriseDetail()" default-sort="{prop:'date',order:'descending'" stripe style="width: 80%">
       <el-table-column prop="number" label="排名" width="180" />
       <el-table-column prop="enterprise.ename" label="公司名称" width="400" />
       <el-table-column prop="enterprise.address" label="地址" width="300"/>
-      <el-table-column prop="enterprise.eva_scale" label="好评率" />
+      <el-table-column prop="enterprise.eva_scale" label="好评率"  sortable/>
     </el-table>
   </div>
 </template>

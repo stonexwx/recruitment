@@ -66,47 +66,14 @@ public class EnterpriseController {
       管理员分界线--------------------------------------------------------------------------------------
      */
 
-    /**
-     * 管理员操作企业增加
-     *
-     * @param name
-     * @param type
-     * @param phone
-     * @param address
-     * @param Email
-     * @param scale
-     * @param introduce
-     * @param principal
-     */
-    @RequestMapping("/admin_enterprise_insert")
-    @ResponseBody
-    public String enterpriseInsertAdmin(String name, String type, String phone, String address, String Email,
-                                        String scale, String introduce, String principal, String number) {
-        Enterprise enterprise = new Enterprise();
-        enterprise.setAddress(address);
-        enterprise.setE_email(Email);
-        enterprise.setEname(name);
-        enterprise.setEphone(phone);
-        enterprise.setE_type(type);
-        enterprise.setScale(scale);
-        enterprise.setE_introduce(introduce);
-        enterprise.setPrincipal(principal);
-        Date date = new Date();
-        enterprise.setAddtime(date);
-        enterprise.setNumber(number);
-        enterpriseService.insertEnterpriseAdmin(enterprise);
-        Map<String, Boolean> map = new HashMap<>();
-        map.put("flag", true);
-        return JSON.toJSONString(map);
-    }
 
     /**
      * 管理员操作企业查询
      */
     @RequestMapping("/admin_enterprise_select")
     @ResponseBody
-    public String enterpriseSelectAdmin(int page, int limit) {
-        return JSON.toJSONString(enterpriseService.selectEnterpriseAdmin(page, limit));
+    public String enterpriseSelectAdmin(int page, int limit,String deptNo,String deptName) {
+        return JSON.toJSONString(enterpriseService.selectEnterpriseAdmin(page, limit,deptNo , deptName));
     }
 
     /**

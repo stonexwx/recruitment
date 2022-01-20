@@ -27,12 +27,12 @@
         address
     </sql>
     <insert id="insertAll">
-        INSERT INTO `re`.`enterprise` (`addtime`, `number`, `ename`, `principal`,
-                                       `ephone`, `e_email`, `e_introduce`,
-                                       `scale`, `address`, `e_type`)
-        VALUES (#{enterprise.addtime}, #{enterprise.number}, #{enterprise.ename}, #{enterprise.principal},
-                #{enterprise.ephone},#{enterprise.e_email}, #{enterprise.e_introduce},
-               #{enterprise.scale}, #{enterprise.address}, #{enterprise.e_type})
+        INSERT INTO `re`.`enterprise` ( `number`, `ename`,
+
+                                       `address`, `e_type`)
+        VALUES ( #{enterprise.deptNo}, #{enterprise.deptName},
+
+               #{enterprise.deptAdd}, #{enterprise.deptType})
     </insert>
     <update id="updateAll">
         UPDATE `re`.`enterprise` SET `number` = #{enterprise.deptNo}, `ename` = #{enterprise.deptName},
@@ -107,7 +107,16 @@
         <result column="addtime" property="editTime"/>
     </resultMap>
     <select id="selectAll" resultMap="selectAllMap">
-        select * from enterprise limit #{page},#{limit}
+        select * from enterprise
+            <where>
+                <if test="deptNo != null and deptNo != ''">
+                    and enterprise.`number` = #{deptNo}
+                </if>
+                <if test="deptName != null and deptName != ''">
+                    and enterprise.`ename` LIKE concat('%',#{deptName},'%')
+                </if>
+            </where>
+            limit #{page},#{limit}
     </select>
     <select id="count" resultType="java.lang.Integer">
         select count(*) from enterprise

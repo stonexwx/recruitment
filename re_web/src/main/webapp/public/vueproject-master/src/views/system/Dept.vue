@@ -183,8 +183,8 @@ export default {
       formInline: {
         page: 1,
         limit: 10,
-        varLable: "",
-        varName: "",
+        deptNo: "",
+        deptName: "",
         token: localStorage.getItem("logintoken"),
       },
       // 删除企业
@@ -271,7 +271,7 @@ export default {
         this.editForm.deptAdd = row.deptAdd;  
       } else {
         this.title = "添加";
-        this.editForm.deptId = "";
+        this.editForm.eid = "";
         this.editForm.deptName = "";
         this.editForm.deptNo = "";
         this.editForm.deptType = "";

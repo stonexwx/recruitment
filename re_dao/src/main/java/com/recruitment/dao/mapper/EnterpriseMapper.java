@@ -3,6 +3,7 @@ package com.recruitment.dao.mapper;
 import com.recruitment.dao.domain.Enterprise;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.recruitment.dao.dto.EnterpriseAdminDTO;
+import com.recruitment.dao.dto.EnterpriseDTO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -36,14 +37,17 @@ public interface EnterpriseMapper extends BaseMapper<Enterprise> {
     /**
      * 管理员企业添加
      */
-    void insertAll(@Param("enterprise") Enterprise enterprise);
+    void insertAll(@Param("enterprise") EnterpriseAdminDTO enterprise);
 
     /**
      * 管理员查询
      * @param page
      * @param limit
+     * @param deptNo
+     * @param deptName
      */
-    List<EnterpriseAdminDTO> selectAll(@Param("page") int page, @Param("limit") int limit);
+    List<EnterpriseAdminDTO> selectAll(@Param("page") int page, @Param("limit") int limit,
+                                       @Param("deptNo") String deptNo,@Param("deptName") String deptName);
 
     /**
      * 管理员修改
