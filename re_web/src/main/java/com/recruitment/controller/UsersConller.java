@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -89,8 +88,8 @@ public class UsersConller {
      */
     @RequestMapping("/admin_user_select")
     @ResponseBody
-    public String userSelectAdmin(int page,int limit){
-        return JSON.toJSONString(usersService.userSelectAll(page, limit));
+    public String userSelectAdmin(int page,int limit,String userName,String userMobile){
+        return JSON.toJSONString(usersService.userSelectAll(page, limit,userName ,userMobile ));
     }
     /**
      * 管理员更改用户

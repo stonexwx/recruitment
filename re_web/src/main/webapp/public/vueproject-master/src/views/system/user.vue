@@ -244,7 +244,7 @@ export default {
         this.editForm.userSex = row.userSex
       } else {
         this.title = '添加用户'
-        this.editForm.userId = ''
+        this.editForm.uid = ''
         this.editForm.userName = ''
         this.editForm.userRealName = ''
         this.editForm.userMobile = ''

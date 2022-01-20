@@ -36,8 +36,10 @@ public interface UsersService extends IService<Users> {
      * @return
      * @param n
      * @param page
+     * @param userName
+     * @param userMobile
      */
-    Map<String,Object> userSelectAll(int n, int page);
+    Map<String,Object> userSelectAll(int n, int page,String userName,String userMobile);
     /**
      * 管理员更改用户
      * @param users

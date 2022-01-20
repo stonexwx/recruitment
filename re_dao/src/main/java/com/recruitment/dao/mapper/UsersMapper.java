@@ -38,8 +38,11 @@ public interface UsersMapper extends BaseMapper<Users> {
      * 管理员查询所有用户
      * @param n
      * @param page
+     * @param userName
+     * @param userMobile
      */
-    List<UserAdminDTO> selectall(@Param("n") int n,@Param("page") int page);
+    List<UserAdminDTO> selectall(@Param("n") int n,@Param("page") int page,
+                                 @Param("userName") String userName,@Param("userMobile") String userMobile);
     /**
      * 管理员更改用户
      */

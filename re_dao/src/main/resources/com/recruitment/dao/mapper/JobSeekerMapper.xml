@@ -24,9 +24,6 @@
         uid,edu_phone,name,
         sex,email
     </sql>
-    <insert id="insertUid">
-        INSERT INTO `re`.`job_seeker` (`addtime`, `uid`, `sex`, `email`) VALUES (#{userDTO.jobSeeker.addtime}, #{userDTO.users.uid}, #{userDTO.jobSeeker.sex}, #{userDTO.jobSeeker.email})
-    </insert>
     <update id="updateAll">
         UPDATE `re`.`job_seeker`
         SET `education` = #{jobSeeker.education}, `job_type` = #{jobSeeker.job_type},
@@ -46,6 +43,13 @@
                 edu_phone=#{address} where uid=#{uid}
             </if>
         </set>
+    </update>
+    <update id="updateUid">
+        UPDATE `re`.`job_seeker` SET `addtime` = #{userDTO.jobSeeker.addtime},
+                                     <if test="userDTO.jobSeeker.name != null and userDTO.jobSeeker.name!=''">
+                                         `name` = '未实名用户1',
+                                     </if>
+                                      `sex` = #{userDTO.jobSeeker.sex}, `email` = #{userDTO.jobSeeker.email} WHERE `uid` = #{userDTO.users.uid}
     </update>
 
     <resultMap id="seekerIDMap" type="com.recruitment.dao.dto.JobSeekerDTO">

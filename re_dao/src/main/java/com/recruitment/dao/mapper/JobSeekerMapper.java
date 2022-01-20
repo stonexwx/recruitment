@@ -29,7 +29,8 @@ public interface JobSeekerMapper extends BaseMapper<JobSeeker> {
     /**
      * 招聘者注册
      */
-    boolean insertUid(@Param("userDTO")UserDTO userDTO);
+    boolean updateUid(@Param("userDTO")UserDTO userDTO);
+
 }
 
 

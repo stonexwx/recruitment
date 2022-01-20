@@ -72,6 +72,14 @@
             job_seeker
             ON
                 users.uid = job_seeker.uid
+                <where>
+                    <if test="userName != null and userName != ''">
+                        and users.user_name LIKE concat('%',#{userName},'%')
+                    </if>
+                    <if test="userMobile != null and userMobile != ''">
+                        and users.phone = #{userMobile}
+                    </if>
+                </where>
             limit #{n},#{page}
     </select>
     <select id="selectContent" resultType="java.lang.Integer">
