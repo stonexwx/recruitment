@@ -91,9 +91,9 @@ export default {
                 // 缓存token
                 // localStorage.setItem('logintoken', res.data.token)
                 // 缓存用户个人信息
-                localStorage.setItem('userdata', JSON.stringify(res.user))
+                localStorage.setItem('userdata', res.user)
                 this.$store.commit('login', 'true')
-                this.$router.push({ path: '/goods/Goods' })
+                this.$router.push({ path: '/interview/interview' })
               }, 1000)
             } else {
               this.$message.error("用户名密码错误！")

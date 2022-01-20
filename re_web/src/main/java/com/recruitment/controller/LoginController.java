@@ -32,6 +32,9 @@ public class LoginController {
         Users users=usersService.login(phone,password);
         Map<String,Object> map = new HashMap<>();
         if(users!=null){
+            if(httpSession.getAttribute("user")!=null||httpSession.getAttribute("user")!=""){
+                httpSession.removeAttribute("user");
+            }
             httpSession.setAttribute("user",users);
             map.put("flag","true");
             map.put("user",users);
