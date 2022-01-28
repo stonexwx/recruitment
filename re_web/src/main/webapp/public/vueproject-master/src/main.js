@@ -44,6 +44,13 @@ Vue.prototype.$http = axios.create({
 
 // 路由拦截器
 router.beforeEach((to, from, next) => {
+    const token = localStorage.getItem('userdata')
+    if(token||to.path === '/login'){
+        return next()
+    }
+    if(!token){
+        return next('/login')
+    }
     if (to.matched.length != 0) {
         if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
             if (Boolean(localStorage.getItem("userInfo"))) { // 通过vuex state获取当前的user是否存在

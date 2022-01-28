@@ -32,6 +32,9 @@ public class LoginController {
         Users users=usersService.login(phone,password);
         Map<String,Object> map = new HashMap<>();
         if(users!=null){
+            if(httpSession.getAttribute("user")!=null||httpSession.getAttribute("user")!=""){
+                httpSession.removeAttribute("user");
+            }
             httpSession.setAttribute("user",users);
             map.put("flag","true");
             map.put("user",users);
@@ -40,5 +43,15 @@ public class LoginController {
         map.put("flag",false);
         return JSON.toJSONString(map);
     }
-
+    /**
+     * 注销用户
+     */
+    @ResponseBody
+    @RequestMapping("/zhuxiao")
+    public String zhuxiao(HttpSession httpSession){
+        httpSession.invalidate();
+        Map<String,Object> map = new HashMap<>();
+        map.put("flag",true);
+        return JSON.toJSONString(map);
+    }
 }

@@ -21,13 +21,13 @@
             class="demo-ruleForm"
             label-width="120px"
         >
-          <el-form-item label="用户姓名" prop="name">
+          <el-form-item label="用户姓名" prop="jobSeeker.name">
             <el-input v-model="ruleForm.jobSeeker.name"></el-input>
           </el-form-item>
-          <el-form-item label="用户邮箱" prop="email">
+          <el-form-item label="用户邮箱" prop="jobSeeker.email">
             <el-input v-model="ruleForm.jobSeeker.email"></el-input>
           </el-form-item>
-          <el-form-item label="学历水平" prop="education">
+          <el-form-item label="学历水平" prop="jobSeeker.education">
             <el-select v-model="ruleForm.jobSeeker.education" placeholder="还未填写">
               <el-option
                   v-for="(item, index) in educationList"
@@ -37,8 +37,8 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="工作意向" prop="job_type">
-            <el-select v-model="ruleForm.job_type" placeholder="还未填写">
+          <el-form-item label="工作意向" prop="jobName">
+            <el-select v-model="ruleForm.jobName" placeholder="还未填写">
               <el-option
                   v-for="(item, index) in job_typeList"
                   :key="index"
@@ -48,7 +48,7 @@
             </el-select>
           </el-form-item>
 
-          <el-form-item label="性别" prop="sex">
+          <el-form-item label="性别" prop="jobSeeker.sex">
             <el-radio-group v-model="ruleForm.jobSeeker.sex">
               <el-radio label="男"></el-radio>
               <el-radio label="女"></el-radio>
@@ -152,13 +152,12 @@ export default {
         .catch(() => {
           this.$message.error("工作类型获取异常");
         });
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     this.$http({
       method: "POST",
       url: "/seeker_select",
       data: {},
-    })
-        .then((res) => {
+    }).then((res) => {
           this.ruleForm.username = token.user_name;
           this.ruleForm = res.data.jobSeekerDTO;
           this.imageUrl = res.data.jobSeekerDTO.jobSeeker.photo;
@@ -183,6 +182,7 @@ export default {
       // .doc,.docx,.ppt,.xls,.xlsx,.wps,.dps,.pdf,.txt,
       fileList: [],
       educationList: [
+          "未设置",
         "高中及以下",
         "专科",
         "本科",
@@ -196,13 +196,15 @@ export default {
         // "Python"
       ],
       ruleForm: {
-        // name: "薛文潇",
-        // education: "本科",
-        // email: "4990590",
-        // edu_phone: "1111111111",
-        // sex: "男",
-        // photo: "",
-        // resume: "",
+        jobSeeker:{
+          edu_phone:'' ,
+          education:'',
+          email: '',
+          name: '',
+          photo: '',
+          resume: '',
+          sex: '',
+        }
       },
       ruleForm2: {
         password: "",
@@ -210,54 +212,47 @@ export default {
         newpassword2: "",
       },
       rules: {
-        name: [
+        "jobSeeker.name": [
           {
             required: true,
             message: "请填写您的姓名",
             trigger: "blur",
-          },
+          }
         ],
-        education: [
+        "jobSeeker.education": [
           {
             required: true,
             message: "请选择您的学历水平",
             trigger: "change",
-          },
+          }
         ],
-        sex: [
+        "jobSeeker.sex": [
           {
             required: true,
             message: "请选择您的性别信息",
             trigger: "change",
-          },
+          }
         ],
-        edu_phone: [
+        "jobSeeker.email": [
           {
             required: true,
-            message: "请输入您的电话",
-            trigger: "change",
-          },
-        ],
-        email: [
-          {
-            required: false,
             message: "请选择您的邮箱",
-            trigger: "change",
-          },
+            trigger: "blur",
+          }
         ],
         password: [
           {
             required: true,
             message: "请输入您的密码",
             trigger: "blur",
-          },
+          }
         ],
-        job_type: [
+        jobName: [
           {
             required: true,
             message: "请输入您的密码",
-            trigger: "blur",
-          },
+            trigger: "change",
+          }
         ],
       },
     };
@@ -343,7 +338,9 @@ export default {
       this.confirmLoading = false;
       this.$refs.upload.clearFiles();
     },
-    submitForm() {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
       this.$http.get("/seeker_update",
           {
             params: {
@@ -351,18 +348,21 @@ export default {
               education: this.ruleForm.jobSeeker.education,
               sex: this.ruleForm.jobSeeker.sex,
               email: this.ruleForm.jobSeeker.email,
-              job_type: this.ruleForm.job_type
+              job_type: this.ruleForm.jobName
             }
 
           }
       )
           .then((res) => {
-            this.ruleForm = res.data;
+            if(res.data.flag){
+              this.$message.success("保存成功");
+
+            }
           })
           .catch(() => {
             this.$message.error("暂时无法保存哦");
-          });
-    },
+          });}
+    })},
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },

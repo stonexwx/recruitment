@@ -69,9 +69,15 @@ export default {
         this.$router.push("/login")
       }
       else if (command == "0"){
-        this.$router.push("/login")
         sessionStorage.clear();//清空sessionStorage中所有信息
-        this.$router.push("/login")
+        this.$http.get("/zhuxiao").then((res)=>{
+          if(res.data.flag){
+            this.$router.push("/login")
+          }
+        }).catch(() => {
+          this.$message.error("暂时无法注销");
+        });
+
       }
 
     }

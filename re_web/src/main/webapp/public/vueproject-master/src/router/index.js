@@ -26,7 +26,7 @@ import Comment from '@/views/comment/comment';
 Vue.use(Router);
 
 // 导出路由 
-export default new Router({
+const router =  new Router({
     routes: [{
         path: '/',
         name: '',
@@ -83,3 +83,5 @@ export default new Router({
     ]
     }]
 })
+
+export default router
