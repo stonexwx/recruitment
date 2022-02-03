@@ -88,7 +88,7 @@
             enterprise.eid
         FROM
             enterprise
-        <where>
+         <where>
             <if test="message != null and message != ''">
                 AND enterprise.ename LIKE concat('%',#{message},'%')
             </if>
@@ -96,6 +96,7 @@
                 AND enterprise.address = #{type}
             </if>
         </where>
+
 
     </select>
     <resultMap id="selectAllMap" type="com.recruitment.dao.dto.EnterpriseAdminDTO">

@@ -69,19 +69,18 @@
             enterprise
             ON
                 re_info.eid = enterprise.eid
-        <if test="name != null and name != ''">
-            <where>
-                <if test="name != null and name != ''">
-                    AND re_info.job_name LIKE concat('%',#{name},'%')
-                </if>
-                <if test="address != null and address != ''">
-                    AND re_info.full_path = #{address}
-                </if>
-            </where>
-        </if>
-        <if test="rid !=null and rid !='' ">
-            AND re_info.rid = #{rid}
-        </if>
+        <where>
+            <if test="name != null and name != ''">
+                AND re_info.job_name LIKE concat('%',#{name},'%')
+            </if>
+            <if test="address != null and address != ''">
+                AND re_info.full_path = #{address}
+            </if>
+            <if test="rid !=null and rid !='' ">
+                AND re_info.rid = #{rid}
+            </if>
+        </where>
+
     </select>
 
 </mapper>

@@ -23,6 +23,7 @@ public class SeekerConller {
     @Autowired
     Job2ServiceImpl job2Service;
     /**
+     * 查询求职这信息
      * @return
      */
     @RequestMapping("/seeker_select")

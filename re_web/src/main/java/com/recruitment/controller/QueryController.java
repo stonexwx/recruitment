@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-public class    QueryController {
+public class QueryController {
     @Autowired
     Queryimpl queryimpl;
+
     @RequestMapping("/query")
     @ResponseBody
-    public String query(String message,String se_type,String city ){
-        List<QueryAll> list = queryimpl.select(message,se_type,city);
-       return JSON.toJSONString(list);
+    public String query(String message, String se_type, String city) {
+        List<QueryAll> list = queryimpl.select(message, se_type, city);
+        return JSON.toJSONString(list);
     }
 }

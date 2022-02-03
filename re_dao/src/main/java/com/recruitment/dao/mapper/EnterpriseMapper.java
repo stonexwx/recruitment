@@ -24,7 +24,6 @@ public interface EnterpriseMapper extends BaseMapper<Enterprise> {
 
     /**
      * 企业搜索
-     *
      * @param message
      * @param type
      */

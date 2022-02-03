@@ -19,16 +19,31 @@ import java.util.Map;
 public class EvaluationServiceImpl extends ServiceImpl<EvaluationMapper, Evaluation> implements EvaluationService{
     @Autowired
     EvaluationMapper evaluationMapper;
+
+    /**
+     * 根据eid查询评论信息
+     * @param eid
+     * @return
+     */
     @Override
     public List<EvaluationDTO> evaAllSelect(Long eid) {
         return evaluationMapper.selectAllByEid(eid);
     }
 
+    /**
+     * 保存评论信息
+     * @param eid
+     * @param evaluation
+     */
     @Override
     public void evaAllInsert(Long eid, Evaluation evaluation) {
         evaluationMapper.insertAll(eid,evaluation);
     }
 
+    /**
+     * 计算平均分并保存
+     * @param eid
+     */
     @Override
     public void avg(Long eid) {
         String c = evaluationMapper.selectAvg();

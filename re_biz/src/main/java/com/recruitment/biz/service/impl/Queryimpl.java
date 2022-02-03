@@ -30,18 +30,20 @@ public class Queryimpl implements Query {
     public List<QueryAll> select(String message, String se_type, String type) {
 
         List<QueryAll> list = new ArrayList<>();
+        if(type.equals("*")) {
+            type = null;
+        }
         if(se_type.equals("1")){
-           for(Enterprise enterprise: enterpriseMapper.selectAllByEnameAndEtype(message,type)){
-               QueryAll queryAll = new QueryAll();
-               queryAll.setName(enterprise.getEname());
-               queryAll.setAddress(enterprise.getAddress());
-               queryAll.setOther(enterprise.getE_email());
-               queryAll.setEid(enterprise.getEid());
-               list.add(queryAll);
-           }
-           return list;
+            for (Enterprise enterprise : enterpriseMapper.selectAllByEnameAndEtype(message, type)) {
+                QueryAll queryAll = new QueryAll();
+                queryAll.setName(enterprise.getEname());
+                queryAll.setAddress(enterprise.getAddress());
+                queryAll.setOther(enterprise.getE_email());
+                queryAll.setEid(enterprise.getEid());
+                list.add(queryAll);
+            }
         }else{
-            for(ReinfoDTO reInfo :reInfoMapper.selectAll(message,type,null)) {
+            for (ReinfoDTO reInfo : reInfoMapper.selectAll(message, type, null)) {
                 QueryAll queryAll = new QueryAll();
                 queryAll.setName(reInfo.getReInfo().getJob_name());
                 queryAll.setAddress(reInfo.getReInfo().getFull_path());
