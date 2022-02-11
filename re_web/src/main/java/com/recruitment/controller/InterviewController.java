@@ -1,7 +1,7 @@
 package com.recruitment.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.recruitment.biz.service.impl.InterviewServiceImpl;
+import com.recruitment.biz.service.InterviewService;
 import com.recruitment.dao.domain.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +17,12 @@ import java.util.Map;
 
 @Controller
 public class InterviewController {
+
+    InterviewService interviewServiceImpl;
     @Autowired
-    InterviewServiceImpl interviewService;
+    public InterviewController(InterviewService interviewServiceImpl) {
+        this.interviewServiceImpl = interviewServiceImpl;
+    }
 
     /**
      * 插入面试信息
@@ -34,7 +38,7 @@ public class InterviewController {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String state="0";
         Users users= (Users) httpSession.getAttribute("user");
-        interviewService.insertInterview(format.parse(value1),rid,users.getUid(),state);
+        interviewServiceImpl.insertInterview(format.parse(value1),rid,users.getUid(),state);
         return JSON.toJSONString(getMap(true));
     }
 
@@ -45,20 +49,12 @@ public class InterviewController {
     }
 
     /**
-     * 审核面试信息
-     */
-    @RequestMapping("/interview_update")
-    @ResponseBody
-    public String interviewUpdate(){
-        return null;
-    }
-    /**
      * 查询面试信息
      */
     @ResponseBody
     @RequestMapping("/interview_select")
     public String interviewSelect(int page,int limit){
-        return JSON.toJSONString(interviewService.selectInterview(page,limit));
+        return JSON.toJSONString(interviewServiceImpl.selectInterview(page,limit));
     }
     /**
      * 删除面试信息
@@ -66,7 +62,7 @@ public class InterviewController {
     @RequestMapping("/interview_delete")
     @ResponseBody
     public String interviewDelete(Long iid){
-        interviewService.deleteInterview(iid);
+        interviewServiceImpl.deleteInterview(iid);
         return JSON.toJSONString(getMap(true));
     }
 }

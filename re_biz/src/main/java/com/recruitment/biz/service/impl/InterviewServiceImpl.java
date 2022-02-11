@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  *
  */
-@Service
+@Service("interviewService")
 public class InterviewServiceImpl extends ServiceImpl<InterviewMapper, Interview>
     implements InterviewService{
     @Autowired

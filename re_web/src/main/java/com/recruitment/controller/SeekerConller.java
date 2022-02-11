@@ -1,8 +1,9 @@
 package com.recruitment.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.recruitment.biz.service.Job2Service;
+import com.recruitment.biz.service.JobSeekerService;
 import com.recruitment.biz.service.impl.Job2ServiceImpl;
-import com.recruitment.biz.service.impl.JobSeekerServiceImpl;
 import com.recruitment.dao.domain.Job2;
 import com.recruitment.dao.domain.Users;
 import com.recruitment.dao.dto.JobSeekerDTO;
@@ -18,10 +19,14 @@ import java.util.Map;
 
 @Controller
 public class SeekerConller {
+    JobSeekerService jobSeekerServiceImpl;
+    Job2Service job2ServiceImpl;
     @Autowired
-    JobSeekerServiceImpl jobSeekerService;
-    @Autowired
-    Job2ServiceImpl job2Service;
+    public SeekerConller(JobSeekerService jobSeekerServiceImpl, Job2Service job2ServiceImpl) {
+        this.jobSeekerServiceImpl = jobSeekerServiceImpl;
+        this.job2ServiceImpl = job2ServiceImpl;
+    }
+
     /**
      * 查询求职这信息
      * @return
@@ -30,7 +35,7 @@ public class SeekerConller {
     @ResponseBody
     public String seekerSelect(HttpSession httpSession) {
         Users users = (Users) httpSession.getAttribute("user");
-        JobSeekerDTO jobSeekerDTO = jobSeekerService.seekerSelect(users.getUid());
+        JobSeekerDTO jobSeekerDTO = jobSeekerServiceImpl.seekerSelect(users.getUid());
         Map<String, Object> map = new HashMap<>();
         if (jobSeekerDTO != null) {
             if (jobSeekerDTO.getJobSeeker().getSex().equals("1")) {
@@ -82,7 +87,7 @@ public class SeekerConller {
             jobSeekerDTO.getJobSeeker().setEmail(email);
         }
         jobSeekerDTO.setUsers(users);
-        if(jobSeekerService.seekerUpdate(jobSeekerDTO)){
+        if(jobSeekerServiceImpl.seekerUpdate(jobSeekerDTO)){
             httpSession.setAttribute("user",users);
             httpSession.setAttribute("jobSeeker",jobSeekerDTO);
             map.put("flag","true");
@@ -93,7 +98,7 @@ public class SeekerConller {
     @ResponseBody
     @RequestMapping("/job_type")
     public String jobType(){
-       List<Job2> job2= job2Service.selectAll();
+       List<Job2> job2= job2ServiceImpl.selectAll();
        return JSON.toJSONString(job2);
     }
 }

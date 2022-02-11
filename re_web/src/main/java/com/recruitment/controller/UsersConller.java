@@ -1,7 +1,7 @@
 package com.recruitment.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.recruitment.biz.service.impl.UsersServiceImpl;
+import com.recruitment.biz.service.UsersService;
 import com.recruitment.dao.domain.Users;
 import com.recruitment.dao.dto.UserAdminDTO;
 import com.recruitment.dao.dto.UserDTO;
@@ -19,8 +19,11 @@ import java.util.Map;
 @Controller
 @CrossOrigin(origins = "http://localhost:8081/")
 public class UsersConller {
+    UsersService usersServiceImpl;
     @Autowired
-    UsersServiceImpl usersService;
+    public UsersConller(UsersService usersServiceImpl) {
+        this.usersServiceImpl = usersServiceImpl;
+    }
 
     /**
      * 更新密码
@@ -33,7 +36,7 @@ public class UsersConller {
     @RequestMapping("/password_update")
     @ResponseBody
     public String updatePassword(String newPassword, String password, HttpSession httpSession) {
-        Boolean flag = usersService.updatePassword(newPassword, password, (Users) httpSession.getAttribute("user"));
+        Boolean flag = usersServiceImpl.updatePassword(newPassword, password, (Users) httpSession.getAttribute("user"));
         Map<String, Boolean> map = new HashMap<>();
         map.put("flag", flag);
         return JSON.toJSONString(map);
@@ -59,7 +62,7 @@ public class UsersConller {
         userDTO.getJobSeeker().setAddtime(date);
         userDTO.getUsers().setRole_id(0L);
         userDTO.getJobSeeker().setEmail(email);
-        Boolean flag = usersService.insertUser(userDTO);
+        Boolean flag = usersServiceImpl.insertUser(userDTO);
         Map<String, Boolean> map = new HashMap<>();
         map.put("flag", flag);
         return JSON.toJSONString(map);
@@ -74,7 +77,7 @@ public class UsersConller {
     @ResponseBody
     public String selectPhone(String phone) {
         Map<String, Boolean> map = new HashMap<>();
-        if(usersService.selectPhoneByPhone(phone)!=null){
+        if(usersServiceImpl.selectPhoneByPhone(phone)!=null){
             map.put("flag", true);
             return JSON.toJSONString(map);
         }
@@ -89,7 +92,7 @@ public class UsersConller {
     @RequestMapping("/admin_user_select")
     @ResponseBody
     public String userSelectAdmin(int page,int limit,String userName,String userMobile){
-        return JSON.toJSONString(usersService.userSelectAll(page, limit,userName ,userMobile ));
+        return JSON.toJSONString(usersServiceImpl.userSelectAll(page, limit,userName ,userMobile ));
     }
     /**
      * 管理员更改用户
@@ -98,7 +101,7 @@ public class UsersConller {
     @RequestMapping("/admin_user_update")
     @ResponseBody
     public String userUpdateAdmin(UserAdminDTO users){
-        usersService.userUpdate(users);
+        usersServiceImpl.userUpdate(users);
         Map<String, Boolean> map = new HashMap<>();
         map.put("flag", true);
         return JSON.toJSONString(map);
@@ -109,7 +112,7 @@ public class UsersConller {
     @RequestMapping("/admin_user_delete")
     @ResponseBody
     public String userDeleteAdmin(Long uid){
-        usersService.userDelete(uid);
+        usersServiceImpl.userDelete(uid);
         Map<String, Boolean> map = new HashMap<>();
         map.put("flag", true);
         return JSON.toJSONString(map);
@@ -120,14 +123,9 @@ public class UsersConller {
     @RequestMapping("/password_info")
     @ResponseBody
     public String passwordInfo(Long uid){
-        usersService.passwordInfo(uid);
+        usersServiceImpl.passwordInfo(uid);
         Map<String, Boolean> map = new HashMap<>();
         map.put("flag", true);
         return JSON.toJSONString(map);
     }
-    /**
-     * 管理员添加用户
-     *
-     */
-
 }

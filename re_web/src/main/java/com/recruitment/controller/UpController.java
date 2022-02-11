@@ -1,7 +1,7 @@
 package com.recruitment.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.recruitment.biz.service.impl.JobSeekerServiceImpl;
+import com.recruitment.biz.service.JobSeekerService;
 import com.recruitment.dao.domain.Users;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +28,13 @@ public class UpController {
      * @param request
      * @param file
      */
+
+    JobSeekerService jobSeekerServiceImpl;
     @Autowired
-    JobSeekerServiceImpl jobSeekerService;
+    public UpController(JobSeekerService jobSeekerServiceImpl) {
+        this.jobSeekerServiceImpl = jobSeekerServiceImpl;
+    }
+
     @RequestMapping("/seeker_head_up")
     @ResponseBody
     public String headUp(HttpServletRequest request, @RequestParam("file") MultipartFile file)throws IOException {
@@ -57,7 +62,7 @@ public class UpController {
         Map<String,Object> map = new HashMap<>();
         map.put("code",0);
         map.put("uploadUrl","http://localhost:8080/upload/"+imgName);
-        jobSeekerService.seekerFileUpdate("head","http://localhost:8080/upload/"+imgName,users );
+        jobSeekerServiceImpl.seekerFileUpdate("head","http://localhost:8080/upload/"+imgName,users );
         return JSON.toJSONString(map);
     }
     /**
@@ -92,7 +97,7 @@ public class UpController {
         Map<String,Object> map = new HashMap<>();
         map.put("code",0);
         map.put("uploadUrl","http://localhost:8080/upload/"+imgName);
-        jobSeekerService.seekerFileUpdate("resume","http://localhost:8080/upload/"+imgName,users );
+        jobSeekerServiceImpl.seekerFileUpdate("resume","http://localhost:8080/upload/"+imgName,users );
         return JSON.toJSONString(map);
     }
     /**
@@ -127,7 +132,7 @@ public class UpController {
         Map<String,Object> map = new HashMap<>();
         map.put("code",0);
         map.put("uploadUrl","http://localhost:8080/upload/"+imgName);
-        jobSeekerService.seekerFileUpdate("education","http://localhost:8080/upload/"+imgName, users);
+        jobSeekerServiceImpl.seekerFileUpdate("education","http://localhost:8080/upload/"+imgName, users);
         return JSON.toJSONString(map);
     }
 }

@@ -1,6 +1,7 @@
 package com.recruitment.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.recruitment.biz.service.Query;
 import com.recruitment.biz.service.impl.Queryimpl;
 import com.recruitment.global.QueryAll;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,12 @@ import java.util.List;
 
 @Controller
 public class QueryController {
+
+    Query queryimpl;
     @Autowired
-    Queryimpl queryimpl;
+    public QueryController(Query queryimpl) {
+        this.queryimpl = queryimpl;
+    }
 
     @RequestMapping("/query")
     @ResponseBody

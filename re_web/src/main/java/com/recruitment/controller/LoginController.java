@@ -1,6 +1,7 @@
 package com.recruitment.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.recruitment.biz.service.UsersService;
 import com.recruitment.biz.service.impl.UsersServiceImpl;
 import com.recruitment.dao.domain.Users;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,12 @@ import java.util.Map;
 @Controller
 @SessionAttributes("user")
 public class LoginController {
+
+    UsersService usersServiceImpl;
     @Autowired
-    UsersServiceImpl usersService;
+    public LoginController(UsersService usersServiceImpl) {
+        this.usersServiceImpl = usersServiceImpl;
+    }
 
     /**
      * 登录验证
@@ -29,7 +34,7 @@ public class LoginController {
     @RequestMapping("/login")
     @ResponseBody
     public String login(String phone, String password, HttpSession httpSession){
-        Users users=usersService.login(phone,password);
+        Users users=usersServiceImpl.login(phone,password);
         Map<String,Object> map = new HashMap<>();
         if(users!=null){
             if(httpSession.getAttribute("user")!=null||httpSession.getAttribute("user")!=""){

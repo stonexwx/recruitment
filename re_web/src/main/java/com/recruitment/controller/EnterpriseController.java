@@ -1,6 +1,7 @@
 package com.recruitment.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.recruitment.biz.service.EnterpriseService;
 import com.recruitment.biz.service.impl.EnterpriseServiceImpl;
 import com.recruitment.dao.domain.Enterprise;
 import com.recruitment.dao.dto.EnterpriseAdminDTO;
@@ -14,8 +15,11 @@ import java.util.*;
 
 @Controller
 public class EnterpriseController {
+    EnterpriseService enterpriseServiceImpl;
     @Autowired
-    EnterpriseServiceImpl enterpriseService;
+    public EnterpriseController(EnterpriseService enterpriseServiceImpl) {
+        this.enterpriseServiceImpl = enterpriseServiceImpl;
+    }
 
     /**
      * 根据招聘信息查询企业信息
@@ -35,7 +39,7 @@ public class EnterpriseController {
             a=rid;
             type="putong";
         }
-        Enterprise enterprise = enterpriseService.selectByRid(Long.valueOf(a), type);
+        Enterprise enterprise = enterpriseServiceImpl.selectByRid(Long.valueOf(a), type);
         return JSON.toJSONString(enterprise);
     }
 
@@ -47,7 +51,7 @@ public class EnterpriseController {
     @RequestMapping("/enterprise_paiming_select")
     @ResponseBody
     public String selectByScale() {
-        List<Enterprise> list = enterpriseService.selectByScale();
+        List<Enterprise> list = enterpriseServiceImpl.selectByScale();
         Map<String, Object> map = new HashMap<>();
 
         List<EnterpriseDTO> list1 = new ArrayList<>();
@@ -73,7 +77,7 @@ public class EnterpriseController {
     @RequestMapping("/admin_enterprise_select")
     @ResponseBody
     public String enterpriseSelectAdmin(int page, int limit,String deptNo,String deptName) {
-        return JSON.toJSONString(enterpriseService.selectEnterpriseAdmin(page, limit,deptNo , deptName));
+        return JSON.toJSONString(enterpriseServiceImpl.selectEnterpriseAdmin(page, limit,deptNo , deptName));
     }
 
     /**
@@ -83,7 +87,7 @@ public class EnterpriseController {
     @ResponseBody
     public String enterpriseUpdateAdmin(EnterpriseAdminDTO enterpriseAdminDTO) {
 
-        enterpriseService.updateEnterpriseAdmin(enterpriseAdminDTO);
+        enterpriseServiceImpl.updateEnterpriseAdmin(enterpriseAdminDTO);
         Map<String, Boolean> map = new HashMap<>();
         map.put("flag", true);
         return JSON.toJSONString(map);
@@ -95,7 +99,7 @@ public class EnterpriseController {
     @ResponseBody
     @RequestMapping("/admin_enterprise_delete")
     public String enterpriseDeleteAdmin(Long eid) {
-        enterpriseService.deleteEnterpriseAdmin(eid);
+        enterpriseServiceImpl.deleteEnterpriseAdmin(eid);
         Map<String, Boolean> map = new HashMap<>();
         map.put("flag", true);
         return JSON.toJSONString(map);
